@@ -8,7 +8,7 @@ public class Film extends BaseEntity {
 
 	private String posterUrl;
 
-	private String trailerUrl;
+	private String youTubeVideoId;
 
 	public Film() {
 	}
@@ -18,7 +18,7 @@ public class Film extends BaseEntity {
 		this.filmName = filmName;
 		this.description = description;
 		this.posterUrl = posterUrl;
-		this.trailerUrl = trailerUrl;
+		this.youTubeVideoId = trailerUrl;
 	}
 
 	public String getFilmName() {
@@ -46,11 +46,11 @@ public class Film extends BaseEntity {
 	}
 
 	public String getTrailerUrl() {
-		return trailerUrl;
+		return youTubeVideoId;
 	}
 
 	public void setTrailerUrl(String trailerUrl) {
-		this.trailerUrl = trailerUrl;
+		this.youTubeVideoId = trailerUrl;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class Film extends BaseEntity {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((filmName == null) ? 0 : filmName.hashCode());
 		result = prime * result + ((posterUrl == null) ? 0 : posterUrl.hashCode());
-		result = prime * result + ((trailerUrl == null) ? 0 : trailerUrl.hashCode());
+		result = prime * result + ((youTubeVideoId == null) ? 0 : youTubeVideoId.hashCode());
 		return result;
 	}
 
@@ -92,10 +92,10 @@ public class Film extends BaseEntity {
 				return false;
 		} else if (!posterUrl.equals(other.posterUrl))
 			return false;
-		if (trailerUrl == null) {
-			if (other.trailerUrl != null)
+		if (youTubeVideoId == null) {
+			if (other.youTubeVideoId != null)
 				return false;
-		} else if (!trailerUrl.equals(other.trailerUrl))
+		} else if (!youTubeVideoId.equals(other.youTubeVideoId))
 			return false;
 		return true;
 	}
@@ -103,7 +103,7 @@ public class Film extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Film [filmName=" + filmName + ", description=" + description + ", posterUrl=" + posterUrl
-				+ ", trailerUrl=" + trailerUrl + "]";
+				+ ", trailerUrl=" + youTubeVideoId + "]";
 	}
 
 }
