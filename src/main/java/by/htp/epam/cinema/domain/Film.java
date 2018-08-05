@@ -8,14 +8,17 @@ public class Film extends BaseEntity {
 
 	private String posterUrl;
 
+	private String trailerUrl;
+
 	public Film() {
 	}
 
-	public Film(int id, String filmName, String description, String posterUrl) {
+	public Film(int id, String filmName, String description, String posterUrl, String trailerUrl) {
 		super(id);
 		this.filmName = filmName;
 		this.description = description;
 		this.posterUrl = posterUrl;
+		this.trailerUrl = trailerUrl;
 	}
 
 	public String getFilmName() {
@@ -42,6 +45,14 @@ public class Film extends BaseEntity {
 		this.posterUrl = posterUrl;
 	}
 
+	public String getTrailerUrl() {
+		return trailerUrl;
+	}
+
+	public void setTrailerUrl(String trailerUrl) {
+		this.trailerUrl = trailerUrl;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,6 +61,7 @@ public class Film extends BaseEntity {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((filmName == null) ? 0 : filmName.hashCode());
 		result = prime * result + ((posterUrl == null) ? 0 : posterUrl.hashCode());
+		result = prime * result + ((trailerUrl == null) ? 0 : trailerUrl.hashCode());
 		return result;
 	}
 
@@ -80,12 +92,18 @@ public class Film extends BaseEntity {
 				return false;
 		} else if (!posterUrl.equals(other.posterUrl))
 			return false;
+		if (trailerUrl == null) {
+			if (other.trailerUrl != null)
+				return false;
+		} else if (!trailerUrl.equals(other.trailerUrl))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Film [filmName=" + filmName + ", description=" + description + ", posterUrl=" + posterUrl + "]";
+		return "Film [filmName=" + filmName + ", description=" + description + ", posterUrl=" + posterUrl
+				+ ", trailerUrl=" + trailerUrl + "]";
 	}
 
 }
