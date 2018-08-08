@@ -15,6 +15,14 @@ public class FilmSession extends BaseEntity {
 	public FilmSession() {
 	}
 
+	public FilmSession(int id, String date, String time, BigDecimal ticketPrice, int film_id) {
+		super(id);
+		this.date = date;
+		this.time = time;
+		this.ticketPrice = ticketPrice;
+		this.film_id = film_id;
+	}
+
 	public String getDate() {
 		return date;
 	}
