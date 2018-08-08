@@ -26,7 +26,8 @@ public class ConnectionPool {
 				connectionPool.add(DriverManager.getConnection(URL, LOGIN, PASSWORD));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage()+" in static block in ConnectionPool class", e);
+			e.printStackTrace();
 		}
 	}
 
@@ -34,7 +35,8 @@ public class ConnectionPool {
 		try {
 			return connectionPool.take();
 		} catch (InterruptedException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage()+" in getConnection method in ConnectionPool class", e);
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -43,7 +45,7 @@ public class ConnectionPool {
 			try {
 				connectionPool.put(connection);
 			} catch (InterruptedException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage()+" in putConnection method in ConnectionPool class", e);
 				e.printStackTrace();
 			}
 	}
