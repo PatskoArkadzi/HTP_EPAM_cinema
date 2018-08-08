@@ -21,6 +21,18 @@ public class Film extends BaseEntity {
 		this.youTubeVideoId = youTubeVideoId;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * getId();
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((filmName == null) ? 0 : filmName.hashCode());
+		result = prime * result + ((posterUrl == null) ? 0 : posterUrl.hashCode());
+		result = prime * result + ((youTubeVideoId == null) ? 0 : youTubeVideoId.hashCode());
+		return result;
+	}
+
 	public String getFilmName() {
 		return filmName;
 	}
@@ -45,32 +57,12 @@ public class Film extends BaseEntity {
 		this.posterUrl = posterUrl;
 	}
 
-	public String getTrailerUrl() {
-		return youTubeVideoId;
-	}
-
-	public void setTrailerUrl(String trailerUrl) {
-		this.youTubeVideoId = trailerUrl;
-	}
-
 	public String getYouTubeVideoId() {
 		return youTubeVideoId;
 	}
 
 	public void setYouTubeVideoId(String youTubeVideoId) {
 		this.youTubeVideoId = youTubeVideoId;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * getId();
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((filmName == null) ? 0 : filmName.hashCode());
-		result = prime * result + ((posterUrl == null) ? 0 : posterUrl.hashCode());
-		result = prime * result + ((youTubeVideoId == null) ? 0 : youTubeVideoId.hashCode());
-		return result;
 	}
 
 	@Override
