@@ -13,12 +13,12 @@ public class Film extends BaseEntity {
 	public Film() {
 	}
 
-	public Film(int id, String filmName, String description, String posterUrl, String trailerUrl) {
+	public Film(int id, String filmName, String description, String posterUrl, String youTubeVideoId) {
 		super(id);
 		this.filmName = filmName;
 		this.description = description;
 		this.posterUrl = posterUrl;
-		this.youTubeVideoId = trailerUrl;
+		this.youTubeVideoId = youTubeVideoId;
 	}
 
 	public String getFilmName() {
@@ -51,6 +51,14 @@ public class Film extends BaseEntity {
 
 	public void setTrailerUrl(String trailerUrl) {
 		this.youTubeVideoId = trailerUrl;
+	}
+
+	public String getYouTubeVideoId() {
+		return youTubeVideoId;
+	}
+
+	public void setYouTubeVideoId(String youTubeVideoId) {
+		this.youTubeVideoId = youTubeVideoId;
 	}
 
 	@Override
@@ -103,7 +111,7 @@ public class Film extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Film [filmName=" + filmName + ", description=" + description + ", posterUrl=" + posterUrl
-				+ ", trailerUrl=" + youTubeVideoId + "]";
+				+ ", youTubeVideoId=" + youTubeVideoId + "]";
 	}
 
 }
