@@ -17,7 +17,7 @@ import by.htp.epam.cinema.domain.Film;
 
 public class FilmDaoImpl implements FilmDao {
 
-	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
 	private final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
 	private final String SQL_QUERY_FILM_READ = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` WHERE  `id`=?;";

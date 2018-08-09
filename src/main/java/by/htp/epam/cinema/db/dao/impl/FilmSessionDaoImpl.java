@@ -19,7 +19,7 @@ import by.htp.epam.cinema.domain.Seat;
 
 public class FilmSessionDaoImpl implements FilmSessionDao {
 
-	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+	private static Logger logger = LoggerFactory.getLogger(FilmSessionDaoImpl.class);
 
 	private final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
 	private final String SQL_QUERY_FILM_SESSION_READ = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";

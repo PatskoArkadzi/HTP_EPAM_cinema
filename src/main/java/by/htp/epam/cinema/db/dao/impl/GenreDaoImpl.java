@@ -19,7 +19,7 @@ import by.htp.epam.cinema.domain.Genre;
 
 public class GenreDaoImpl implements GenreDao {
 
-	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+	private static Logger logger = LoggerFactory.getLogger(GenreDaoImpl.class);
 
 	private final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
 	private final String SQL_QUERY_GENRE_READ = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
@@ -27,9 +27,6 @@ public class GenreDaoImpl implements GenreDao {
 	private final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
 	private final String SQL_QUERY_GENRE_DELETE = "DELETE FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
 
-	
-	// private final String SQL_QUERY_FILM_DELETE = "DELETE FROM
-	// `cinema_v2.0`.`films` WHERE `id`=?;";
 
 	@Override
 	public void create(Genre entity) {
