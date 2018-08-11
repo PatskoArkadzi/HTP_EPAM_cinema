@@ -11,7 +11,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
 import by.htp.epam.cinema.db.pool.ConnectionPool;
 import by.htp.epam.cinema.domain.Film;
@@ -23,10 +22,11 @@ public class GenreDaoImpl implements GenreDao {
 
 	private final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
 	private final String SQL_QUERY_GENRE_READ = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
+	private final String SQL_QUERY_GENRE_READ_BY_FILM = "SELECT `id`, `genreName`"
+			+ "FROM `cinema_v2.0`.`genres` g INNER JOIN `cinema_v2.0`.`films_genres` fg ON g.`id`=fg.`genre_id` WHERE fg.`film_id`=?;";
 	private final String SQL_QUERY_GENRE_READ_ALL = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres`;";
 	private final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
 	private final String SQL_QUERY_GENRE_DELETE = "DELETE FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
-
 
 	@Override
 	public void create(Genre entity) {
@@ -72,6 +72,30 @@ public class GenreDaoImpl implements GenreDao {
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of GenreDaoImpl class", e);
+		} finally {
+			ConnectionPool.putConnection(con);
+			close(rs);
+		}
+		return genres;
+	}
+
+	/**
+	 * read only that genres which belong to film
+	 */
+	@Override
+	public List<Genre> readAll(Film film) {
+		List<Genre> genres = null;
+		ResultSet rs = null;
+		Connection con = ConnectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_READ_BY_FILM)) {
+			ps.setInt(1, film.getId());
+			rs = ps.executeQuery();
+			genres = new ArrayList<>();
+			while (rs.next()) {
+				genres.add(buildGenre(rs));
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll(Film film) method of GenreDaoImpl class", e);
 		} finally {
 			ConnectionPool.putConnection(con);
 			close(rs);

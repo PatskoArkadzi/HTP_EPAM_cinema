@@ -11,12 +11,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.epam.cinema.db.dao.RoleDao;
-import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
 import by.htp.epam.cinema.db.pool.ConnectionPool;
-import by.htp.epam.cinema.domain.Role;
-import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Ticket;
 
 public class TicketDaoImpl implements TicketDao {
