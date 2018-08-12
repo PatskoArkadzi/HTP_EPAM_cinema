@@ -7,5 +7,9 @@ public final class ContextParamNameConstantDeclaration {
 
 	public static final String REQUEST_PARAM_ACTION = "action";
 	public static final String REQUEST_PARAM_FILM_WITH_GENRES = "filmWithGenres";
+	public static final String REQUEST_PARAM_CHOSEN_GENRE_FILMS = "chosenGenreFilms";
+	public static final String REQUEST_PARAM_CHOSEN_GENRE_ID = "chosenGenreId";
+	public static final String REQUEST_PARAM_CHOSEN_GENRE = "chosenGenre";
+	public static final String REQUEST_PARAM_CHOSEN_FILM_ID = "chosenFilmId";
 
 }
