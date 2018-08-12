@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -35,12 +34,12 @@ public class DisplayGenresBlockTag extends TagSupport {
 	}
 
 	@Override
-	public int doStartTag() throws JspException {
+	public int doStartTag() {
 		List<Genre> genres = getGenres();
 		StringBuilder genresBlock = new StringBuilder();
 		genresBlock.append("<h5>Choose genre:</h5>");
 		for (Genre g : genres) {
-			genresBlock.append("<hr>").append("<a href=\"cinema?action=view_films_of_chosen_genre&user_chosen_genre_id=")
+			genresBlock.append("<hr>").append("<a href=\"cinema?action=viewChosenGenreFilms&chosenGenreId=")
 					.append(g.getId()).append("\">").append(g.getGenreName()).append("</a>");
 		}
 		JspWriter out = pageContext.getOut();
