@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="cinema?action=viewHomePage">Home</a>
+			<a class="navbar-brand" href="cinema?action=home">Home</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +25,8 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<%-- <ul class="nav navbar-nav">
-					<c:if test="${currentUser.roles_id==1}">
+				<ul class="nav navbar-nav">
+					<c:if test="${currentUser.role_id==1}">
 						<div class="dropdown">
 							<button class="btn btn-secondary dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
@@ -59,7 +59,7 @@
 							</div>
 						</div>
 					</c:if>
-				</ul> --%>
+				</ul> 
 				<ul class="nav navbar-nav mx-auto">
 					<li id="timer" style="color: #FF0000; font-size: 30px;" />
 				</ul>
@@ -69,13 +69,13 @@
 							<li class="nav-item active"><a class="nav-link"
 								href="cinema?action=viewProfile" style="color: #FF0000"><b>${currentUser.login}</b></a></li>
 							<li class="nav-item active"><a class="nav-link"
-								href="cinema?action=logOut">Logout</a></li>
+								href="cinema?action=log_out">log out</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item active"><a class="nav-link"
-								href="cinema?action=logIn">Login</a></li>
+								href="cinema?action=log_in">log in</a></li>
 							<li class="nav-item active"><a class="nav-link"
-								href="cinema?action=signUp">SignUp</a></li>
+								href="cinema?action=sign_up">sign up</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

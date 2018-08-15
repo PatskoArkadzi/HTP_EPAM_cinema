@@ -2,5 +2,5 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<jsp:forward page="cinema?action=viewHomePage" />
+<jsp:forward page="cinema?action=home" />
 

@@ -3,7 +3,7 @@
 <%@ include file="include/begin-html.jsp"%>
 
 <div class="alert alert-danger" role="alert">
-	<p>${error_message}</p>
+	<p>${errorMessage}</p>
 </div>
 
 

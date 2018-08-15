@@ -2,8 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/begin-html.jsp"%>
 
+<h3>Фильмы жанра "${chosenGenre.genreName}"</h3>
+<hr>
 <div class="container">
-	<c:forEach items="${filmWithGenres}" var="filmEntry">
+	<c:forEach items="${chosenGenreFilms}" var="filmEntry">
 
 		<div class="row">
 			<h4>${filmEntry.key.filmName}</h4>
