@@ -21,12 +21,12 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 
 	private static Logger logger = LoggerFactory.getLogger(FilmSessionDaoImpl.class);
 
-	private final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
-	private final String SQL_QUERY_FILM_SESSION_READ = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
-	private final String SQL_QUERY_FILM_SESSION_READ_ALL = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions`;";
-	private final String SQL_QUERY_FILM_SESSION_UPDATE = "UPDATE `cinema_v2.0`.`sessions` SET `film_id`=?, `date`=?, `time`=?, `ticketPrice`=? WHERE `id`=?;";
-	private final String SQL_QUERY_FILM_SESSION_DELETE = "DELETE FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
-	private final String SQL_QUERY_FILM_SESSION_READ_ALL_WHERE_SEAT_NOT_FREE = "SELECT s.`id`, s.`film_id`, s.`date`, s.`time`, s.`ticketPrice`"
+	private static final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
+	private static final String SQL_QUERY_FILM_SESSION_READ = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_SESSION_READ_ALL = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions`;";
+	private static final String SQL_QUERY_FILM_SESSION_UPDATE = "UPDATE `cinema_v2.0`.`sessions` SET `film_id`=?, `date`=?, `time`=?, `ticketPrice`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_FILM_SESSION_DELETE = "DELETE FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_WHERE_SEAT_NOT_FREE = "SELECT s.`id`, s.`film_id`, s.`date`, s.`time`, s.`ticketPrice`"
 			+ "FROM `cinema_v2.0`.`sessions` s INNER JOIN `cinema_v2.0`.`tickets` t ON s.id=t.session_id WHERE t.seat_id = ?";
 
 	@Override

@@ -20,11 +20,11 @@ public class RoleDaoImpl implements RoleDao {
 
 	private static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 
-	private final String SQL_QUERY_ROLE_CREATE = "INSERT INTO `cinema_v2.0`.`roles` (`roleName`) VALUES (?);";
-	private final String SQL_QUERY_ROLE_READ = "SELECT `id`, `roleName` FROM `cinema_v2.0`.`roles` WHERE `id`=?;";
-	private final String SQL_QUERY_ROLE_READ_ALL = "SELECT `id`, `roleName` FROM `cinema_v2.0`.`roles`;";
-	private final String SQL_QUERY_ROLE_UPDATE = "UPDATE `cinema_v2.0`.`roles` SET `roleName`=? WHERE `id`=?;";
-	private final String SQL_QUERY_ROLE_DELETE = "DELETE FROM `cinema_v2.0`.`roles` WHERE  `id`=?;";
+	private static final String SQL_QUERY_ROLE_CREATE = "INSERT INTO `cinema_v2.0`.`roles` (`roleName`) VALUES (?);";
+	private static final String SQL_QUERY_ROLE_READ = "SELECT `id`, `roleName` FROM `cinema_v2.0`.`roles` WHERE `id`=?;";
+	private static final String SQL_QUERY_ROLE_READ_ALL = "SELECT `id`, `roleName` FROM `cinema_v2.0`.`roles`;";
+	private static final String SQL_QUERY_ROLE_UPDATE = "UPDATE `cinema_v2.0`.`roles` SET `roleName`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_ROLE_DELETE = "DELETE FROM `cinema_v2.0`.`roles` WHERE  `id`=?;";
 
 
 

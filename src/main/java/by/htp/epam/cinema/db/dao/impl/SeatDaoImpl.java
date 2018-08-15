@@ -19,12 +19,12 @@ public class SeatDaoImpl implements SeatDao {
 
 	private static Logger logger = LoggerFactory.getLogger(SeatDaoImpl.class);
 
-	private final String SQL_QUERY_SEAT_CREATE = "INSERT INTO `cinema_v2.0`.`seats` (`row`, `number`) VALUES (?,?);";
-	private final String SQL_QUERY_SEAT_READ = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats` WHERE  `id`=?;";
-	private final String SQL_QUERY_SEAT_READ_BY_ROW_AND_NUMBER = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats` WHERE `row`=? AND `number`=?;";
-	private final String SQL_QUERY_SEAT_READ_ALL = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats`;";
-	private final String SQL_QUERY_SEAT_UPDATE = "UPDATE `cinema_v2.0`.`seats` SET `row`=?, `number`=? WHERE `id`=?;";
-	private final String SQL_QUERY_SEAT_DELETE = "DELETE FROM `cinema_v2.0`.`seats` WHERE  `id`=?;";
+	private static final String SQL_QUERY_SEAT_CREATE = "INSERT INTO `cinema_v2.0`.`seats` (`row`, `number`) VALUES (?,?);";
+	private static final String SQL_QUERY_SEAT_READ = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats` WHERE  `id`=?;";
+	private static final String SQL_QUERY_SEAT_READ_BY_ROW_AND_NUMBER = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats` WHERE `row`=? AND `number`=?;";
+	private static final String SQL_QUERY_SEAT_READ_ALL = "SELECT `id`, `row`, `number` FROM `cinema_v2.0`.`seats`;";
+	private static final String SQL_QUERY_SEAT_UPDATE = "UPDATE `cinema_v2.0`.`seats` SET `row`=?, `number`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_SEAT_DELETE = "DELETE FROM `cinema_v2.0`.`seats` WHERE  `id`=?;";
 
 	@Override
 	public void create(Seat entity) {

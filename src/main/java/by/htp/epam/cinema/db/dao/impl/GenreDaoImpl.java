@@ -20,13 +20,13 @@ public class GenreDaoImpl implements GenreDao {
 
 	private static Logger logger = LoggerFactory.getLogger(GenreDaoImpl.class);
 
-	private final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
-	private final String SQL_QUERY_GENRE_READ = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
-	private final String SQL_QUERY_GENRE_READ_BY_FILM = "SELECT `id`, `genreName`"
+	private static final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
+	private static final String SQL_QUERY_GENRE_READ = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
+	private static final String SQL_QUERY_GENRE_READ_BY_FILM = "SELECT `id`, `genreName`"
 			+ "FROM `cinema_v2.0`.`genres` g INNER JOIN `cinema_v2.0`.`films_genres` fg ON g.`id`=fg.`genre_id` WHERE fg.`film_id`=?;";
-	private final String SQL_QUERY_GENRE_READ_ALL = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres`;";
-	private final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
-	private final String SQL_QUERY_GENRE_DELETE = "DELETE FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
+	private static final String SQL_QUERY_GENRE_READ_ALL = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres`;";
+	private static final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
+	private static final String SQL_QUERY_GENRE_DELETE = "DELETE FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
 
 	@Override
 	public void create(Genre entity) {

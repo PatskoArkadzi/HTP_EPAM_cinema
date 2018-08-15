@@ -19,12 +19,12 @@ public class UserDaoImpl implements UserDao {
 
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-	private final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `role_id`) VALUES (?,?,?,?);";
-	private final String SQL_QUERY_USER_READ = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `id`=?;";
-	private final String SQL_QUERY_USER_READ_BY_LOGIN_AND_PASSWORD = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `login`=? AND `password`=?;";
-	private final String SQL_QUERY_USER_READ_ALL = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users`;";
-	private final String SQL_QUERY_USER_UPDATE = "UPDATE `cinema_v2.0`.`users` SET `login`=?, `email`=?, `password`=?, `role_id`=? WHERE `id`=?;";
-	private final String SQL_QUERY_USER_DELETE = "DELETE FROM `cinema_v2.0`.`users` WHERE  `id`=?;";
+	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `role_id`) VALUES (?,?,?,?);";
+	private static final String SQL_QUERY_USER_READ = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `id`=?;";
+	private static final String SQL_QUERY_USER_READ_BY_LOGIN_AND_PASSWORD = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `login`=? AND `password`=?;";
+	private static final String SQL_QUERY_USER_READ_ALL = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users`;";
+	private static final String SQL_QUERY_USER_UPDATE = "UPDATE `cinema_v2.0`.`users` SET `login`=?, `email`=?, `password`=?, `role_id`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_USER_DELETE = "DELETE FROM `cinema_v2.0`.`users` WHERE  `id`=?;";
 
 	@Override
 	public void create(User entity) {

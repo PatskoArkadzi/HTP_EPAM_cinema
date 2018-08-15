@@ -19,13 +19,13 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
-	private final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
-	private final String SQL_QUERY_FILM_READ = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
-	private final String SQL_QUERY_FILM_READ_ALL = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films`;";
-	private final String SQL_QUERY_FILM_READ_ALL_BY_GENRE_ID = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` f "
+	private static final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
+	private static final String SQL_QUERY_FILM_READ = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_READ_ALL = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films`;";
+	private static final String SQL_QUERY_FILM_READ_ALL_BY_GENRE_ID = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` f "
 			+ "inner join `cinema_v2.0`.`films_genres` fg on f.id=fg.film_id where fg.genre_id=?;";
-	private final String SQL_QUERY_FILM_UPDATE = "UPDATE `cinema_v2.0`.`films` SET `filmName`=?, `description`=?, `posterUrl`=?, `youTubeVideoId`=? WHERE `id`=?;";
-	private final String SQL_QUERY_FILM_DELETE = "DELETE FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_UPDATE = "UPDATE `cinema_v2.0`.`films` SET `filmName`=?, `description`=?, `posterUrl`=?, `youTubeVideoId`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_FILM_DELETE = "DELETE FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
 
 	@Override
 	public void create(Film entity) {
