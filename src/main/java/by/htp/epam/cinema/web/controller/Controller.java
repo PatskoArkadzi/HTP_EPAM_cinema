@@ -11,10 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.web.action.ActionManager;
-import by.htp.epam.cinema.web.action.BaseAction;
+import by.htp.epam.cinema.web.action.Actions;
 
 public class Controller extends HttpServlet {
 
+	private static final long serialVersionUID = -8681427004682803228L;
 	private static Logger logger = LoggerFactory.getLogger(Controller.class);
 
 	@Override
@@ -28,14 +29,17 @@ public class Controller extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) {
-		BaseAction action = ActionManager.defineAction(req);
-		String page = action.executeAction(req);
-		if (page != null) {
-			try {
-				req.getRequestDispatcher(page).forward(req, resp);
-			} catch (ServletException | IOException e) {
-				logger.error(e.getMessage()+" in Controller class", e);
-			}
+		Actions currentAction = ActionManager.defineAction(req);
+		Actions nextAction = null;
+		try {
+			nextAction = currentAction.action.executeAction(req);
+			if (nextAction == null || nextAction == currentAction) {
+				req.getRequestDispatcher(currentAction.jspPage).forward(req, resp);
+			} else
+				resp.sendRedirect("cinema?action=" + nextAction.toString().toLowerCase());
+		} catch (ServletException | IOException e) {
+			logger.error(e.getMessage() + " in Controller class", e);
 		}
+
 	}
 }
