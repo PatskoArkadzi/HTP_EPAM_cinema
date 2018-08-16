@@ -8,8 +8,8 @@ public class PoolConfiguration {
 	
 	private final static ResourceBundle rb = ResourceBundle.getBundle("db_config");
 
-	final static String DRIVER = rb.getString("db.driver");
-	final static String URL = rb.getString("db.url");
-	final static String LOGIN = rb.getString("db.login");
-	final static String PASSWORD = rb.getString("db.pass");
+	public static final String DRIVER = rb.getString("db.driver");
+	public static final String URL = rb.getString("db.url");
+	public static final String LOGIN = rb.getString("db.login");
+	public static final String PASSWORD = rb.getString("db.pass");
 }

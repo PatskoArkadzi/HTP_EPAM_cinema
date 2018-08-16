@@ -14,39 +14,66 @@ import static by.htp.epam.cinema.db.pool.PoolConfiguration.*;
 public class ConnectionPool {
 
 	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
-	private static BlockingQueue<Connection> connectionPool = new ArrayBlockingQueue<>(POOL_SIZE, true);
+	private static BlockingQueue<CustomConnection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
+	private static BlockingQueue<CustomConnection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
 	private ConnectionPool() {
 	}
 
-	static {
+	public static void initializeConnectionPool() {
 		try {
 			Class.forName(DRIVER);
-			for (int i = 0; i < POOL_SIZE; i++) {
-				connectionPool.add(DriverManager.getConnection(URL, LOGIN, PASSWORD));
+			for (int i = 1; i <= POOL_SIZE; i++) {
+				Connection connection = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+				CustomConnection customConnection = new CustomConnection("Connection №" + i, connection);
+				connectionQueue.add(customConnection);
+				logger.info(customConnection.getConnectionName() + " was successfully added to the pool");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			logger.error(e.getMessage()+" in static block in ConnectionPool class", e);
-			e.printStackTrace();
+			logger.error(e.getMessage() + " in static block in ConnectionPool class", e);
 		}
 	}
 
-	public static Connection getConnection() {
+	public static void destroyConnectionPool() {
+		closeConnectionQueue(connectionQueue);
+		closeConnectionQueue(givenAwayConectionQueue);
+	}
+
+	private static void closeConnectionQueue(BlockingQueue<CustomConnection> queue) {
+		CustomConnection customConnection = null;
+		while ((customConnection = queue.poll()) != null) {
+			try {
+				customConnection.close();
+				logger.info("{} was successfully closed", customConnection.getConnectionName());
+			} catch (SQLException e) {
+				logger.error("{} can't be closed ", customConnection.getConnectionName());
+			}
+		}
+	}
+
+	public static CustomConnection getConnection() {
+		CustomConnection customConnection = null;
 		try {
-			return connectionPool.take();
+			customConnection = connectionQueue.take();
+			givenAwayConectionQueue.add(customConnection);
+			logger.info("{} was successfully removed from connectionQueue to givenAwayConectionQueue",
+					customConnection.getConnectionName());
 		} catch (InterruptedException e) {
-			logger.error(e.getMessage()+" in getConnection method in ConnectionPool class", e);
+			logger.error(e.getMessage() + " in getConnection method in ConnectionPool class", e);
 			e.printStackTrace();
 		}
-		return null;
+		return customConnection;
 	}
-	
+
 	public static void putConnection(Connection connection) {
-			try {
-				connectionPool.put(connection);
-			} catch (InterruptedException e) {
-				logger.error(e.getMessage()+" in putConnection method in ConnectionPool class", e);
-				e.printStackTrace();
-			}
+		try {
+			CustomConnection customConnection = givenAwayConectionQueue.take();
+			connectionQueue.add(customConnection);
+			logger.info("{} was successfully removed from givenAwayConectionQueue to connectionQueue",
+					customConnection.getConnectionName());
+		} catch (InterruptedException e) {
+			logger.error(e.getMessage() + " in putConnection method in ConnectionPool class", e);
+			e.printStackTrace();
+		}
 	}
 }
