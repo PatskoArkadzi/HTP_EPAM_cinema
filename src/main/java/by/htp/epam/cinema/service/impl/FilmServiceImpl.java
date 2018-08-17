@@ -37,8 +37,13 @@ public class FilmServiceImpl implements FilmService {
 	private Map<Film, List<Genre>> defineFilmsGenres(List<Film> films) {
 		Map<Film, List<Genre>> filmsWithGenres = new LinkedHashMap<>();
 		for (Film f : films) {
-			filmsWithGenres.put(f, genreDao.readAll(f));
+			filmsWithGenres.put(f, genreDao.readAll(f.getId()));
 		}
 		return filmsWithGenres;
+	}
+
+	@Override
+	public Film getFilm(int filmId) {
+		return filmDao.read(filmId);
 	}
 }

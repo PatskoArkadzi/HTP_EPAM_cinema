@@ -22,7 +22,7 @@ public class GenreDaoImpl implements GenreDao {
 
 	private static final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
 	private static final String SQL_QUERY_GENRE_READ = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
-	private static final String SQL_QUERY_GENRE_READ_BY_FILM = "SELECT `id`, `genreName`"
+	private static final String SQL_QUERY_GENRE_READ_BY_FILM_ID = "SELECT `id`, `genreName`"
 			+ "FROM `cinema_v2.0`.`genres` g INNER JOIN `cinema_v2.0`.`films_genres` fg ON g.`id`=fg.`genre_id` WHERE fg.`film_id`=?;";
 	private static final String SQL_QUERY_GENRE_READ_ALL = "SELECT `id`, `genreName` FROM `cinema_v2.0`.`genres`;";
 	private static final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
@@ -83,12 +83,12 @@ public class GenreDaoImpl implements GenreDao {
 	 * read only that genres which belong to film
 	 */
 	@Override
-	public List<Genre> readAll(Film film) {
+	public List<Genre> readAll(int filmId) {
 		List<Genre> genres = null;
 		ResultSet rs = null;
 		Connection con = ConnectionPool.getConnection();
-		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_READ_BY_FILM)) {
-			ps.setInt(1, film.getId());
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_READ_BY_FILM_ID)) {
+			ps.setInt(1, filmId);
 			rs = ps.executeQuery();
 			genres = new ArrayList<>();
 			while (rs.next()) {

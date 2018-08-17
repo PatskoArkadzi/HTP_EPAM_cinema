@@ -24,6 +24,7 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 	private static final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
 	private static final String SQL_QUERY_FILM_SESSION_READ = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_READ_ALL = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions`;";
+	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_BY_FILM_ID = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE `film_id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_UPDATE = "UPDATE `cinema_v2.0`.`sessions` SET `film_id`=?, `date`=?, `time`=?, `ticketPrice`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_DELETE = "DELETE FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_WHERE_SEAT_NOT_FREE = "SELECT s.`id`, s.`film_id`, s.`date`, s.`time`, s.`ticketPrice`"
@@ -84,6 +85,27 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 	}
 
 	@Override
+	public List<FilmSession> readAll(int filmId) {
+		List<FilmSession> filmSessions = null;
+		ResultSet rs = null;
+		Connection con = ConnectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_SESSION_READ_ALL_BY_FILM_ID)) {
+			ps.setInt(1, filmId);
+			rs = ps.executeQuery();
+			filmSessions = new ArrayList<>();
+			while (rs.next()) {
+				filmSessions.add(buildFilmSession(rs));
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll(int filmId) method of FilmSessionDaoImpl class", e);
+		} finally {
+			ConnectionPool.putConnection(con);
+			close(rs);
+		}
+		return filmSessions;
+	}
+
+	@Override
 	public List<FilmSession> readAllWhereSeatNotFree(Seat seat) {
 		List<FilmSession> filmSessions = null;
 		ResultSet rs = null;
@@ -96,7 +118,7 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 				filmSessions.add(buildFilmSession(rs));
 			}
 		} catch (SQLException e) {
-			logger.error("SQLException in readAll method of FilmSessionDaoImpl class", e);
+			logger.error("SQLException in readAllWhereSeatNotFree method of FilmSessionDaoImpl class", e);
 		} finally {
 			ConnectionPool.putConnection(con);
 			close(rs);

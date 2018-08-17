@@ -8,6 +8,8 @@ public interface GenreService extends Service {
 
 	List<Genre> getAllGenres();
 
+	List<Genre> getFilmGenres(int filmId);
+
 	Genre getGenre(int genreId);
 
 }

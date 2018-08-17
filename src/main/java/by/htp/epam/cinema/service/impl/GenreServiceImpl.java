@@ -11,7 +11,7 @@ import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.GenreService;
 
 public class GenreServiceImpl implements GenreService {
-	
+
 	private GenreDao genreDao = new GenreDaoImpl();
 
 	private static Logger logger = LoggerFactory.getLogger(GenreServiceImpl.class);
@@ -22,8 +22,12 @@ public class GenreServiceImpl implements GenreService {
 	}
 
 	@Override
+	public List<Genre> getFilmGenres(int filmId) {
+		return genreDao.readAll(filmId);
+	}
+
+	@Override
 	public Genre getGenre(int genreId) {
 		return genreDao.read(genreId);
 	}
-
 }

@@ -7,7 +7,7 @@ import by.htp.epam.cinema.domain.Genre;
 
 public interface GenreDao extends BaseDao<Genre> {
 
-	List<Genre> readAll(Film film);
-	
-	//TODO add specific methods
+	List<Genre> readAll(int filmId);
+
+	// TODO add specific methods
 }
