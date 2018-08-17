@@ -1,6 +1,8 @@
 package by.htp.epam.cinema.web.action.impl;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_GENRE_ID;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_ERROR_MESSAGE;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_GENRE;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_GENRE_FILMS;
 
@@ -25,10 +27,15 @@ public class ChosenGenreFilmsViewAction extends BaseAction {
 
 	@Override
 	public Actions executeAction(HttpServletRequest request) {
-		int genreId = Integer.parseInt(request.getParameter(REQUEST_PARAM_CHOSEN_GENRE_ID));
-		Genre genre = genreService.getGenre(genreId);
-		request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE_FILMS, filmService.getAllFilmsWithTheirGenres(genre));
-		request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE, genre);
-		return Actions.VIEW_GENRE_FILMS;
+		String chosenGenreId = request.getParameter(REQUEST_PARAM_CHOSEN_GENRE_ID);
+		if (validateRequestParamNotNull(chosenGenreId)) {
+			Genre genre = genreService.getGenre(Integer.parseInt(chosenGenreId));
+			request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE_FILMS, filmService.getAllFilmsWithTheirGenres(genre));
+			request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE, genre);
+			return Actions.VIEW_GENRE_FILMS;
+		} else {
+			request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE, "Something went wrong. Try again.");
+			return Actions.ERROR;
+		}
 	}
 }

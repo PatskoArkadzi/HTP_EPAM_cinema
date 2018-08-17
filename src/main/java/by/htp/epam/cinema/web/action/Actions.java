@@ -2,6 +2,7 @@ package by.htp.epam.cinema.web.action;
 
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
 import by.htp.epam.cinema.web.action.impl.ErrorPageViewAction;
+import by.htp.epam.cinema.web.action.impl.FilmPageViewAction;
 import by.htp.epam.cinema.web.action.impl.HomePageViewAction;
 import by.htp.epam.cinema.web.action.impl.LogInAction;
 import by.htp.epam.cinema.web.action.impl.LogOutAction;
@@ -32,6 +33,12 @@ public enum Actions {
 		{
 			this.action = new ChosenGenreFilmsViewAction();
 			this.jspPage = PAGE_USER_CHOSEN_GENRE_FILMS;
+		}
+	},
+	VIEW_FILM_PAGE {
+		{
+			this.action = new FilmPageViewAction();
+			this.jspPage = PAGE_USER_FILM;
 		}
 	},
 	ERROR {
