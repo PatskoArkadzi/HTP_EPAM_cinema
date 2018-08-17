@@ -11,15 +11,14 @@
 		<div class="row">
 			<div class=col-md-3>
 				<a
-					href="cinema?action=viewFilmPage&chosenFilmId=${filmEntry.key.id}"><img
+					href="cinema?action=view_film_page&chosenFilmId=${filmEntry.key.id}"><img
 					src="${filmEntry.key.posterUrl}" width="250" height="400" /></a>
 			</div>
 			<div class="col-md-8 container">
 				<div>
 					<b>Жанры :</b><br>
 					<c:forEach items="${filmEntry.value}" var="genre">
-						<a
-							href="cinema?action=view_genre_films&chosenGenreId=${genre.id}">
+						<a href="cinema?action=view_genre_films&chosenGenreId=${genre.id}">
 							${genre.genreName} </a>
 					</c:forEach>
 				</div>
@@ -30,7 +29,8 @@
 			</div>
 		</div>
 		<div align="right">
-			<a href="cinema?action=viewFilmPage&chosenFilmId=${filmEntry.key.id}"
+			<a
+				href="cinema?action=view_film_page&chosenFilmId=${filmEntry.key.id}"
 				class="btn btn-success btn-lg active" role="button"
 				aria-pressed="true">Details</a>
 		</div>

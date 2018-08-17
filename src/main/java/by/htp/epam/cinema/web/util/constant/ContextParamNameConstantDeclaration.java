@@ -12,6 +12,9 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_CHOSEN_GENRE_ID = "chosenGenreId";
 	public static final String REQUEST_PARAM_CHOSEN_GENRE = "chosenGenre";
 	public static final String REQUEST_PARAM_CHOSEN_FILM_ID = "chosenFilmId";
+	public static final String REQUEST_PARAM_CHOSEN_FILM = "chosenFilm";
+	public static final String REQUEST_PARAM_CHOSEN_FILM_GENRES = "chosenFilmGenres";
+	public static final String REQUEST_PARAM_CHOSEN_FILM_SESSIONS = "chosenFilmSessions";
 	public static final String REQUEST_PARAM_USER_LOGIN = "login";
 	public static final String REQUEST_PARAM_USER_PASSWORD = "password";
 
