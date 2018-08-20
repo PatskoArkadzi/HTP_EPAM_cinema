@@ -8,16 +8,19 @@ public class User extends BaseEntity {
 
 	private String password;
 
+	private String salt;
+
 	private int role_id;
 
 	public User() {
 	}
 
-	public User(int id, String login, String email, String password, int role_id) {
+	public User(int id, String login, String email, String password, String salt, int role_id) {
 		super(id);
 		this.login = login;
 		this.email = email;
 		this.password = password;
+		this.salt = salt;
 		this.role_id = role_id;
 	}
 
@@ -45,6 +48,14 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 	public int getRole_id() {
 		return role_id;
 	}
@@ -62,6 +73,7 @@ public class User extends BaseEntity {
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + role_id;
+		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		return result;
 	}
 
@@ -94,12 +106,18 @@ public class User extends BaseEntity {
 			return false;
 		if (role_id != other.role_id)
 			return false;
+		if (salt == null) {
+			if (other.salt != null)
+				return false;
+		} else if (!salt.equals(other.salt))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [login=" + login + ", email=" + email + ", password=" + password + ", role_id=" + role_id + "]";
+		return "User [login=" + login + ", email=" + email + ", password=" + password + ", salt=" + salt + ", role_id="
+				+ role_id + "]";
 	}
 
 }

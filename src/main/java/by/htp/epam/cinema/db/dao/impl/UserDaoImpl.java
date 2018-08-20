@@ -19,11 +19,12 @@ public class UserDaoImpl implements UserDao {
 
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `role_id`) VALUES (?,?,?,?);";
-	private static final String SQL_QUERY_USER_READ = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `id`=?;";
-	private static final String SQL_QUERY_USER_READ_BY_LOGIN_AND_PASSWORD = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users` WHERE `login`=? AND `password`=?;";
-	private static final String SQL_QUERY_USER_READ_ALL = "SELECT `id`, `login`, `email`, `password`, `role_id` FROM `cinema_v2.0`.`users`;";
-	private static final String SQL_QUERY_USER_UPDATE = "UPDATE `cinema_v2.0`.`users` SET `login`=?, `email`=?, `password`=?, `role_id`=? WHERE `id`=?;";
+	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `salt`, `role_id`) VALUES (?,?,?,?,?);";
+	private static final String SQL_QUERY_USER_READ = "SELECT `id`, `login`, `email`, `password`, `salt`, `role_id` FROM `cinema_v2.0`.`users` WHERE `id`=?;";
+	private static final String SQL_QUERY_USER_READ_BY_LOGIN = "SELECT `id`, `login`, `email`, `password`, `salt`, `role_id` FROM `cinema_v2.0`.`users` WHERE `login`=?;";
+	private static final String SQL_QUERY_USER_READ_BY_EMAIL = "SELECT `id`, `login`, `email`, `password`, `salt`, `role_id` FROM `cinema_v2.0`.`users` WHERE `email`=?;";
+	private static final String SQL_QUERY_USER_READ_ALL = "SELECT `id`, `login`, `email`, `password`, `salt`, `role_id` FROM `cinema_v2.0`.`users`;";
+	private static final String SQL_QUERY_USER_UPDATE = "UPDATE `cinema_v2.0`.`users` SET `login`=?, `email`=?, `password`=?, `salt`=?, `role_id`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_USER_DELETE = "DELETE FROM `cinema_v2.0`.`users` WHERE  `id`=?;";
 
 	@Override
@@ -33,7 +34,8 @@ public class UserDaoImpl implements UserDao {
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getEmail());
 			ps.setString(3, entity.getPassword());
-			ps.setInt(4, entity.getRole_id());
+			ps.setString(4, entity.getSalt());
+			ps.setInt(5, entity.getRole_id());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of UserDaoImpl class", e);
@@ -61,12 +63,29 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User read(String login, String password) {
+	public User readByLogin(String login) {
 		ResultSet rs = null;
 		Connection con = ConnectionPool.getConnection();
-		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ_BY_LOGIN_AND_PASSWORD)) {
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ_BY_LOGIN)) {
 			ps.setString(1, login);
-			ps.setString(2, password);
+			rs = ps.executeQuery();
+			if (rs.next())
+				return buildUser(rs);
+		} catch (SQLException e) {
+			logger.error("SQLException in read(String login, String password) method of UserDaoImpl class", e);
+		} finally {
+			ConnectionPool.putConnection(con);
+			close(rs);
+		}
+		return null;
+	}
+
+	@Override
+	public User readByEmail(String email) {
+		ResultSet rs = null;
+		Connection con = ConnectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ_BY_EMAIL)) {
+			ps.setString(1, email);
 			rs = ps.executeQuery();
 			if (rs.next())
 				return buildUser(rs);
@@ -103,11 +122,13 @@ public class UserDaoImpl implements UserDao {
 	public void update(User entity) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_UPDATE)) {
+			System.out.println("in update");
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getEmail());
 			ps.setString(3, entity.getPassword());
-			ps.setInt(4, entity.getRole_id());
-			ps.setInt(5, entity.getId());
+			ps.setString(4, entity.getSalt());
+			ps.setInt(5, entity.getRole_id());
+			ps.setInt(6, entity.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of UserDaoImpl class", e);
@@ -135,6 +156,7 @@ public class UserDaoImpl implements UserDao {
 		user.setLogin(rs.getString("login"));
 		user.setEmail(rs.getString("email"));
 		user.setPassword(rs.getString("password"));
+		user.setSalt(rs.getString("salt"));
 		user.setRole_id(Integer.parseInt(rs.getString("role_id")));
 		return user;
 	}

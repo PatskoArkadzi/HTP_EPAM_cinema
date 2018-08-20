@@ -14,12 +14,19 @@ public class PasswordSecurity {
 
 	private static Logger logger = LoggerFactory.getLogger(PasswordSecurity.class);
 
+	/**
+	 * generate salt for password
+	 */
 	public static String getSalt() {
 		SecureRandom sr = new SecureRandom();
 		byte[] salt = new byte[SALT_SIZE];
 		sr.nextBytes(salt);
 		return byteArrayToHexString(salt);
 	}
+
+	/**
+	 * salt and hash password
+	 */
 
 	public static String getHashPassword(String password, String salt) {
 		try {
