@@ -9,14 +9,12 @@ public class HttpRequestParamValidator {
 
 	private static Logger logger = LoggerFactory.getLogger(HttpRequestParamValidator.class);
 
-	public static boolean validateRequestParamNotNull(String... str) {
+	public static void validateRequestParamNotNull(String... str) {
 		for (String s : str) {
 			if (s == null) {
-				logger.error("Empty param recieved");
-				return false;
+				throw new ValidateNullParamException("Empty param recieved");
 			}
 		}
-		return true;
 	}
 
 	public static boolean isPost(HttpServletRequest reg) {
