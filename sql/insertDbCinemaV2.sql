@@ -11,106 +11,62 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Дамп структуры базы данных cinema_v2.0
-CREATE DATABASE IF NOT EXISTS `cinema_v2.0` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `cinema_v2.0`;
-
--- Дамп структуры для таблица cinema_v2.0.films
-CREATE TABLE IF NOT EXISTS `films` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filmName` varchar(50) NOT NULL,
-  `description` varchar(2000) NOT NULL,
-  `posterUrl` varchar(100) NOT NULL,
-  `youTubeVideoId` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
 -- Дамп данных таблицы cinema_v2.0.films: ~6 rows (приблизительно)
 DELETE FROM `films`;
 /*!40000 ALTER TABLE `films` DISABLE KEYS */;
 INSERT INTO `films` (`id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES
 	(1, 'Папа-мама Гусь', 'Пэнг - ничем не ограниченный молодой гусь-холостяк, который сделал бы все что угодно, лишь бы не готовиться к предстоящему перелету. Он считает себя лучше всех и проводит время, пытаясь выполнить сумасшедшие трюки на еще более сумасшедших скоростях. Выполняя один из таких трюков, Пэнг подлетает слишком близко к земле, сталкивается со стаей утят и разлучает брата и сестру, Чао и Чи, с остальными. С этой маловероятной встречи начнется невероятное путешествие Пэнга, в котором он сломает крыло... и едва не разобьет сердце... когда он поймет силу бескорыстной любви на примере двух утят, которые в свою очередь увидят в нем лучшего отца, которого они когда-либо могли иметь. ', 'https://drive.google.com/uc?id=1yaASb0xLUE-SfgFLzzKj7qJf13ix3W0f', '34ClfQttSLA'),
 	(2, 'Пчeлка Майя и Кубок мёда', 'Продолжение приключений энергичной и весёлой пчёлки Майя.   На этот раз весь улей взволнован: Императрица послала своего посланника с будоражащей новостью - отныне пчёлам макового луга разрешено принимать участие в Кубке мёда. Однако радость вскоре превращается в разочарование: чтобы состязаться за Кубок, пчёлы должны отдать половину урожая мёда. Решительная Майя вместе со своим другом Вилли отправилась в Шумтрополис, чтобы доказать Императрице её неправоту: близится зима и сёстры Майи очень нуждаются в сладких запасах. Непослушание вызвало гнев повелительницы и она решает дать маленькой пчёлке урок... Единственный способ сохранить весь мед и заслужить императорскую милость - одержать победу в грандиозном спортивном состязании «Медовые игры». Но в команде Майи нет сильных участников, зато противники готовы на всё ради успеха.   ', 'https://drive.google.com/uc?id=15xvAl0DFKpr-HU7qEpwvcGoxREHBbhxj', 'tCNTJid5uKQ'),
-	(3, 'Дэдпул 2', 'Выжив после смертоносной атаки быков, изуродованный шеф-повар кафетерия пытается исполнить свою мечту - стать самым горячим барменом в Мэйберри - и в то же время справиться с потерянными вкусовыми ощущениями. Чтобы восстановить остроту чувств, а еще и потоковый накопитель, Уэйд должен будет сразиться с ниндзями, якудзой и стаей сексуально агрессивных собачек, в то время как он объедет весь земной шар и поймет важность семьи, дружбы и вкуса - а заодно обнаружит новую тягу к приключениям и заработает желанную надпись на кружке «Лучший любовник в мире». ', 'https://drive.google.com/uc?id=1maOTPBqT9QP6sLjPj2kEjlwrx5WT6Av3', 'D86RtevtfrA'),
+	(3, 'Дэдпул 2', 'Единственный и неповторимый болтливый наемник — вернулся! Ещё более масштабный, ещё более разрушительный и даже ещё более голозадый, чем прежде! Когда в его жизнь врывается суперсолдат с убийственной миссией, Дэдпул вынужден задуматься о дружбе, семье и о том, что на самом деле значит быть героем, попутно надирая 50 оттенков задниц. Потому что иногда чтобы делать хорошие вещи, нужно использовать грязные приёмчики.', 'https://drive.google.com/uc?id=1maOTPBqT9QP6sLjPj2kEjlwrx5WT6Av3', 'D86RtevtfrA'),
 	(4, 'Хан Соло: Звёздные Войны. Истории', 'Фильм расскажет о похождениях юного космического сорвиголовы Хана Соло и его верного напарника Чубакки и о том, как они стали самыми быстрыми пилотами и самыми хитрыми контрабандистами далёкой Галактики. ', 'https://drive.google.com/uc?id=1TSxzzvfLv79bsS4dAh5-5nqCMmj3rKp1', 'jPEYpryMp2s'),
 	(5, 'Проект Cinemascope: Огни большого города', 'Маленький Бродяга встречает красивую слепую девушку, торгующую цветами на улице, которая по ошибке принимает его за богатого герцога. Узнав о том, что операция может вернуть ей зрение, маленький Бродяга пускается на поиски денег. ', 'https://drive.google.com/uc?id=1R-jX0IsxiZlgXRpodm2H5RMqrkSmCfq6', 'b2NTUnujk1I'),
-	(8, 'Мстители: Война бесконечности', 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности -  артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту -  судьба Земли никогда ещё не была столь неопределённой. ', 'https://drive.google.com/uc?id=157z5PWXbBEzKjd09-cbfZup-4HWeZ3Kf', 'QwievZ1Tx-8');
+	(6, 'Мстители: Война бесконечности', 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности -  артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту -  судьба Земли никогда ещё не была столь неопределённой. ', 'https://drive.google.com/uc?id=157z5PWXbBEzKjd09-cbfZup-4HWeZ3Kf', 'QwievZ1Tx-8');
 /*!40000 ALTER TABLE `films` ENABLE KEYS */;
-
--- Дамп структуры для таблица cinema_v2.0.films_genres
-CREATE TABLE IF NOT EXISTS `films_genres` (
-  `film_id` int(11) NOT NULL,
-  `genre_id` int(11) NOT NULL,
-  KEY `film_id` (`film_id`),
-  KEY `genre_id` (`genre_id`),
-  CONSTRAINT `FK_films_genres_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
-  CONSTRAINT `FK_films_genres_genres` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.films_genres: ~22 rows (приблизительно)
 DELETE FROM `films_genres`;
 /*!40000 ALTER TABLE `films_genres` DISABLE KEYS */;
 INSERT INTO `films_genres` (`film_id`, `genre_id`) VALUES
 	(1, 2),
-	(1, 3),
-	(1, 1),
+	(1, 7),
+	(1, 6),
 	(1, 4),
+	(2, 7),
 	(2, 2),
-	(2, 3),
 	(2, 4),
-	(3, 5),
+	(3, 8),
 	(3, 6),
-	(3, 7),
+	(3, 2),
 	(3, 1),
-	(4, 5),
+	(4, 9),
 	(4, 6),
-	(4, 7),
+	(4, 8),
 	(4, 1),
-	(5, 9),
-	(5, 4),
-	(5, 8),
-	(8, 5),
-	(8, 6),
-	(8, 7),
-	(8, 1);
+	(5, 5),
+	(5, 3),
+	(5, 2),
+	(6, 9),
+	(6, 6),
+	(6, 8),
+	(6, 1);
 /*!40000 ALTER TABLE `films_genres` ENABLE KEYS */;
-
--- Дамп структуры для таблица cinema_v2.0.genres
-CREATE TABLE IF NOT EXISTS `genres` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `genreName` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.genres: ~9 rows (приблизительно)
 DELETE FROM `genres`;
 /*!40000 ALTER TABLE `genres` DISABLE KEYS */;
 INSERT INTO `genres` (`id`, `genreName`) VALUES
-	(1, 'Приключения'),
-	(2, 'Семейный'),
-	(3, 'Мультфильм'),
-	(4, 'Комедия'),
-	(5, 'Фэнтези'),
-	(6, 'Фантастика'),
-	(7, 'Боевик'),
-	(8, 'Немое кино'),
-	(9, 'Мелодрама');
+	(1, 'Боевик'),
+	(2, 'Комедия'),
+	(3, 'Мелодрама'),
+	(4, 'Мультфильм'),
+	(5, 'Немое кино'),
+	(6, 'Приключения'),
+	(7, 'Семейный'),
+	(8, 'Фантастика'),
+	(9, 'Фэнтези');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 
--- Дамп структуры для таблица cinema_v2.0.orders
-CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orderNumber` int(10) NOT NULL COMMENT 'trigger-generated column',
-  `user_id` int(11) NOT NULL,
-  `isPaid` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `orderNumber` (`orderNumber`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
--- Дамп данных таблицы cinema_v2.0.orders: ~6 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.orders: ~7 rows (приблизительно)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
@@ -122,13 +78,6 @@ INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
 	(14, 933849, 1, b'1');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
--- Дамп структуры для таблица cinema_v2.0.roles
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `roleName` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
 -- Дамп данных таблицы cinema_v2.0.roles: ~2 rows (приблизительно)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
@@ -136,14 +85,6 @@ INSERT INTO `roles` (`id`, `roleName`) VALUES
 	(1, 'ROLE_ADMIN'),
 	(2, 'ROLE_USER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-
--- Дамп структуры для таблица cinema_v2.0.seats
-CREATE TABLE IF NOT EXISTS `seats` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row` int(11) NOT NULL,
-  `number` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.seats: ~251 rows (приблизительно)
 DELETE FROM `seats`;
@@ -402,18 +343,6 @@ INSERT INTO `seats` (`id`, `row`, `number`) VALUES
 	(251, 12, 10);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 
--- Дамп структуры для таблица cinema_v2.0.sessions
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `film_id` int(11) NOT NULL,
-  `date` varchar(50) NOT NULL,
-  `time` varchar(50) NOT NULL,
-  `ticketPrice` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `film_id` (`film_id`),
-  CONSTRAINT `FK_film_sessions_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='киносеансы';
-
 -- Дамп данных таблицы cinema_v2.0.sessions: ~7 rows (приблизительно)
 DELETE FROM `sessions`;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
@@ -426,21 +355,6 @@ INSERT INTO `sessions` (`id`, `film_id`, `date`, `time`, `ticketPrice`) VALUES
 	(6, 1, '2018-07-13', '11:20', 5.20),
 	(7, 2, '2018-07-10', '12:00', 5.00);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
-
--- Дамп структуры для таблица cinema_v2.0.tickets
-CREATE TABLE IF NOT EXISTS `tickets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `session_id` int(11) NOT NULL,
-  `seat_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `seat_id` (`seat_id`),
-  KEY `session_id` (`session_id`),
-  KEY `order_id` (`order_id`),
-  CONSTRAINT `FK_tickets_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_tickets_seats` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`),
-  CONSTRAINT `FK_tickets_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.tickets: ~11 rows (приблизительно)
 DELETE FROM `tickets`;
@@ -459,37 +373,15 @@ INSERT INTO `tickets` (`id`, `session_id`, `seat_id`, `order_id`) VALUES
 	(53, 6, 248, 14);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 
--- Дамп структуры для таблица cinema_v2.0.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `login` (`login`),
-  KEY `roles_id` (`role_id`),
-  CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
--- Дамп данных таблицы cinema_v2.0.users: ~4 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.users: ~5 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `login`, `email`, `password`, `role_id`) VALUES
-	(1, 'admin', 'admin@admin.com', 'password', 1),
-	(2, 'user1', 'user1@user.com', 'qwerty', 2),
-	(3, 'user2', 'user2@user.com', '12345', 2),
-	(4, 'user3', 'user3@user.com', '54321', 2);
+INSERT INTO `users` (`id`, `login`, `email`, `password`, `salt`, `role_id`) VALUES
+	(1, 'admin', 'admin@admin.com', '61fbd54dd28a2c75ccfd2a4fd0c0ec3ac928677697755e3b96dcd9d00aca47d7bc5080b7b4c8fdc8bc67a870f11fcaf48e71d34514ff51d509e7998a50c2e091', '9ba7185c6d59f98d39c924415a0ca708', 1),
+	(2, 'user1', 'user1@user.com', '69a99ec3a3e9626b4a75ee589d0b6e4e6703b79f2b573486bf6f36b166d20568c921a72931cff2ddfcbb72c4e82748a4d561de94868fa25a587ac29d8878f481', 'b7daad5c533ba192135ffd2c2c24056f', 2),
+	(3, 'user2', 'user2@user.com', '4ae840b0fd09c3776e2fddf5efccbb6b3ac9e4a8528e5f492fc52e8ad082e858b63d212afbbb4b743a7fce2db604315b9f9f093556dfa1527f42cf728ecb768e', '8aa4a39f3436e38e1eec36c448266a13', 2),
+	(4, 'user3', 'user3@user.com', '41f2c87786e51807f205154bdcd55b9d129ec887805d9a2ce9a5e5c487e50fbc93d72a51698acf7614719450b9593fe81a9e04c8315d8eb6b2cf38e03c792c09', 'e28fa306345cf39971055c1156e60c82', 2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-
--- Дамп структуры для триггер cinema_v2.0.generate orderNumber
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
-DELIMITER //
-CREATE TRIGGER `generate orderNumber` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
-	SET NEW.orderNumber = (RAND()*(999999-100000)+100000);
-END//
-DELIMITER ;
-SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

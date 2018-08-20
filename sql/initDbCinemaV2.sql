@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   `posterUrl` varchar(100) NOT NULL,
   `youTubeVideoId` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.films_genres
@@ -120,13 +120,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `salt` varchar(100) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   KEY `roles_id` (`role_id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='admin-password\r\nuser1-qwerty\r\nuser2-12345\r\nuser3-54321';
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для триггер cinema_v2.0.generate orderNumber
