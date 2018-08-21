@@ -5,10 +5,15 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>cctg</short-name>
 	<uri>custom-cinema-tags</uri>
-	<!-- <tag>
-		<name>InitSeatParamTag</name>
-		<tag-class>by.htp.cinema.web.tags.InitSeatTag</tag-class>
+	<tag>
+		<name>CheckSeatExistence</name>
+		<tag-class>by.htp.epam.cinema.web.tags.CheckSeatExistence</tag-class>
 		<body-content>empty</body-content>
+		<attribute>
+			<name>seats</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 		<attribute>
 			<name>row</name>
 			<required>true</required>
@@ -19,20 +24,11 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-		<attribute>
-			<name>filmSession</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>isStateRequired</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag> -->
+	</tag>
 	<tag>
 		<name>DisplayGenresBlock</name>
-		<tag-class>by.htp.epam.cinema.web.tags.DisplayGenresBlockTag</tag-class>
+		<tag-class>by.htp.epam.cinema.web.tags.DisplayGenresBlockTag
+		</tag-class>
 		<body-content>empty</body-content>
 	</tag>
 </taglib>
