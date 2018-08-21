@@ -60,7 +60,6 @@ public class ConnectionPool {
 					customConnection.getConnectionName());
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage() + " in getConnection method in ConnectionPool class", e);
-			e.printStackTrace();
 		}
 		return customConnection;
 	}
@@ -73,7 +72,6 @@ public class ConnectionPool {
 					customConnection.getConnectionName());
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage() + " in putConnection method in ConnectionPool class", e);
-			e.printStackTrace();
 		}
 	}
 }

@@ -1,11 +1,13 @@
 package by.htp.epam.cinema.web.action;
 
+import by.htp.epam.cinema.web.action.impl.ChangeLocaleAction;
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
 import by.htp.epam.cinema.web.action.impl.ErrorPageViewAction;
 import by.htp.epam.cinema.web.action.impl.FilmPageViewAction;
 import by.htp.epam.cinema.web.action.impl.HomePageViewAction;
 import by.htp.epam.cinema.web.action.impl.LogInAction;
 import by.htp.epam.cinema.web.action.impl.LogOutAction;
+import by.htp.epam.cinema.web.action.impl.SignUpAction;
 
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.*;
 
@@ -29,6 +31,12 @@ public enum Actions {
 			this.jspPage = null;
 		}
 	},
+	SIGN_UP {
+		{
+			this.action = new SignUpAction();
+			this.jspPage = PAGE_USER_SIGNUP;
+		}
+	},
 	VIEW_GENRE_FILMS {
 		{
 			this.action = new ChosenGenreFilmsViewAction();
@@ -41,6 +49,12 @@ public enum Actions {
 			this.jspPage = PAGE_USER_FILM;
 		}
 	},
+	CHANGE_LOCALE {
+		{
+			this.action = new ChangeLocaleAction();
+			this.jspPage = null;
+		}
+	},
 	ERROR {
 		{
 			this.action = new ErrorPageViewAction();
@@ -50,5 +64,4 @@ public enum Actions {
 
 	public BaseAction action;
 	public String jspPage;
-
 }

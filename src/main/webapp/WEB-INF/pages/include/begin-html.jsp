@@ -16,6 +16,12 @@
 </head>
 <body>
 	<div class="container">
+		<nav class="navbar navbar-light bg-light">
+			<div class="row mx-auto">
+				<a class="nav-link" href="cinema?action=change_locale&localeLanguage=en&localeCountry=US">eng</a>
+				<a class="nav-link" href="cinema?action=change_locale&localeLanguage=ru&localeCountry=RU">rus</a>
+			</div>
+		</nav>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="/cinema">Home</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -59,7 +65,7 @@
 							</div>
 						</div>
 					</c:if>
-				</ul> 
+				</ul>
 				<ul class="nav navbar-nav mx-auto">
 					<li id="timer" style="color: #FF0000; font-size: 30px;" />
 				</ul>

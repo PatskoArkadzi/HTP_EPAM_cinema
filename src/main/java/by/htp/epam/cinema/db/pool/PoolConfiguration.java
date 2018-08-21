@@ -1,15 +1,15 @@
 package by.htp.epam.cinema.db.pool;
 
-import java.util.ResourceBundle;
+import by.htp.epam.cinema.web.util.ResourceManager;
+import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
 public class PoolConfiguration {
 
-	final static int POOL_SIZE = 10;
-	
-	private final static ResourceBundle rb = ResourceBundle.getBundle("db_config");
+	protected final static int POOL_SIZE = 10;
 
-	public static final String DRIVER = rb.getString("db.driver");
-	public static final String URL = rb.getString("db.url");
-	public static final String LOGIN = rb.getString("db.login");
-	public static final String PASSWORD = rb.getString("db.pass");
+	private final static ResourceManager RM = ResourceManager.DATA_BASE;
+	protected static final String DRIVER = RM.getValue(DB_CONNECTION_DRIVER);
+	protected static final String URL = RM.getValue(DB_CONNECTION_URL);
+	protected static final String LOGIN = RM.getValue(DB_CONNECTION_LOGIN);
+	protected static final String PASSWORD = RM.getValue(DB_CONNECTION_PASSWORD);
 }
