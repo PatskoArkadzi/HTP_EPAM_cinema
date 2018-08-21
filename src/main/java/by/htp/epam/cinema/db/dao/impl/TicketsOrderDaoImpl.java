@@ -36,7 +36,7 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_CREATE)) {
 			ps.setInt(1, entity.getUser_id());
-			ps.setBoolean(2, entity.isPaid());
+			ps.setBoolean(2, entity.getIsPaid());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of TicketsOrderDaoImpl class", e);
@@ -82,12 +82,12 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 	}
 
 	@Override
-	public TicketsOrder read(Seat seat, FilmSession filmSession) {
+	public TicketsOrder read(int seatId, int filmSessionId) {
 		ResultSet rs = null;
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_READ_BY_SEAT_AND_FILMSESSION)) {
-			ps.setInt(1, seat.getId());
-			ps.setInt(2, filmSession.getId());
+			ps.setInt(1, seatId);
+			ps.setInt(2, filmSessionId);
 			rs = ps.executeQuery();
 			if (rs.next())
 				return buildTicketsOrder(rs);
@@ -125,7 +125,7 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_UPDATE)) {
 			ps.setInt(1, entity.getUser_id());
-			ps.setBoolean(2, entity.isPaid());
+			ps.setBoolean(2, entity.getIsPaid());
 			ps.setInt(3, entity.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -153,7 +153,7 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 		ticketsOrder.setId(rs.getInt("id"));
 		ticketsOrder.setOrderNumber(rs.getInt("orderNumber"));
 		ticketsOrder.setUser_id(rs.getInt("user_id"));
-		ticketsOrder.setPaid(rs.getBoolean("isPaid"));
+		ticketsOrder.setIsPaid(rs.getBoolean("isPaid"));
 		return ticketsOrder;
 	}
 

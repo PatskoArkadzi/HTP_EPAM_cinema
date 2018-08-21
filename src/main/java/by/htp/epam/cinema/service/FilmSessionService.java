@@ -8,4 +8,6 @@ public interface FilmSessionService extends Service {
 
 	List<FilmSession> getFilmSessions(int filmId);
 
+	FilmSession getFilmSession(int filmSessionId);
+
 }

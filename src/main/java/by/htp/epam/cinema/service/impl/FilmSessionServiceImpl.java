@@ -21,4 +21,9 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 	public List<FilmSession> getFilmSessions(int filmId) {
 		return filmSessionDao.readAll(filmId);
 	}
+
+	@Override
+	public FilmSession getFilmSession(int filmSessionId) {
+		return filmSessionDao.read(filmSessionId);
+	}
 }

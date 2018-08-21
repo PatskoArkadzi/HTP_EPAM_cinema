@@ -9,5 +9,7 @@ public final class ActionNameConstantDeclaration {
 	public static final String ACTION_NAME_LOGOUT = "log_out";
 	public static final String ACTION_NAME_LOGIN = "log_in";
 	public static final String ACTION_NAME_SIGNUP = "sign_up";
+	public static final String ACTION_NAME_CHOOSE_SEAT = "choose_seat";
+	public static final String ACTION_NAME_TO_BASKET = "to_basket";
 
 }

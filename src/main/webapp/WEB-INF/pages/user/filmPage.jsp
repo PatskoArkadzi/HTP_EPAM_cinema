@@ -9,9 +9,8 @@
 	<div class=col-md-3>
 		<img src="${chosenFilm.posterUrl}" width="250" height="400" /> <b>Выберите
 			дату и время:</b> <br>
-		<c:forEach items="${chosenFilmSessions}" var="session">
-			<a
-				href="/cinema/newapp/user/chooseSeat?user_chosen_filmSession_id=${session.id}"
+		<c:forEach items="${chosenFilmFilmSessions}" var="session">
+			<a href="cinema?action=choose_seat&chosenFilmSessionId=${session.id}"
 				class="btn btn-success btn-lg active" role="button"
 				aria-pressed="true">${session.date} ${session.time}</a>
 			<br>

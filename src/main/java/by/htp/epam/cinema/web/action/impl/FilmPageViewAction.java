@@ -4,7 +4,7 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_ID;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_GENRES;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_SESSIONS;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_ERROR_MESSAGE;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_FILM_PAGE_VIEW_ACTION_INDEFINITE_ERROR;
 
@@ -42,7 +42,7 @@ public class FilmPageViewAction extends BaseAction {
 			List<FilmSession> chosenFilmSessions = filmSessionService.getFilmSessions(chosenFilmid);
 			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM, chosenFilm);
 			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM_GENRES, chosenFilmGenres);
-			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM_SESSIONS, chosenFilmSessions);
+			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS, chosenFilmSessions);
 			return Actions.VIEW_FILM_PAGE;
 		} catch (ValidateNullParamException e) {
 			request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,

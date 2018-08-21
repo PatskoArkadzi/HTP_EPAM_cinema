@@ -10,9 +10,9 @@ public interface TicketsOrderDao extends BaseDao<TicketsOrder> {
 	// List<TicketsOrder> readAllWhereEq(String property, Object object);
 
 	/**
-	 * read order for checking seat free or not in InitSeatTag
+	 * read order for checking seat free or not
 	 */
-	TicketsOrder read(Seat seat, FilmSession filmSession);
+	TicketsOrder read(int seatId, int filmSessionId);
 
 	/**
 	 * read one user non-paid order

@@ -7,6 +7,7 @@ public final class PageNameConstantDeclaration {
 	public static final String PAGE_USER_SIGNUP = "/WEB-INF/pages/user/signUp.jsp";
 	public static final String PAGE_USER_CHOSEN_GENRE_FILMS = "/WEB-INF/pages/user/chosenGenreFilms.jsp";
 	public static final String PAGE_USER_FILM = "/WEB-INF/pages/user/filmPage.jsp";
+	public static final String PAGE_USER_SEAT_CHOICE = "/WEB-INF/pages/user/seatChoice.jsp";
 	public static final String PAGE_ERROR = "/WEB-INF/pages/error.jsp";
 
 }
