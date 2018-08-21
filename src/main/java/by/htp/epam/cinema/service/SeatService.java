@@ -8,4 +8,8 @@ public interface SeatService extends Service {
 
 	List<Seat> getSeatsWithState(int filmSessionId);
 
+	boolean isSeatFree(int seatId, int filmSessionId);
+
+	Seat getSeat(int seatId);
+
 }

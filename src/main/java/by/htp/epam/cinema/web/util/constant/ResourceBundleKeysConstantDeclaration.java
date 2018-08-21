@@ -11,6 +11,10 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_GENRE_FILMS_VIEW_ACTION_INDEFINITE_ERROR = "msg.error.chosenGenreFilmsViewAction.indefiniteError";
 	public static final String ERROR_MSG_FILM_PAGE_VIEW_ACTION_INDEFINITE_ERROR = "msg.error.filmPageViewAction.indefiniteError";
 	public static final String ERROR_MSG_CHOOSE_SEAT_ACTION_INDEFINITE_ERROR = "msg.error.chooseSeatAction.indefiniteError";
+	public static final String ERROR_MSG_CHOOSE_SEAT_ACTION_USER_IS_NOT_LOGGED_IN_ERROR = "msg.error.chooseSeatAction.userIsNotLoggedIn";
+	public static final String ERROR_MSG_TO_BASKET_ACTION_INDEFINITE_ERROR = "msg.error.toBasketAction.indefiniteError";
+	public static final String ERROR_MSG_TO_BASKET_ACTION_SEAT_IS_NOT_FREE_ERROR = "msg.error.toBasketAction.SeatIsNotFree";
+	public static final String ERROR_MSG_TO_BASKET_ACTION_USER_IS_NOT_LOGGED_IN_ERROR = "msg.error.toBasketAction.userIsNotLoggedIn";
 
 	public static final String DB_CONNECTION_DRIVER = "db.driver";
 	public static final String DB_CONNECTION_URL = "db.url";

@@ -30,7 +30,6 @@ public class ChosenGenreFilmsViewAction extends BaseAction {
 	@Override
 	public Actions executeAction(HttpServletRequest request) {
 		String chosenGenreId = request.getParameter(REQUEST_PARAM_CHOSEN_GENRE_ID);
-		System.out.println("chosenGenreId"+chosenGenreId);
 		try {
 			validateRequestParamNotNull(chosenGenreId);
 			Genre genre = genreService.getGenre(Integer.parseInt(chosenGenreId));

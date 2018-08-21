@@ -44,6 +44,7 @@ public class SignUpAction extends BaseAction {
 				return Actions.ERROR;
 			}
 		} catch (ValidateNullParamException e) {
+			logger.error("ValidateNullParamException in executeAction method of SignUpAction class", e);
 			request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR));
 			return Actions.ERROR;

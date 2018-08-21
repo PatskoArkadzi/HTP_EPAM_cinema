@@ -5,6 +5,7 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String SESSION_PARAM_CURRENT_USER = "currentUser";
 	public static final String SESSION_PARAM_GENRELIST = "genrelist";
 	public static final String SESSION_PARAM_ERROR_MESSAGE = "errorMessage";
+	public static final String SESSION_PARAM_IS_TIMER_NEED = "isTimerNeed";
 
 	public static final String REQUEST_PARAM_ACTION = "action";
 	public static final String REQUEST_PARAM_FILM_WITH_GENRES = "filmWithGenres";
