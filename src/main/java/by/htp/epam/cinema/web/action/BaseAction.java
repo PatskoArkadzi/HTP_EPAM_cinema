@@ -1,18 +1,18 @@
 package by.htp.epam.cinema.web.action;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import by.htp.epam.cinema.web.util.ResourceManager;
 
-public abstract class BaseAction {
+public interface BaseAction {
 
-	protected ResourceManager resourceManager = ResourceManager.LOCALIZATION;
+	public static final ResourceManager resourceManager = ResourceManager.LOCALIZATION;
 
-	public abstract Actions executeAction(HttpServletRequest request);
-
-	@Override
-	public String toString() {
-		return getClass().getSimpleName().replace("Action", "");
-	}
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
 
 }

@@ -1,6 +1,8 @@
 package by.htp.epam.cinema.web.action.impl;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.htp.epam.cinema.domain.FilmSession;
@@ -10,28 +12,25 @@ import by.htp.epam.cinema.service.FilmSessionService;
 import by.htp.epam.cinema.service.SeatService;
 import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
 import by.htp.epam.cinema.service.impl.SeatServiceImpl;
-import by.htp.epam.cinema.web.action.Actions;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILMSESSION;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_SEATS_WITH_STATES;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_CURRENT_USER;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILMSESSION_ID;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_ERROR_MESSAGE;
-import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHOOSE_SEAT_ACTION_INDEFINITE_ERROR;
-import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHOOSE_SEAT_ACTION_USER_IS_NOT_LOGGED_IN_ERROR;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.*;
+import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
+import java.io.IOException;
 import java.util.List;
 
-public class ChooseSeatAction extends BaseAction {
+public class ChooseSeatAction implements BaseAction {
 
 	SeatService seatService = new SeatServiceImpl();
 	FilmSessionService filmSessionService = new FilmSessionServiceImpl();
 
 	@Override
-	public Actions executeAction(HttpServletRequest request) {
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(SESSION_PARAM_CURRENT_USER);
 		if (user != null) {
@@ -43,16 +42,16 @@ public class ChooseSeatAction extends BaseAction {
 				List<Seat> seatsWithStates = seatService.getSeatsWithState(chosenFilmSession.getId());
 				request.setAttribute(REQUEST_PARAM_CHOSEN_FILMSESSION, chosenFilmSession);
 				request.setAttribute(REQUEST_PARAM_SEATS_WITH_STATES, seatsWithStates);
-				return Actions.CHOOSE_SEAT;
+				request.getRequestDispatcher(PAGE_USER_SEAT_CHOICE).forward(request, response);
 			} catch (ValidateNullParamException e) {
-				session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_CHOOSE_SEAT_ACTION_INDEFINITE_ERROR));
-				return Actions.ERROR;
+				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
 		} else {
-			session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_CHOOSE_SEAT_ACTION_USER_IS_NOT_LOGGED_IN_ERROR));
-			return Actions.ERROR;
+			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
 }

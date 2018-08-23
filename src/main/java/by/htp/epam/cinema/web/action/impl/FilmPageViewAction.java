@@ -5,12 +5,17 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_GENRES;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_ERROR_MESSAGE;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_ERROR_MESSAGE;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_USER_FILM;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_FILM_PAGE_VIEW_ACTION_INDEFINITE_ERROR;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
@@ -21,18 +26,18 @@ import by.htp.epam.cinema.service.GenreService;
 import by.htp.epam.cinema.service.impl.FilmServiceImpl;
 import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
 import by.htp.epam.cinema.service.impl.GenreServiceImpl;
-import by.htp.epam.cinema.web.action.Actions;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
-public class FilmPageViewAction extends BaseAction {
+public class FilmPageViewAction implements BaseAction {
 
 	private FilmService filmService = new FilmServiceImpl();
 	private GenreService genreService = new GenreServiceImpl();
 	private FilmSessionService filmSessionService = new FilmSessionServiceImpl();
 
 	@Override
-	public Actions executeAction(HttpServletRequest request) {
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String filmId = request.getParameter(REQUEST_PARAM_CHOSEN_FILM_ID);
 		try {
 			validateRequestParamNotNull(filmId);
@@ -43,11 +48,11 @@ public class FilmPageViewAction extends BaseAction {
 			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM, chosenFilm);
 			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM_GENRES, chosenFilmGenres);
 			request.setAttribute(REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS, chosenFilmSessions);
-			return Actions.VIEW_FILM_PAGE;
+			request.getRequestDispatcher(PAGE_USER_FILM).forward(request, response);
 		} catch (ValidateNullParamException e) {
-			request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_FILM_PAGE_VIEW_ACTION_INDEFINITE_ERROR));
-			return Actions.ERROR;
+			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
 }

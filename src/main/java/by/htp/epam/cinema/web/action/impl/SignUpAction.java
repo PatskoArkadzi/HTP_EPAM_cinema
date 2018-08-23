@@ -1,31 +1,34 @@
 package by.htp.epam.cinema.web.action.impl;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.service.impl.UserServiceImpl;
-import by.htp.epam.cinema.web.action.Actions;
 import by.htp.epam.cinema.web.action.BaseAction;
-import by.htp.epam.cinema.web.util.PasswordSecurity;
+import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
+import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_LOGIN;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_USER_SIGNUP;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR;
+
+import java.io.IOException;
+
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 
-public class SignUpAction extends BaseAction {
+public class SignUpAction implements BaseAction {
 
-	private static Logger logger = LoggerFactory.getLogger(SignUpAction.class);
 	private UserService userService = new UserServiceImpl();
 
 	@Override
-	public Actions executeAction(HttpServletRequest request) {
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!isPost(request)) {
-			return Actions.SIGN_UP;
+			request.getRequestDispatcher(PAGE_USER_SIGNUP).forward(request, response);
 		}
 		String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);
 		String email = request.getParameter(REQUEST_PARAM_USER_EMAIL);
@@ -34,20 +37,16 @@ public class SignUpAction extends BaseAction {
 			validateRequestParamNotNull(login, email, password);
 			String resultOfCheck = userService.checkUserData(login, email);
 			if (resultOfCheck.length() == 0) {
-				String userSalt = PasswordSecurity.getSalt();
-				String userPassword = PasswordSecurity.getHashPassword(password, userSalt);
-				User user = new User(0, login, email, userPassword, userSalt, 2);
-				userService.addUser(user);
-				return Actions.LOG_IN;
+				userService.createUser(login, email, password);
+				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_LOGIN));
 			} else {
-				request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE, resourceManager.getValue(resultOfCheck));
-				return Actions.ERROR;
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE, resourceManager.getValue(resultOfCheck));
+				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
 		} catch (ValidateNullParamException e) {
-			logger.error("ValidateNullParamException in executeAction method of SignUpAction class", e);
-			request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR));
-			return Actions.ERROR;
+			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
 }

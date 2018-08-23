@@ -32,7 +32,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void createUser(String login, String email, String password) {
+		String userSalt = PasswordSecurity.getSalt();
+		String userPassword = PasswordSecurity.getHashPassword(password, userSalt);
+		User user = new User(0, login, email, userPassword, userSalt, 2);
 		userDao.create(user);
 	}
 }

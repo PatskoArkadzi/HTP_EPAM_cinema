@@ -2,6 +2,7 @@ package by.htp.epam.cinema.web.util.constant;
 
 public class ResourceBundleKeysConstantDeclaration {
 
+	public static final String ERROR_MSG_CONTROLLER_INDEFINITE_ERROR = "msg.error.controller.indefiniteError";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN = "msg.error.signUpAction.login";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL = "msg.error.signUpAction.email";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR = "msg.error.signUpAction.indefiniteError";

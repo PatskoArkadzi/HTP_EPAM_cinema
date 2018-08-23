@@ -1,34 +1,39 @@
 package by.htp.epam.cinema.web.action.impl;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.service.impl.UserServiceImpl;
-import by.htp.epam.cinema.web.action.Actions;
 import by.htp.epam.cinema.web.action.BaseAction;
+import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
+import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_VIEW_HOME_PAGE;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_USER_LOGIN;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
+
+import java.io.IOException;
+
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 
-public class LogInAction extends BaseAction {
+public class LogInAction implements BaseAction {
 
 	private UserService userService = new UserServiceImpl();
-	private static Logger logger = LoggerFactory.getLogger(ChosenGenreFilmsViewAction.class);
 
 	@Override
-	public Actions executeAction(HttpServletRequest request) {
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (session.getAttribute(SESSION_PARAM_CURRENT_USER) != null) {
-			session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_REPEATED_LOGGING));
-			return Actions.ERROR;
+			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 		if (isPost(request)) {
 			String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);
@@ -38,17 +43,18 @@ public class LogInAction extends BaseAction {
 				User user = userService.getUser(login, password);
 				session.setAttribute(SESSION_PARAM_CURRENT_USER, user);
 				session.setMaxInactiveInterval(500);
-				return Actions.HOME;
+				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_VIEW_HOME_PAGE));
 			} catch (ValidateNullParamException e) {
-				session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_INDEFINITE_ERROR));
-				return Actions.ERROR;
+				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			} catch (IllegalArgumentException e) {
-				session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_INCORRECT_USER_DATA));
-				return Actions.ERROR;
+				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
-		} else
-			return Actions.LOG_IN;
+		} else {
+			request.getRequestDispatcher(PAGE_USER_LOGIN).forward(request, response);
+		}
 	}
 }

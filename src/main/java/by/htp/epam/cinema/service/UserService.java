@@ -6,8 +6,8 @@ public interface UserService extends Service {
 
 	String checkUserData(String login, String email);
 
-	void addUser(User user);
-
 	User getUser(String login, String password) throws IllegalArgumentException;
+
+	void createUser(String login, String email, String password);
 
 }

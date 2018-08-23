@@ -1,6 +1,8 @@
 package by.htp.epam.cinema.web.action.impl;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,22 +20,27 @@ import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
 import by.htp.epam.cinema.service.impl.SeatServiceImpl;
 import by.htp.epam.cinema.service.impl.TicketServiceImpl;
 import by.htp.epam.cinema.service.impl.TicketsOrderServiceImpl;
-import by.htp.epam.cinema.web.action.Actions;
 import by.htp.epam.cinema.web.action.BaseAction;
+import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.Timer;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_SEAT_ID;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_IS_TIMER_NEED;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_ERROR_MESSAGE;
+import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_ERROR_MESSAGE;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_CURRENT_USER;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_TO_BASKET_ACTION_INDEFINITE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_TO_BASKET_ACTION_SEAT_IS_NOT_FREE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_TO_BASKET_ACTION_USER_IS_NOT_LOGGED_IN_ERROR;
+
+import java.io.IOException;
+
+import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_CHOOSE_SEAT;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILMSESSION_ID;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;;
 
-public class ToBasketAction extends BaseAction {
+public class ToBasketAction implements BaseAction {
 
 	private static Logger logger = LoggerFactory.getLogger(ToBasketAction.class);
 	SeatService seatService = new SeatServiceImpl();
@@ -42,7 +49,8 @@ public class ToBasketAction extends BaseAction {
 	TicketService ticketService = new TicketServiceImpl();
 
 	@Override
-	public Actions executeAction(HttpServletRequest request) {
+	public void executeAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(SESSION_PARAM_CURRENT_USER);
 		if (user != null) {
@@ -54,9 +62,9 @@ public class ToBasketAction extends BaseAction {
 				int chosenFilmSessioIdInt = Integer.parseInt(chosenFilmSessioIdString);
 				Seat chosenSeat = seatService.getSeat(chosenSeatIdInt);
 				if (!seatService.isSeatFree(chosenSeatIdInt, chosenFilmSessioIdInt)) {
-					request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+					request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 							resourceManager.getValue(ERROR_MSG_TO_BASKET_ACTION_SEAT_IS_NOT_FREE_ERROR));
-					return Actions.ERROR;
+					request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 				}
 				FilmSession chosenFilmSession = filmSessionService.getFilmSession(chosenFilmSessioIdInt);
 				TicketsOrder ticketsOrder;
@@ -69,19 +77,16 @@ public class ToBasketAction extends BaseAction {
 					session.setAttribute(SESSION_PARAM_IS_TIMER_NEED, true);
 				}
 				ticketService.createTicket(chosenFilmSession, chosenSeat, ticketsOrder);
-
 			} catch (ValidateNullParamException e) {
-				logger.error("ValidateNullParamException in executeAction method of ToBasketAction class", e);
-				request.getSession().setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_TO_BASKET_ACTION_INDEFINITE_ERROR));
-				return Actions.ERROR;
+				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
-			return Actions.CHOOSE_SEAT;
+			response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_CHOOSE_SEAT));
 		} else {
-			session.setAttribute(SESSION_PARAM_ERROR_MESSAGE,
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_TO_BASKET_ACTION_USER_IS_NOT_LOGGED_IN_ERROR));
-			return Actions.ERROR;
+			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
-
 }
