@@ -9,25 +9,29 @@ import java.util.concurrent.BlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static by.htp.epam.cinema.db.pool.PoolConfiguration.*;
+import by.htp.epam.cinema.web.util.ResourceManager;
+
+import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
 public class ConnectionPool {
 
+	protected final static int POOL_SIZE = 10;
+	private final static ResourceManager RM = ResourceManager.DATA_BASE;
 	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
-	private static BlockingQueue<CustomConnection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
-	private static BlockingQueue<CustomConnection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
+	private static BlockingQueue<Connection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
+	private static BlockingQueue<Connection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
 	private ConnectionPool() {
 	}
 
 	public static void initializeConnectionPool() {
 		try {
-			Class.forName(DRIVER);
+			Class.forName(RM.getValue(DB_CONNECTION_DRIVER));
 			for (int i = 1; i <= POOL_SIZE; i++) {
-				Connection connection = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-				CustomConnection customConnection = new CustomConnection("Connection №" + i, connection);
-				connectionQueue.add(customConnection);
-				logger.info(customConnection.getConnectionName() + " was successfully added to the pool");
+				Connection connection = DriverManager.getConnection(RM.getValue(DB_CONNECTION_URL),
+						RM.getValue(DB_CONNECTION_LOGIN), RM.getValue(DB_CONNECTION_PASSWORD));
+				connectionQueue.add(connection);
+				logger.info("connection was successfully added to the pool");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.error(e.getMessage() + " in static block in ConnectionPool class", e);
@@ -39,39 +43,45 @@ public class ConnectionPool {
 		closeConnectionQueue(givenAwayConectionQueue);
 	}
 
-	private static void closeConnectionQueue(BlockingQueue<CustomConnection> queue) {
-		CustomConnection customConnection = null;
-		while ((customConnection = queue.poll()) != null) {
+	private static void closeConnectionQueue(BlockingQueue<Connection> queue) {
+		Connection connection = null;
+		while ((connection = queue.poll()) != null) {
 			try {
-				customConnection.close();
-				logger.info("{} was successfully closed", customConnection.getConnectionName());
+				connection.close();
+				logger.info("connection was successfully closed");
 			} catch (SQLException e) {
-				logger.error("{} can't be closed ", customConnection.getConnectionName());
+				logger.error("connection can't be closed ");
 			}
 		}
 	}
 
-	public static CustomConnection getConnection() {
-		CustomConnection customConnection = null;
+	public static Connection getConnection() {
+		Connection connection = null;
 		try {
-			customConnection = connectionQueue.take();
-			givenAwayConectionQueue.add(customConnection);
-			logger.info("{} was successfully removed from connectionQueue to givenAwayConectionQueue",
-					customConnection.getConnectionName());
+			connection = connectionQueue.take();
+			givenAwayConectionQueue.add(connection);
 		} catch (InterruptedException e) {
-			logger.error(e.getMessage() + " in getConnection method in ConnectionPool class", e);
+			logger.error("InterruptedException in getConnection method in ConnectionPool class", e);
 		}
-		return customConnection;
+		return connection;
 	}
 
 	public static void putConnection(Connection connection) {
 		try {
-			CustomConnection customConnection = givenAwayConectionQueue.take();
-			connectionQueue.add(customConnection);
-			logger.info("{} was successfully removed from givenAwayConectionQueue to connectionQueue",
-					customConnection.getConnectionName());
-		} catch (InterruptedException e) {
-			logger.error(e.getMessage() + " in putConnection method in ConnectionPool class", e);
+			if (connection.isClosed()) {
+				logger.error("Already closed connection can't be closed ");
+			}
+			if (connection.isReadOnly()) {
+				connection.setReadOnly(false);
+			}
+			if (!givenAwayConectionQueue.remove(connection)) {
+				logger.error("Connection can't be deleted from givenAwayConectionQueue");
+			}
+			if (!connectionQueue.offer(connection)) {
+				logger.error("Connection can't be added to connectionQueue");
+			}
+		} catch (SQLException e) {
+			logger.error("{} in putConnection() in ConnectionPool class", e);
 		}
 	}
 }
