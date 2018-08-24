@@ -1,6 +1,7 @@
 package by.htp.epam.cinema.web.action;
 
 import by.htp.epam.cinema.web.action.impl.ChangeLocaleAction;
+import by.htp.epam.cinema.web.action.impl.ChangeUserRoleAction;
 import by.htp.epam.cinema.web.action.impl.ChooseSeatAction;
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
 import by.htp.epam.cinema.web.action.impl.CrudFilmAction;
@@ -43,6 +44,7 @@ public class ActionManager {
 		actions.put(ACTION_NAME_DELETE_NON_PAID_ORDER, new DeleteNonPaidOrderAction());
 		actions.put(ACTION_NAME_VIEW_PROFILE, new ProfileViewAction());
 		actions.put(ACTION_NAME_PAY_ORDER, new PayOrderAction());
+		actions.put(ACTION_NAME_CHANGE_USER_ROLE, new ChangeUserRoleAction());
 	}
 
 	public static BaseAction defineAction(HttpServletRequest req) {

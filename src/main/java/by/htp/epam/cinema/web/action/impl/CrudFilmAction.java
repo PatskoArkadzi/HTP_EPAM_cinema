@@ -20,6 +20,7 @@ import by.htp.epam.cinema.service.impl.GenreServiceImpl;
 import by.htp.epam.cinema.service.impl.UserServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
+import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ADMIN_CRUD_FILM;
@@ -35,11 +36,6 @@ public class CrudFilmAction implements BaseAction {
 	private FilmService filmService = new FilmServiceImpl();
 	private GenreService genreService = new GenreServiceImpl();
 	private UserService userService = new UserServiceImpl();
-
-	public static final String CRUD_COMMAND_CREATE = "create";
-	public static final String CRUD_COMMAND_READ = "read";
-	public static final String CRUD_COMMAND_UPDATE = "update";
-	public static final String CRUD_COMMAND_DELETE = "delete";
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
@@ -86,7 +82,7 @@ public class CrudFilmAction implements BaseAction {
 				}
 				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_CRUD_FILM));
 				return;
-			} catch (SQLException e) {
+			} catch (SQLException | ValidateNullParamException e) {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

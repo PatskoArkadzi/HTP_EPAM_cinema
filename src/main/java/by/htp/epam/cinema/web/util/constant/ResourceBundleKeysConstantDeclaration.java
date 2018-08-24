@@ -20,6 +20,8 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR = "msg.error.crudFilmAction.indefiniteError";
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_USER_IS_NOT_ADMIN = "msg.error.crudFilmAction.userIsNotAdmin";
 	public static final String ERROR_MSG_PAY_ORDER_ACTION_INDEFINITE_ERROR = "msg.error.payOrderAction.indefiniteError";
+	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN = "msg.error.changeUserRoleAction.userIsNotAdmin";
+	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR = "msg.error.changeUserRoleAction.indefiniteError";
 
 	public static final String DB_CONNECTION_DRIVER = "db.driver";
 	public static final String DB_CONNECTION_URL = "db.url";

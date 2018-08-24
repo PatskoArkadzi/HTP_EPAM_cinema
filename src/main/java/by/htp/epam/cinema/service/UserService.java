@@ -14,4 +14,8 @@ public interface UserService extends Service {
 
 	boolean isUserAdmin(HttpServletRequest request);
 
+	User getUser(int userId);
+
+	void updateUser(User user);
+
 }

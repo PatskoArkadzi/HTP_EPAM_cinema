@@ -122,7 +122,6 @@ public class UserDaoImpl implements UserDao {
 	public void update(User entity) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_UPDATE)) {
-			System.out.println("in update");
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getEmail());
 			ps.setString(3, entity.getPassword());

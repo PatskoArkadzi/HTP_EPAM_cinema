@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao = new UserDaoImpl();
 
 	@Override
+	public User getUser(int userId) {
+		return userDao.read(userId);
+	}
+
+	@Override
 	public User getUser(String login, String password) throws IllegalArgumentException {
 		User user = userDao.readByLogin(login);
 		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(password, user.getSalt()))) {
@@ -53,4 +58,10 @@ public class UserServiceImpl implements UserService {
 		User user = (User) session.getAttribute(SESSION_PARAM_CURRENT_USER);
 		return user != null && user.getRole_id() == 1;
 	}
+
+	@Override
+	public void updateUser(User user) {
+		userDao.update(user);
+	}
+
 }

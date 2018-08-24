@@ -20,9 +20,6 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_CHOSEN_SEAT_ID = "chosenSeatId";
 	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION_ID = "chosenFilmSessionId";
 	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION = "chosenFilmSession";
-	public static final String REQUEST_PARAM_USER_LOGIN = "login";
-	public static final String REQUEST_PARAM_USER_EMAIL = "email";
-	public static final String REQUEST_PARAM_USER_PASSWORD = "password";
 	public static final String REQUEST_PARAM_LOCALE_LANGUAGE = "localeLanguage";
 	public static final String REQUEST_PARAM_LOCALE_COUNTRY = "localeCountry";
 	public static final String REQUEST_PARAM_SEATS_WITH_STATES = "seatsWithStates";
@@ -34,8 +31,21 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID = "filmYouTubeVideoId";
 	public static final String REQUEST_PARAM_FILM_GENRES_ID = "filmGenresId";
 	public static final String REQUEST_PARAM_FOUND_FILM = "foundFilm";
+	public static final String REQUEST_PARAM_FOUND_USER = "foundUser";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER = "currentUserCurrentOrder";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_ID = "currentUserCurrentOrderId";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS = "currentUserCurrentOrderTickets";
+	public static final String REQUEST_PARAM_ROLELIST = "rolelist";
+	public static final String REQUEST_PARAM_USER_ID = "userId";
+	public static final String REQUEST_PARAM_USER_LOGIN = "userLogin";
+	public static final String REQUEST_PARAM_USER_EMAIL = "userEmail";
+	public static final String REQUEST_PARAM_USER_PASSWORD = "userPassword";
+	public static final String REQUEST_PARAM_USER_SALT = "userSalt";
+	public static final String REQUEST_PARAM_USER_ROLE_ID = "userRoleId";
+
+	public static final String CRUD_COMMAND_CREATE = "create";
+	public static final String CRUD_COMMAND_READ = "read";
+	public static final String CRUD_COMMAND_UPDATE = "update";
+	public static final String CRUD_COMMAND_DELETE = "delete";
 
 }
