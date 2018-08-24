@@ -18,8 +18,10 @@
 	<div class="container">
 		<nav class="navbar navbar-light bg-light">
 			<div class="row mx-auto">
-				<a class="nav-link" href="cinema?action=change_locale&localeLanguage=en&localeCountry=US">eng</a>
-				<a class="nav-link" href="cinema?action=change_locale&localeLanguage=ru&localeCountry=RU">rus</a>
+				<a class="nav-link"
+					href="cinema?action=change_locale&localeLanguage=en&localeCountry=US">eng</a>
+				<a class="nav-link"
+					href="cinema?action=change_locale&localeLanguage=ru&localeCountry=RU">rus</a>
 			</div>
 		</nav>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,31 +38,16 @@
 						<div class="dropdown">
 							<button class="btn btn-secondary dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">DataBase
-								actions</button>
+								aria-haspopup="true" aria-expanded="false">admin
+								commands</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/role/">CRUD
-									role</a>
+								<a class="dropdown-item" href="cinema?action=change_user_role">Change
+									user role</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/user/">CRUD
-									user</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/order/">CRUD
-									order</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item"
-									href="/cinema/newapp/admin/crud/ticket/">CRUD ticket</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/seat/">CRUD
-									seat</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item"
-									href="/cinema/newapp/admin/crud/session/">CRUD session</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/film/">CRUD
+								<a class="dropdown-item" href="cinema?action=crud_film">CRUD
 									film</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/cinema/newapp/admin/crud/genre/">CRUD
+								<a class="dropdown-item" href="cinema?action=crud_genre">CRUD
 									genre</a>
 							</div>
 						</div>

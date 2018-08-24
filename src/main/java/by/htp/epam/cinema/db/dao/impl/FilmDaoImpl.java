@@ -20,12 +20,14 @@ public class FilmDaoImpl implements FilmDao {
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
+	private static final String SQL_QUERY_ADD_GENRES_TO_FILM = "INSERT INTO `cinema_v2.0`.`films_genres` (`film_id`, `genre_id`) VALUES (?, ?);";
 	private static final String SQL_QUERY_FILM_READ = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
 	private static final String SQL_QUERY_FILM_READ_ALL = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films`;";
 	private static final String SQL_QUERY_FILM_READ_ALL_BY_GENRE_ID = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` f "
 			+ "inner join `cinema_v2.0`.`films_genres` fg on f.id=fg.film_id where fg.genre_id=?;";
 	private static final String SQL_QUERY_FILM_UPDATE = "UPDATE `cinema_v2.0`.`films` SET `filmName`=?, `description`=?, `posterUrl`=?, `youTubeVideoId`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_FILM_DELETE = "DELETE FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_GENRES_DELETE = "DELETE FROM `cinema_v2.0`.`films_genres` WHERE  `film_id`=?;";
 
 	@Override
 	public void create(Film entity) {
@@ -39,6 +41,53 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of FilmDaoImpl class", e);
 		} finally {
+			ConnectionPool.putConnection(con);
+		}
+	}
+
+	public void createFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
+		Connection con = ConnectionPool.getConnection();
+		PreparedStatement createFilmPs = null;
+		PreparedStatement addGenrePs = null;
+		try {
+			con.setAutoCommit(false);
+			createFilmPs = con.prepareStatement(SQL_QUERY_FILM_CREATE, Statement.RETURN_GENERATED_KEYS);
+			addGenrePs = con.prepareStatement(SQL_QUERY_ADD_GENRES_TO_FILM);
+
+			createFilmPs.setString(1, film.getFilmName());
+			createFilmPs.setString(2, film.getDescription());
+			createFilmPs.setString(3, film.getPosterUrl());
+			createFilmPs.setString(4, film.getYouTubeVideoId());
+			if (createFilmPs.executeUpdate() > 0) {
+				ResultSet rs = createFilmPs.getGeneratedKeys();
+				if (rs.next())
+					film.setId(rs.getInt(1));
+			} else
+				throw new SQLException();
+
+			for (int genreId : genresId) {
+				addGenrePs.setInt(1, film.getId());
+				addGenrePs.setInt(2, genreId);
+				addGenrePs.executeUpdate();
+			}
+			con.commit();
+		} catch (SQLException e) {
+			logger.error("SQLException in createFilmWithGenres method of FilmDaoImpl class", e);
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException ex) {
+					logger.error("Transaction can't be rolled back", ex);
+				}
+			}
+		} finally {
+			if (createFilmPs != null) {
+				createFilmPs.close();
+			}
+			if (addGenrePs != null) {
+				addGenrePs.close();
+			}
+			con.setAutoCommit(true);
 			ConnectionPool.putConnection(con);
 		}
 	}
@@ -114,7 +163,59 @@ public class FilmDaoImpl implements FilmDao {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of FilmDaoImpl class", e);
-		}finally {
+		} finally {
+			ConnectionPool.putConnection(con);
+		}
+	}
+
+	@Override
+	public void updateFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
+		Connection con = ConnectionPool.getConnection();
+		PreparedStatement updateFilmPs = null;
+		PreparedStatement deleteGenrePs = null;
+		PreparedStatement addGenrePs = null;
+		try {
+			con.setAutoCommit(false);
+			updateFilmPs = con.prepareStatement(SQL_QUERY_FILM_UPDATE);
+			deleteGenrePs = con.prepareStatement(SQL_QUERY_FILM_GENRES_DELETE);
+			addGenrePs = con.prepareStatement(SQL_QUERY_ADD_GENRES_TO_FILM);
+
+			updateFilmPs.setString(1, film.getFilmName());
+			updateFilmPs.setString(2, film.getDescription());
+			updateFilmPs.setString(3, film.getPosterUrl());
+			updateFilmPs.setString(4, film.getYouTubeVideoId());
+			updateFilmPs.setInt(5, film.getId());
+			updateFilmPs.executeUpdate();
+
+			deleteGenrePs.setInt(1, film.getId());
+			deleteGenrePs.executeUpdate();
+
+			for (int genreId : genresId) {
+				addGenrePs.setInt(1, film.getId());
+				addGenrePs.setInt(2, genreId);
+				addGenrePs.executeUpdate();
+			}
+			con.commit();
+		} catch (SQLException e) {
+			logger.error("SQLException in updateFilmWithGenres method of FilmDaoImpl class", e);
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException ex) {
+					logger.error("Transaction can't be rolled back", ex);
+				}
+			}
+		} finally {
+			if (updateFilmPs != null) {
+				updateFilmPs.close();
+			}
+			if (deleteGenrePs != null) {
+				deleteGenrePs.close();
+			}
+			if (addGenrePs != null) {
+				addGenrePs.close();
+			}
+			con.setAutoCommit(true);
 			ConnectionPool.putConnection(con);
 		}
 	}
@@ -127,7 +228,7 @@ public class FilmDaoImpl implements FilmDao {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of FilmDaoImpl class", e);
-		}finally {
+		} finally {
 			ConnectionPool.putConnection(con);
 		}
 	}

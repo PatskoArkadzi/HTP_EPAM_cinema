@@ -7,6 +7,12 @@ import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.util.PasswordSecurity;
 
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateEmailInput;
 
 public class UserServiceImpl implements UserService {
 
@@ -27,6 +33,8 @@ public class UserServiceImpl implements UserService {
 			return ERROR_MSG_SIGN_UP_ACTION_LOGIN;
 		else if (userDao.readByEmail(email) != null)
 			return ERROR_MSG_SIGN_UP_ACTION_EMAIL;
+		else if (!validateEmailInput(email))
+			return ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALIDATE;
 		else
 			return "";
 	}
@@ -37,5 +45,12 @@ public class UserServiceImpl implements UserService {
 		String userPassword = PasswordSecurity.getHashPassword(password, userSalt);
 		User user = new User(0, login, email, userPassword, userSalt, 2);
 		userDao.create(user);
+	}
+
+	@Override
+	public boolean isUserAdmin(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute(SESSION_PARAM_CURRENT_USER);
+		return user != null && user.getRole_id() == 1;
 	}
 }

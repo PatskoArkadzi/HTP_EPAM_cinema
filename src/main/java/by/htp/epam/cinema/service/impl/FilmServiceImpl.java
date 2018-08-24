@@ -1,5 +1,6 @@
 package by.htp.epam.cinema.service.impl;
 
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,5 +46,20 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public Film getFilm(int filmId) {
 		return filmDao.read(filmId);
+	}
+
+	@Override
+	public void createFilm(Film film, List<Integer> genresId) throws SQLException {
+		filmDao.createFilmWithGenres(film, genresId);
+	}
+
+	@Override
+	public void updateFilmAndGenres(Film film, List<Integer> genresId) throws SQLException {
+		filmDao.updateFilmWithGenres(film, genresId);
+	}
+
+	@Override
+	public void deleteFilm(Film film) {
+		filmDao.delete(film);
 	}
 }

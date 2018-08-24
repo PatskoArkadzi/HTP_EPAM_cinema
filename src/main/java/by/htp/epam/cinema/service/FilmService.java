@@ -1,5 +1,6 @@
 package by.htp.epam.cinema.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,5 +23,24 @@ public interface FilmService extends Service {
 	 * get film by id
 	 */
 	Film getFilm(int filmId);
+
+	/**
+	 * create Film and its genres
+	 * 
+	 * @throws SQLException
+	 */
+	void createFilm(Film film, List<Integer> genresId) throws SQLException;
+
+	/**
+	 * create Film and its genres
+	 * 
+	 * @throws SQLException
+	 */
+	void updateFilmAndGenres(Film film, List<Integer> genresId) throws SQLException;
+
+	/**
+	 * create Film and its genres
+	 */
+	void deleteFilm(Film film);
 
 }
