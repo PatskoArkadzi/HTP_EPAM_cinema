@@ -9,4 +9,6 @@ public interface TicketsOrderService extends Service {
 
 	TicketsOrder createTicketsOrder(User user);
 
+	void deleteNonPaidOrder(User user);
+
 }

@@ -5,7 +5,20 @@ import org.slf4j.LoggerFactory;
 
 public class Timer extends Thread {
 
+	private Timer() {
+	}
+
+	private static Timer instance;
+
+	public static Timer getInstance() {
+		if (instance == null) {
+			instance = new Timer();
+		}
+		return instance;
+	}
+
 	private static Logger logger = LoggerFactory.getLogger(Timer.class);
+
 	private boolean stop = false;
 
 	private static final long RESERVATION_PERIOD = 1 * 30000L;// 30 sec
@@ -43,5 +56,6 @@ public class Timer extends Thread {
 				logger.error("InterruptedException in Timer class", e);
 			}
 		}
+		instance = null;
 	}
 }

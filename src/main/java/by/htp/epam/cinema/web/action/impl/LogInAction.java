@@ -34,6 +34,7 @@ public class LogInAction implements BaseAction {
 			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_REPEATED_LOGGING));
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+			return;
 		}
 		if (isPost(request)) {
 			String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);

@@ -50,7 +50,7 @@ public class ChooseSeatAction implements BaseAction {
 			}
 		} else {
 			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
-					resourceManager.getValue(ERROR_MSG_CHOOSE_SEAT_ACTION_USER_IS_NOT_LOGGED_IN_ERROR));
+					resourceManager.getValue(ERROR_MSG_CHOOSE_SEAT_ACTION_USER_IS_NOT_LOGGED_IN));
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
