@@ -25,5 +25,16 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_LOCALE_LANGUAGE = "localeLanguage";
 	public static final String REQUEST_PARAM_LOCALE_COUNTRY = "localeCountry";
 	public static final String REQUEST_PARAM_SEATS_WITH_STATES = "seatsWithStates";
+	public static final String REQUEST_PARAM_CRUD_COMMAND = "crudCommand";
+	public static final String REQUEST_PARAM_FILM_ID = "filmId";
+	public static final String REQUEST_PARAM_FILM_NAME = "filmName";
+	public static final String REQUEST_PARAM_FILM_DESCRIPTION = "filmDescription";
+	public static final String REQUEST_PARAM_FILM_POSTER_URL = "filmPosterUrl";
+	public static final String REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID = "filmYouTubeVideoId";
+	public static final String REQUEST_PARAM_FILM_GENRES_ID = "filmGenresId";
+	public static final String REQUEST_PARAM_FOUND_FILM = "foundFilm";
+	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER = "currentUserCurrentOrder";
+	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_ID = "currentUserCurrentOrderId";
+	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS = "currentUserCurrentOrderTickets";
 
 }

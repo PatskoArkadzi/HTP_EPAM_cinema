@@ -6,14 +6,14 @@
 	if (${isTimerNeed!=null?isTimerNeed:false}) {
 		var myInterval = setInterval(function getTimer() {
 			$.ajax({
-				url : 'timer',
+				url : 'cinema?action=view_timer',
 				success : function(data) {
 					$('#timer').html(data);
 					if(data==="Time is over"){ 
 						console.log("Time is over");
 						clearInterval(myInterval);
 						$.ajax({
-							url : 'deleteNonPaidOrder',
+							url : 'cinema?action=deleteNonPaidOrder',
 							success: function() {
 								window.location.reload();
 							}								  

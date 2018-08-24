@@ -60,7 +60,7 @@
 					<c:choose>
 						<c:when test="${currentUser!=null}">
 							<li class="nav-item active"><a class="nav-link"
-								href="cinema?action=viewProfile" style="color: #FF0000"><b>${currentUser.login}</b></a></li>
+								href="cinema?action=view_profile" style="color: #FF0000"><b>${currentUser.login}</b></a></li>
 							<li class="nav-item active"><a class="nav-link"
 								href="cinema?action=log_out">log out</a></li>
 						</c:when>

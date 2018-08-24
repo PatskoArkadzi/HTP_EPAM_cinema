@@ -36,6 +36,11 @@ public class CrudFilmAction implements BaseAction {
 	private GenreService genreService = new GenreServiceImpl();
 	private UserService userService = new UserServiceImpl();
 
+	public static final String CRUD_COMMAND_CREATE = "create";
+	public static final String CRUD_COMMAND_READ = "read";
+	public static final String CRUD_COMMAND_UPDATE = "update";
+	public static final String CRUD_COMMAND_DELETE = "delete";
+
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,6 +48,7 @@ public class CrudFilmAction implements BaseAction {
 			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_CRUD_FILM_ACTION_USER_IS_NOT_ADMIN));
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+			return;
 		}
 		Map<Film, List<Genre>> filmWithGenres = filmService.getAllFilmsWithTheirGenres();
 		List<Genre> allGenres = genreService.getAllGenres();
@@ -50,31 +56,30 @@ public class CrudFilmAction implements BaseAction {
 		request.setAttribute(SESSION_PARAM_GENRELIST, allGenres);
 		if (isPost(request)) {
 			String crudCommand = request.getParameter(REQUEST_PARAM_CRUD_COMMAND);
-			System.out.println("crudCommand" + crudCommand);
 			validateRequestParamNotNull(crudCommand);
 			Film film;
 			List<Integer> genresIdList;
 
 			try {
 				switch (crudCommand) {
-				case REQUEST_PARAM_CRUD_VALUE_CREATE:
+				case CRUD_COMMAND_CREATE:
 					film = buildFilm(request);
 					genresIdList = getFilmGenresId(request);
 					filmService.createFilm(film, genresIdList);
 					break;
-				case REQUEST_PARAM_CRUD_VALUE_READ:
+				case CRUD_COMMAND_READ:
 					String filmId = request.getParameter(REQUEST_PARAM_FILM_ID);
 					validateRequestParamNotNull(filmId);
 					film = filmService.getFilm(getInt(filmId));
 					request.setAttribute(REQUEST_PARAM_FOUND_FILM, film);
 					request.getRequestDispatcher(PAGE_ADMIN_CRUD_FILM).forward(request, response);
 					return;
-				case REQUEST_PARAM_CRUD_VALUE_UPDATE:
+				case CRUD_COMMAND_UPDATE:
 					film = buildFilm(request);
 					genresIdList = getFilmGenresId(request);
 					filmService.updateFilmAndGenres(film, genresIdList);
 					break;
-				case REQUEST_PARAM_CRUD_VALUE_DELETE:
+				case CRUD_COMMAND_DELETE:
 					film = buildFilm(request);
 					filmService.deleteFilm(film);
 					break;
