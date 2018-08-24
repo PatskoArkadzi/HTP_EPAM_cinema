@@ -13,5 +13,11 @@ public final class ActionNameConstantDeclaration {
 	public static final String ACTION_NAME_CHOOSE_SEAT = "choose_seat";
 	public static final String ACTION_NAME_TO_BASKET = "to_basket";
 	public static final String ACTION_NAME_CHANGE_LOCALE = "change_locale";
+	public static final String ACTION_NAME_CHANGE_USER_ROLE = "change_user_role";
+	public static final String ACTION_NAME_CRUD_FILM = "crud_film";
+	public static final String ACTION_NAME_CRUD_GENRE = "crud_genre";
+	public static final String ACTION_NAME_VIEW_TIMER = "view_timer";
+	public static final String ACTION_NAME_DELETE_NON_PAID_ORDER = "deleteNonPaidOrder";
+	public static final String ACTION_NAME_PAY_ORDER = "payOrder";
 
 }

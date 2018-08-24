@@ -81,7 +81,6 @@ public class TicketDaoImpl implements TicketDao {
 
 	@Override
 	public List<Ticket> readAllWhereOrderIdPresent(int orderId) {
-		System.out.println("in readAllWhereOrderIdPresent");
 		List<Ticket> tickets = null;
 		ResultSet rs = null;
 		Connection con = ConnectionPool.getConnection();

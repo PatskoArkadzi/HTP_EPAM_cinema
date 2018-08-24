@@ -10,6 +10,7 @@ public final class PageNameConstantDeclaration {
 	public static final String PAGE_USER_SEAT_CHOICE = "/WEB-INF/pages/user/seatChoice.jsp";
 	public static final String PAGE_USER_PROFILE = "/WEB-INF/pages/user/profile.jsp";
 	public static final String PAGE_ERROR = "/WEB-INF/pages/error.jsp";
+	public static final String PAGE_SUCCESS = "/WEB-INF/pages/success.jsp";
 	public static final String PAGE_ADMIN_CRUD_FILM = "/WEB-INF/pages/admin/crudFilm.jsp";
 
 }

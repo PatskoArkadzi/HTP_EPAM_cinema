@@ -47,7 +47,7 @@
 	<div align="right" style="color: red;">
 		<div class="container">
 			<b>total: ${totalPrice}</b><br> <a
-				href="cinema?action=pay?currentUserCurrentOrderId=${currentUserCurrentOrder.id}"><button
+				href="cinema?action=payOrder&currentUserCurrentOrderId=${currentUserCurrentOrder.id}"><button
 					class="btn btn-success btn-lg">Pay</button></a>
 		</div>
 	</div>

@@ -36,7 +36,6 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public Map<Ticket, List<BaseEntity>> getOrderTickets(TicketsOrder order) {
-		System.out.println("in getOrderTickets");
 		List<Ticket> tickets = ticketDao.readAllWhereOrderIdPresent(order.getId());
 		Map<Ticket, List<BaseEntity>> currentOrderTickets = new HashMap<>();
 		for (Ticket t : tickets) {

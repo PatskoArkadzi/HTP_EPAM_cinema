@@ -3,13 +3,18 @@ package by.htp.epam.cinema.web.action;
 import by.htp.epam.cinema.web.action.impl.ChangeLocaleAction;
 import by.htp.epam.cinema.web.action.impl.ChooseSeatAction;
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
+import by.htp.epam.cinema.web.action.impl.CrudFilmAction;
+import by.htp.epam.cinema.web.action.impl.DeleteNonPaidOrderAction;
 import by.htp.epam.cinema.web.action.impl.ErrorPageViewAction;
 import by.htp.epam.cinema.web.action.impl.FilmPageViewAction;
 import by.htp.epam.cinema.web.action.impl.HomePageViewAction;
 import by.htp.epam.cinema.web.action.impl.LogInAction;
 import by.htp.epam.cinema.web.action.impl.LogOutAction;
+import by.htp.epam.cinema.web.action.impl.PayOrderAction;
+import by.htp.epam.cinema.web.action.impl.ProfileViewAction;
 import by.htp.epam.cinema.web.action.impl.SignUpAction;
 import by.htp.epam.cinema.web.action.impl.ToBasketAction;
+import by.htp.epam.cinema.web.action.impl.ViewTimerAction;
 
 import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.*;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_ACTION;
@@ -33,7 +38,11 @@ public class ActionManager {
 		actions.put(ACTION_NAME_CHOOSE_SEAT, new ChooseSeatAction());
 		actions.put(ACTION_NAME_TO_BASKET, new ToBasketAction());
 		actions.put(ACTION_NAME_CHANGE_LOCALE, new ChangeLocaleAction());
-		// actions.put(ACTION_NAME_VIEW_PROFILE,);
+		actions.put(ACTION_NAME_CRUD_FILM, new CrudFilmAction());
+		actions.put(ACTION_NAME_VIEW_TIMER, new ViewTimerAction());
+		actions.put(ACTION_NAME_DELETE_NON_PAID_ORDER, new DeleteNonPaidOrderAction());
+		actions.put(ACTION_NAME_VIEW_PROFILE, new ProfileViewAction());
+		actions.put(ACTION_NAME_PAY_ORDER, new PayOrderAction());
 	}
 
 	public static BaseAction defineAction(HttpServletRequest req) {

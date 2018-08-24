@@ -11,4 +11,6 @@ public interface TicketsOrderService extends Service {
 
 	void deleteNonPaidOrder(User user);
 
+	void payOrder(int ticketOrderId);
+
 }

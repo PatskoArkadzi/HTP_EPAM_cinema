@@ -28,7 +28,7 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 	private static final String SQL_QUERY_TICKETS_ORDER_READ_BY_SEAT_AND_FILMSESSION = "SELECT o.`id`, o.`orderNumber`, o.`user_id`, o.`isPaid` FROM `cinema_v2.0`.`orders` o "
 			+ "INNER JOIN `cinema_v2.0`.`tickets` t ON o.`id`=t.`order_id` WHERE t.`seat_id`=? AND t.`session_id`=?";
 	private static final String SQL_QUERY_TICKETS_ORDER_READ_ALL = "SELECT `id`, `orderNumber`, `user_id`, `isPaid` FROM `cinema_v2.0`.`orders`;";
-	private static final String SQL_QUERY_TICKETS_ORDER_UPDATE = "UPDATE `cinema_v2.0`.`orders` SET `user_id`='?, `isPaid`=? WHERE  `id`=?;";
+	private static final String SQL_QUERY_TICKETS_ORDER_UPDATE = "UPDATE `cinema_v2.0`.`orders` SET `user_id`=?, `isPaid`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_TICKETS_ORDER_DELETE = "DELETE FROM `cinema_v2.0`.`orders` WHERE  `id`=?;";
 
 	@Override
