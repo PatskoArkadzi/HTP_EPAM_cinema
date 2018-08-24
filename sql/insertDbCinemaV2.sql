@@ -23,7 +23,7 @@ INSERT INTO `films` (`id`, `filmName`, `description`, `posterUrl`, `youTubeVideo
 	(6, 'Мстители: Война бесконечности', 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности -  артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту -  судьба Земли никогда ещё не была столь неопределённой. ', 'https://drive.google.com/uc?id=157z5PWXbBEzKjd09-cbfZup-4HWeZ3Kf', 'QwievZ1Tx-8');
 /*!40000 ALTER TABLE `films` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.films_genres: ~22 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.films_genres: ~4 rows (приблизительно)
 DELETE FROM `films_genres`;
 /*!40000 ALTER TABLE `films_genres` DISABLE KEYS */;
 INSERT INTO `films_genres` (`film_id`, `genre_id`) VALUES
@@ -48,7 +48,8 @@ INSERT INTO `films_genres` (`film_id`, `genre_id`) VALUES
 	(6, 9),
 	(6, 6),
 	(6, 8),
-	(6, 1);
+	(6, 1),
+	(6, 3);
 /*!40000 ALTER TABLE `films_genres` ENABLE KEYS */;
 
 -- Дамп данных таблицы cinema_v2.0.genres: ~9 rows (приблизительно)
@@ -66,7 +67,7 @@ INSERT INTO `genres` (`id`, `genreName`) VALUES
 	(9, 'Фэнтези');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.orders: ~7 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.orders: ~6 rows (приблизительно)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
@@ -75,7 +76,8 @@ INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
 	(3, 397928, 4, b'0'),
 	(4, 553779, 3, b'1'),
 	(13, 300850, 1, b'1'),
-	(14, 933849, 1, b'1');
+	(14, 933849, 1, b'1'),
+	(18, 260247, 1, b'0');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Дамп данных таблицы cinema_v2.0.roles: ~2 rows (приблизительно)
@@ -356,7 +358,7 @@ INSERT INTO `sessions` (`id`, `film_id`, `date`, `time`, `ticketPrice`) VALUES
 	(7, 2, '2018-07-10', '12:00', 5.00);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.tickets: ~11 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.tickets: ~12 rows (приблизительно)
 DELETE FROM `tickets`;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
 INSERT INTO `tickets` (`id`, `session_id`, `seat_id`, `order_id`) VALUES
@@ -370,7 +372,8 @@ INSERT INTO `tickets` (`id`, `session_id`, `seat_id`, `order_id`) VALUES
 	(32, 6, 6, 3),
 	(51, 6, 250, 13),
 	(52, 6, 249, 14),
-	(53, 6, 248, 14);
+	(53, 6, 248, 14),
+	(69, 1, 114, 18);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 
 -- Дамп данных таблицы cinema_v2.0.users: ~5 rows (приблизительно)

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   `posterUrl` varchar(100) NOT NULL,
   `youTubeVideoId` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.films_genres
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `films_genres` (
   `genre_id` int(11) NOT NULL,
   KEY `film_id` (`film_id`),
   KEY `genre_id` (`genre_id`),
-  CONSTRAINT `FK_films_genres_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
+  CONSTRAINT `FK_films_genres_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_films_genres_genres` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -54,14 +54,14 @@ CREATE TABLE IF NOT EXISTS `genres` (
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orderNumber` int(10) NOT NULL COMMENT 'trigger-generated column',
+  `orderNumber` int(10) DEFAULT NULL COMMENT 'trigger-generated column, without default value sql query doesn''t perform',
   `user_id` int(11) NOT NULL,
   `isPaid` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `orderNumber` (`orderNumber`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.roles
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   CONSTRAINT `FK_tickets_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tickets_seats` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`),
   CONSTRAINT `FK_tickets_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.users
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `login` (`login`),
   KEY `roles_id` (`role_id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='admin-password\r\nuser1-qwerty\r\nuser2-12345\r\nuser3-54321';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='admin-password\r\nuser1-qwerty\r\nuser2-12345\r\nuser3-54321';
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для триггер cinema_v2.0.generate orderNumber
