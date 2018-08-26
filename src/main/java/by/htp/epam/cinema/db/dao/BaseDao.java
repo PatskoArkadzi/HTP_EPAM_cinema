@@ -14,6 +14,6 @@ public interface BaseDao<T extends BaseEntity> {
 
 	void update(T entity);
 
-	void delete(T entity);
+	void delete(int entityId);
 
 }

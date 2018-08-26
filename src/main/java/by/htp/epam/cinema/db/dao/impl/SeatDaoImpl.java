@@ -113,10 +113,10 @@ public class SeatDaoImpl implements SeatDao {
 	}
 
 	@Override
-	public void delete(Seat entity) {
+	public void delete(int entityId) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_DELETE)) {
-			ps.setInt(1, entity.getId());
+			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of SeatDaoImpl class", e);

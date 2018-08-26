@@ -136,10 +136,10 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 	}
 
 	@Override
-	public void delete(TicketsOrder entity) {
+	public void delete(int entityId) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_DELETE)) {
-			ps.setInt(1, entity.getId());
+			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of TicketsOrderDaoImpl class", e);

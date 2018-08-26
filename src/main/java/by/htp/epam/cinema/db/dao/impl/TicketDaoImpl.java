@@ -117,10 +117,10 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	@Override
-	public void delete(Ticket entity) {
+	public void delete(int entityId) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_DELETE)) {
-			ps.setInt(1, entity.getId());
+			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of TicketDaoImpl class", e);

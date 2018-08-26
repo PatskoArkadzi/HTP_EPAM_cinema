@@ -15,7 +15,6 @@ import by.htp.epam.cinema.db.dao.RoleDao;
 import by.htp.epam.cinema.db.pool.ConnectionPool;
 import by.htp.epam.cinema.domain.Role;
 
-
 public class RoleDaoImpl implements RoleDao {
 
 	private static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
@@ -25,8 +24,6 @@ public class RoleDaoImpl implements RoleDao {
 	private static final String SQL_QUERY_ROLE_READ_ALL = "SELECT `id`, `roleName` FROM `cinema_v2.0`.`roles`;";
 	private static final String SQL_QUERY_ROLE_UPDATE = "UPDATE `cinema_v2.0`.`roles` SET `roleName`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_ROLE_DELETE = "DELETE FROM `cinema_v2.0`.`roles` WHERE  `id`=?;";
-
-
 
 	@Override
 	public void create(Role entity) {
@@ -58,7 +55,6 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		return null;
 	}
-
 
 	@Override
 	public List<Role> readAll() {
@@ -95,10 +91,10 @@ public class RoleDaoImpl implements RoleDao {
 	}
 
 	@Override
-	public void delete(Role entity) {
+	public void delete(int entityId) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_ROLE_DELETE)) {
-			ps.setInt(1, entity.getId());
+			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of RoleDaoImpl class", e);
@@ -107,7 +103,6 @@ public class RoleDaoImpl implements RoleDao {
 		}
 	}
 
-	
 	private Role buildRole(ResultSet rs) throws SQLException {
 		Role role = new Role();
 		role.setId(rs.getInt("id"));

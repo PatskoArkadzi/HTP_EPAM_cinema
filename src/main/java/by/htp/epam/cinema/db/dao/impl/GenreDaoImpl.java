@@ -118,10 +118,10 @@ public class GenreDaoImpl implements GenreDao {
 	}
 
 	@Override
-	public void delete(Genre entity) {
+	public void delete(int entityId) {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_DELETE)) {
-			ps.setInt(1, entity.getId());
+			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of GenreDaoImpl class", e);
