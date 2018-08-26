@@ -8,7 +8,6 @@ import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.P
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN;
-import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_CHANGE_USER_ROLE;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +23,6 @@ import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.service.impl.RoleServiceImpl;
 import by.htp.epam.cinema.service.impl.UserServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
-import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 public class ChangeUserRoleAction implements BaseAction {
@@ -42,7 +40,6 @@ public class ChangeUserRoleAction implements BaseAction {
 			return;
 		}
 		User user = null;
-		List<Role> roles = roleService.getAll();
 		try {
 			if (isPost(request)) {
 				String crudCommand = request.getParameter(REQUEST_PARAM_CRUD_COMMAND);
@@ -58,10 +55,11 @@ public class ChangeUserRoleAction implements BaseAction {
 					userService.updateUser(user);
 					break;
 				}
+				List<Role> roles = roleService.getAll();
 				request.setAttribute(REQUEST_PARAM_FOUND_USER, user);
 				request.setAttribute(REQUEST_PARAM_ROLELIST, roles);
-				request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
-				return;
+//				request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
+//				return;
 			}
 			request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
 		} catch (ValidateNullParamException e) {

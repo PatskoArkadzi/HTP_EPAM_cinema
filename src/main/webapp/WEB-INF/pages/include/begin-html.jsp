@@ -47,8 +47,8 @@
 								<a class="dropdown-item" href="cinema?action=crud_film">CRUD
 									film</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="cinema?action=crud_genre">CRUD
-									genre</a>
+								<a class="dropdown-item" href="cinema?action=crud_filmSession">CRUD
+									filmSession</a>
 							</div>
 						</div>
 					</c:if>

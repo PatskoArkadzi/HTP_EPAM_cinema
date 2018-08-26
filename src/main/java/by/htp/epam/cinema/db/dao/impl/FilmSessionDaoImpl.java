@@ -23,6 +23,7 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 
 	private static final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
 	private static final String SQL_QUERY_FILM_SESSION_READ = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
+	private static final String SQL_QUERY_FILM_SESSION_READ_BY_DATE_AND_TIME = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE `date`=? AND `time`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_READ_ALL = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions`;";
 	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_BY_FILM_ID = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE `film_id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_UPDATE = "UPDATE `cinema_v2.0`.`sessions` SET `film_id`=?, `date`=?, `time`=?, `ticketPrice`=? WHERE `id`=?;";
@@ -57,6 +58,25 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 				return buildFilmSession(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of FilmSessionDaoImpl class", e);
+		} finally {
+			ConnectionPool.putConnection(con);
+			close(rs);
+		}
+		return null;
+	}
+
+	@Override
+	public FilmSession readByDateAndTime(String date, String time) {
+		ResultSet rs = null;
+		Connection con = ConnectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_SESSION_READ_BY_DATE_AND_TIME)) {
+			ps.setString(1, date);
+			ps.setString(2, time);
+			rs = ps.executeQuery();
+			if (rs.next())
+				return buildFilmSession(rs);
+		} catch (SQLException e) {
+			logger.error("SQLException in readByDateAndTime method of FilmSessionDaoImpl class", e);
 		} finally {
 			ConnectionPool.putConnection(con);
 			close(rs);

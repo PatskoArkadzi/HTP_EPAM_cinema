@@ -33,6 +33,11 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_FILM_GENRES_ID = "filmGenresId";
 	public static final String REQUEST_PARAM_FOUND_FILM = "foundFilm";
 	public static final String REQUEST_PARAM_FOUND_USER = "foundUser";
+	public static final String REQUEST_PARAM_FILMSESSION_ID = "filmSessionId";
+	public static final String REQUEST_PARAM_FILMSESSION_DATE = "filmSessionDate";
+	public static final String REQUEST_PARAM_FILMSESSION_TIME = "filmSessionTime";
+	public static final String REQUEST_PARAM_FILMSESSION_TICKET_PRICE = "filmSessionTicketPrice";
+	public static final String REQUEST_PARAM_FOUND_FILMSESSIONS = "foundFilmSessions";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER = "currentUserCurrentOrder";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_ID = "currentUserCurrentOrderId";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS = "currentUserCurrentOrderTickets";

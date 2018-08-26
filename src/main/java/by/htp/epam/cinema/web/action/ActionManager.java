@@ -5,6 +5,7 @@ import by.htp.epam.cinema.web.action.impl.ChangeUserRoleAction;
 import by.htp.epam.cinema.web.action.impl.ChooseSeatAction;
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
 import by.htp.epam.cinema.web.action.impl.CrudFilmAction;
+import by.htp.epam.cinema.web.action.impl.CrudFilmSessionAction;
 import by.htp.epam.cinema.web.action.impl.DeleteNonPaidOrderAction;
 import by.htp.epam.cinema.web.action.impl.ErrorPageViewAction;
 import by.htp.epam.cinema.web.action.impl.FilmPageViewAction;
@@ -40,6 +41,7 @@ public class ActionManager {
 		actions.put(ACTION_NAME_TO_BASKET, new ToBasketAction());
 		actions.put(ACTION_NAME_CHANGE_LOCALE, new ChangeLocaleAction());
 		actions.put(ACTION_NAME_CRUD_FILM, new CrudFilmAction());
+		actions.put(ACTION_NAME_CRUD_FILMSESSION, new CrudFilmSessionAction());
 		actions.put(ACTION_NAME_VIEW_TIMER, new ViewTimerAction());
 		actions.put(ACTION_NAME_DELETE_NON_PAID_ORDER, new DeleteNonPaidOrderAction());
 		actions.put(ACTION_NAME_VIEW_PROFILE, new ProfileViewAction());

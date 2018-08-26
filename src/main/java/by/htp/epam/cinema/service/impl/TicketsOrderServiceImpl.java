@@ -28,7 +28,7 @@ public class TicketsOrderServiceImpl implements TicketsOrderService {
 	public void deleteNonPaidOrder(User user) {
 		TicketsOrder order = readUserNonPaidOrder(user);
 		if (order != null) {
-			ticketsOrderDao.delete(order);
+			ticketsOrderDao.delete(order.getId());
 		}
 	}
 

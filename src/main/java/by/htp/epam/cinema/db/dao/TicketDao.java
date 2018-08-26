@@ -8,6 +8,6 @@ public interface TicketDao extends BaseDao<Ticket> {
 
 	List<Ticket> readAllWhereOrderIdPresent(int orderId);
 
-	// List<Ticket> readAll(String property, Object value);
+	List<Ticket> readAllWhereFilmSessionIdPresent(int filmSessionId);
 
 }

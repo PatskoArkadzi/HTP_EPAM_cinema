@@ -1,21 +1,35 @@
 package by.htp.epam.cinema.service.impl;
 
+import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
+import by.htp.epam.cinema.db.dao.TicketDao;
 import by.htp.epam.cinema.db.dao.impl.FilmDaoImpl;
 import by.htp.epam.cinema.db.dao.impl.FilmSessionDaoImpl;
+import by.htp.epam.cinema.db.dao.impl.TicketDaoImpl;
 import by.htp.epam.cinema.domain.FilmSession;
+import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.service.FilmSessionService;
 
 public class FilmSessionServiceImpl implements FilmSessionService {
 
 	private FilmSessionDao filmSessionDao = new FilmSessionDaoImpl();
+	private TicketDao ticketDao = new TicketDaoImpl();
 
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
+	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 	@Override
 	public List<FilmSession> getFilmSessions(int filmId) {
@@ -25,5 +39,58 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 	@Override
 	public FilmSession getFilmSession(int filmSessionId) {
 		return filmSessionDao.read(filmSessionId);
+	}
+
+	@Override
+	public void createFilmSession(FilmSession filmSession) {
+		filmSessionDao.create(filmSession);
+	}
+
+	@Override
+	public void updateFilmSession(FilmSession filmSession) {
+		filmSessionDao.update(filmSession);
+	}
+
+	@Override
+	public void deleteFilmSession(int filmSessionId) {
+		filmSessionDao.delete(filmSessionId);
+	}
+
+	@Override
+	public boolean isFilmSessionTimeFree(FilmSession filmSession) {
+		FilmSession filmSessionFromDB = filmSessionDao.readByDateAndTime(filmSession.getDate(), filmSession.getTime());
+		return filmSessionFromDB == null || filmSession.getId() == filmSessionFromDB.getId();
+	}
+
+	@Override
+	public boolean isRemovalPossible(int filmSessionId) {
+		FilmSession filmSession = filmSessionDao.read(filmSessionId);
+		StringBuilder sb = new StringBuilder();
+		sb.append(filmSession.getDate()).append(" ").append(filmSession.getTime());
+		LocalDateTime filmSessionDateAndTime = LocalDateTime.parse(sb, dateTimeFormatter);
+		if (filmSessionDateAndTime.isBefore(LocalDateTime.now())) {
+			return true;
+		} else {
+			List<Ticket> tickets = ticketDao.readAllWhereFilmSessionIdPresent(filmSessionId);
+			return tickets == null || tickets.size() == 0;
+		}
+	}
+
+	@Override
+	public FilmSession buildFilmSession(HttpServletRequest request) {
+		String filmSessionid = request.getParameter(REQUEST_PARAM_FILMSESSION_ID);
+		String fkFilmId = request.getParameter(REQUEST_PARAM_FILM_ID);
+		String filmSessionDate = request.getParameter(REQUEST_PARAM_FILMSESSION_DATE);
+		String filmSessionTime = request.getParameter(REQUEST_PARAM_FILMSESSION_TIME);
+		String filmSessionTicketPrice = request.getParameter(REQUEST_PARAM_FILMSESSION_TICKET_PRICE);
+		validateRequestParamNotNull(filmSessionid, fkFilmId, filmSessionDate, filmSessionTime, filmSessionTicketPrice);
+
+		FilmSession filmSession = new FilmSession();
+		filmSession.setId(getInt(filmSessionid));
+		filmSession.setFilm_id(getInt(fkFilmId));
+		filmSession.setDate(filmSessionDate);
+		filmSession.setTime(filmSessionTime);
+		filmSession.setTicketPrice(new BigDecimal(filmSessionTicketPrice));
+		return filmSession;
 	}
 }

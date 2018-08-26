@@ -19,6 +19,10 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_TO_BASKET_ACTION_USER_IS_NOT_LOGGED_IN = "msg.error.toBasketAction.userIsNotLoggedIn";
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR = "msg.error.crudFilmAction.indefiniteError";
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_USER_IS_NOT_ADMIN = "msg.error.crudFilmAction.userIsNotAdmin";
+	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_USER_IS_NOT_ADMIN = "msg.error.crudFilmSessionAction.userIsNotAdmin";
+	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_INDEFINITE_ERROR = "msg.error.crudFilmSessionAction.indefiniteError";
+	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_TIME_IS_BUSY = "msg.error.crudFilmSessionAction.TimeIsBusy";
+	public static final String ERROR_MSG_CRUD_FILMSESSION_DELETE_IMPOSIBLE = "msg.error.crudFilmSessionAction.de;leteImpossible";
 	public static final String ERROR_MSG_PAY_ORDER_ACTION_INDEFINITE_ERROR = "msg.error.payOrderAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN = "msg.error.changeUserRoleAction.userIsNotAdmin";
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR = "msg.error.changeUserRoleAction.indefiniteError";

@@ -12,4 +12,6 @@ public interface FilmSessionDao extends BaseDao<FilmSession> {
 	List<FilmSession> readAll(int filmId);
 
 	List<FilmSession> readAllWhereSeatNotFree(Seat seat);
+
+	FilmSession readByDateAndTime(String date, String time);
 }

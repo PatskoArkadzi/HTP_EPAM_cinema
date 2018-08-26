@@ -23,6 +23,7 @@ public class TicketDaoImpl implements TicketDao {
 	private static final String SQL_QUERY_TICKET_READ = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets` WHERE  `id`=?;";
 	private static final String SQL_QUERY_TICKET_READ_ALL = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets`;";
 	private static final String SQL_QUERY_TICKET_READ_ALL_BY_ORDER_ID = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets` WHERE `order_id`=?;";
+	private static final String SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets` WHERE `session_id`=?;";
 	private static final String SQL_QUERY_TICKET_UPDATE = "UPDATE `cinema_v2.0`.`tickets` SET `session_id`=?, `seat_id`=?, `order_id`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_TICKET_DELETE = "DELETE FROM `cinema_v2.0`.`tickets` WHERE  `id`=?;";
 
@@ -86,6 +87,27 @@ public class TicketDaoImpl implements TicketDao {
 		Connection con = ConnectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_READ_ALL_BY_ORDER_ID)) {
 			ps.setInt(1, orderId);
+			rs = ps.executeQuery();
+			tickets = new ArrayList<>();
+			while (rs.next()) {
+				tickets.add(buildTicket(rs));
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
+		} finally {
+			ConnectionPool.putConnection(con);
+			close(rs);
+		}
+		return tickets;
+	}
+
+	@Override
+	public List<Ticket> readAllWhereFilmSessionIdPresent(int filmSessionId) {
+		List<Ticket> tickets = null;
+		ResultSet rs = null;
+		Connection con = ConnectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID)) {
+			ps.setInt(1, filmSessionId);
 			rs = ps.executeQuery();
 			tickets = new ArrayList<>();
 			while (rs.next()) {

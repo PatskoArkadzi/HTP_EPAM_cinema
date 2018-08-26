@@ -2,7 +2,6 @@ package by.htp.epam.cinema.web.action.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,15 +51,14 @@ public class CrudFilmAction implements BaseAction {
 		request.setAttribute(SESSION_PARAM_GENRELIST, allGenres);
 		if (isPost(request)) {
 			String crudCommand = request.getParameter(REQUEST_PARAM_CRUD_COMMAND);
-			validateRequestParamNotNull(crudCommand);
-			Film film;
-			List<Integer> genresIdList;
-
 			try {
+				validateRequestParamNotNull(crudCommand);
+				Film film;
+				List<Integer> genresIdList;
 				switch (crudCommand) {
 				case CRUD_COMMAND_CREATE:
-					film = buildFilm(request);
-					genresIdList = getFilmGenresId(request);
+					film = filmService.buildFilm(request);
+					genresIdList = genreService.getFilmGenresId(request);
 					filmService.createFilm(film, genresIdList);
 					break;
 				case CRUD_COMMAND_READ:
@@ -71,12 +69,12 @@ public class CrudFilmAction implements BaseAction {
 					request.getRequestDispatcher(PAGE_ADMIN_CRUD_FILM).forward(request, response);
 					return;
 				case CRUD_COMMAND_UPDATE:
-					film = buildFilm(request);
-					genresIdList = getFilmGenresId(request);
+					film = filmService.buildFilm(request);
+					genresIdList = genreService.getFilmGenresId(request);
 					filmService.updateFilmAndGenres(film, genresIdList);
 					break;
 				case CRUD_COMMAND_DELETE:
-					film = buildFilm(request);
+					film = filmService.buildFilm(request);
 					filmService.deleteFilm(film);
 					break;
 				}
@@ -86,35 +84,9 @@ public class CrudFilmAction implements BaseAction {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+				return;
 			}
 		}
 		request.getRequestDispatcher(PAGE_ADMIN_CRUD_FILM).forward(request, response);
-	}
-
-	private Film buildFilm(HttpServletRequest req) {
-		String id = req.getParameter(REQUEST_PARAM_FILM_ID);
-		String filmName = req.getParameter(REQUEST_PARAM_FILM_NAME);
-		String description = req.getParameter(REQUEST_PARAM_FILM_DESCRIPTION);
-		String posterUrl = req.getParameter(REQUEST_PARAM_FILM_POSTER_URL);
-		String youTubeVideoId = req.getParameter(REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID);
-		validateRequestParamNotNull(id, filmName, description, posterUrl);
-
-		Film film = new Film();
-		film.setId(getInt(id));
-		film.setFilmName(filmName);
-		film.setDescription(description);
-		film.setPosterUrl(fixGoogleDriveUrl(posterUrl));
-		film.setYouTubeVideoId(youTubeVideoId);
-		return film;
-	}
-
-	private List<Integer> getFilmGenresId(HttpServletRequest req) {
-		String[] genresId = req.getParameterValues(REQUEST_PARAM_FILM_GENRES_ID);
-		validateRequestParamNotNull(genresId);
-		List<Integer> genresIdList = new ArrayList<>();
-		for (String genreId : genresId) {
-			genresIdList.add(getInt(genreId));
-		}
-		return genresIdList;
 	}
 }
