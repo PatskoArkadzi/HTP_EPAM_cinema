@@ -14,4 +14,6 @@ public final class PageNameConstantDeclaration {
 	public static final String PAGE_ADMIN_CRUD_FILM = "/WEB-INF/pages/admin/crudFilm.jsp";
 	public static final String PAGE_ADMIN_CHANGE_USER_ROLE = "/WEB-INF/pages/admin/changeUserRole.jsp";
 
+	private PageNameConstantDeclaration() {
+	}
 }

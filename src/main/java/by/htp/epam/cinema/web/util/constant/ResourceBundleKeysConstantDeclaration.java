@@ -29,4 +29,7 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String DB_CONNECTION_PASSWORD = "db.pass";
 
 	public static final String SUCCESS_MSG_PAY_ORDER_ACTION_SUCCESSFULL_PAYMENT = "msg.success.payOrderAcrion.successfullPayment";
+
+	private ResourceBundleKeysConstantDeclaration() {
+	}
 }

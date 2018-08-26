@@ -9,6 +9,7 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_ACTION = "action";
 	public static final String REQUEST_PARAM_ERROR_MESSAGE = "errorMessage";
 	public static final String REQUEST_PARAM_SUCCESS_MESSAGE = "successMessage";
+	public static final String REQUEST_PARAM_FILMLIST = "filmlist";
 	public static final String REQUEST_PARAM_FILM_WITH_GENRES = "filmWithGenres";
 	public static final String REQUEST_PARAM_CHOSEN_GENRE_FILMS = "chosenGenreFilms";
 	public static final String REQUEST_PARAM_CHOSEN_GENRE_ID = "chosenGenreId";
@@ -48,4 +49,6 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String CRUD_COMMAND_UPDATE = "update";
 	public static final String CRUD_COMMAND_DELETE = "delete";
 
+	private ContextParamNameConstantDeclaration() {
+	}
 }

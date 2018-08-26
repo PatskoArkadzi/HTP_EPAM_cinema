@@ -1,9 +1,20 @@
 package by.htp.epam.cinema.service.impl;
 
+import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.fixGoogleDriveUrl;
+import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_DESCRIPTION;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_ID;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_NAME;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_POSTER_URL;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID;
+
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +33,11 @@ public class FilmServiceImpl implements FilmService {
 	private GenreDao genreDao = new GenreDaoImpl();
 
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
+
+	@Override
+	public List<Film> getAllFilms() {
+		return filmDao.readAll();
+	}
 
 	@Override
 	public Map<Film, List<Genre>> getAllFilmsWithTheirGenres() {
@@ -62,4 +78,23 @@ public class FilmServiceImpl implements FilmService {
 	public void deleteFilm(Film film) {
 		filmDao.delete(film);
 	}
+
+	@Override
+	public Film buildFilm(HttpServletRequest request) {
+		String id = request.getParameter(REQUEST_PARAM_FILM_ID);
+		String filmName = request.getParameter(REQUEST_PARAM_FILM_NAME);
+		String description = request.getParameter(REQUEST_PARAM_FILM_DESCRIPTION);
+		String posterUrl = request.getParameter(REQUEST_PARAM_FILM_POSTER_URL);
+		String youTubeVideoId = request.getParameter(REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID);
+		validateRequestParamNotNull(id, filmName, description, posterUrl);
+
+		Film film = new Film();
+		film.setId(getInt(id));
+		film.setFilmName(filmName);
+		film.setDescription(description);
+		film.setPosterUrl(fixGoogleDriveUrl(posterUrl));
+		film.setYouTubeVideoId(youTubeVideoId);
+		return film;
+	}
+
 }
