@@ -1,4 +1,4 @@
-package by.htp.epam.cinema.db.pool;
+package by.htp.epam.cinema.db.pool.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,12 +9,14 @@ import java.util.concurrent.BlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
 import by.htp.epam.cinema.web.util.ResourceManager;
 
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
-public class ConnectionPool {
+public class ConnectionPool implements BaseConnectionPool {
 
+	private static ConnectionPool instance;
 	protected final static int POOL_SIZE = 10;
 	private final static ResourceManager RM = ResourceManager.DATA_BASE;
 	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
@@ -22,6 +24,13 @@ public class ConnectionPool {
 	private static BlockingQueue<Connection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
 	private ConnectionPool() {
+	}
+
+	public static BaseConnectionPool getInstance() {
+		if (instance == null) {
+			instance = new ConnectionPool();
+		}
+		return instance;
 	}
 
 	public static void initializeConnectionPool() {
@@ -55,7 +64,8 @@ public class ConnectionPool {
 		}
 	}
 
-	public static Connection getConnection() {
+	@Override
+	public Connection getConnection() {
 		Connection connection = null;
 		try {
 			connection = connectionQueue.take();
@@ -66,7 +76,8 @@ public class ConnectionPool {
 		return connection;
 	}
 
-	public static void putConnection(Connection connection) {
+	@Override
+	public void putConnection(Connection connection) {
 		try {
 			if (connection.isClosed()) {
 				logger.error("Already closed connection can't be closed ");

@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.FilmDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Film;
 
 public class FilmDaoImpl implements FilmDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
@@ -31,7 +33,7 @@ public class FilmDaoImpl implements FilmDao {
 
 	@Override
 	public void create(Film entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_CREATE)) {
 			ps.setString(1, entity.getFilmName());
 			ps.setString(2, entity.getDescription());
@@ -41,12 +43,12 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	public void createFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		PreparedStatement createFilmPs = null;
 		PreparedStatement addGenrePs = null;
 		try {
@@ -88,14 +90,14 @@ public class FilmDaoImpl implements FilmDao {
 				addGenrePs.close();
 			}
 			con.setAutoCommit(true);
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public Film read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -104,7 +106,7 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -114,7 +116,7 @@ public class FilmDaoImpl implements FilmDao {
 	public List<Film> readAll() {
 		List<Film> films = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_FILM_READ_ALL);
 			films = new ArrayList<>();
@@ -124,7 +126,7 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return films;
@@ -134,7 +136,7 @@ public class FilmDaoImpl implements FilmDao {
 	public List<Film> readAllFilmsWhereGenreIdPresent(int genreId) {
 		List<Film> films = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_READ_ALL_BY_GENRE_ID)) {
 			ps.setInt(1, genreId);
 			rs = ps.executeQuery();
@@ -145,7 +147,7 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAllFilmsWhereGenreIdPresent method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return films;
@@ -153,7 +155,7 @@ public class FilmDaoImpl implements FilmDao {
 
 	@Override
 	public void update(Film entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_UPDATE)) {
 			ps.setString(1, entity.getFilmName());
 			ps.setString(2, entity.getDescription());
@@ -164,13 +166,13 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void updateFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		PreparedStatement updateFilmPs = null;
 		PreparedStatement deleteGenrePs = null;
 		PreparedStatement addGenrePs = null;
@@ -216,20 +218,20 @@ public class FilmDaoImpl implements FilmDao {
 				addGenrePs.close();
 			}
 			con.setAutoCommit(true);
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of FilmDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 

@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.SeatDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Seat;
 
 public class SeatDaoImpl implements SeatDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(SeatDaoImpl.class);
 
 	private static final String SQL_QUERY_SEAT_CREATE = "INSERT INTO `cinema_v2.0`.`seats` (`row`, `number`) VALUES (?,?);";
@@ -28,7 +30,7 @@ public class SeatDaoImpl implements SeatDao {
 
 	@Override
 	public void create(Seat entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_CREATE)) {
 			ps.setInt(1, entity.getRow());
 			ps.setInt(2, entity.getNumber());
@@ -36,14 +38,14 @@ public class SeatDaoImpl implements SeatDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public Seat read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -52,7 +54,7 @@ public class SeatDaoImpl implements SeatDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -61,7 +63,7 @@ public class SeatDaoImpl implements SeatDao {
 	@Override
 	public Seat read(int row, int number) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_READ_BY_ROW_AND_NUMBER)) {
 			ps.setInt(1, row);
 			ps.setInt(2, number);
@@ -71,7 +73,7 @@ public class SeatDaoImpl implements SeatDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -81,7 +83,7 @@ public class SeatDaoImpl implements SeatDao {
 	public List<Seat> readAll() {
 		List<Seat> seats = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_SEAT_READ_ALL);
 			seats = new ArrayList<>();
@@ -91,7 +93,7 @@ public class SeatDaoImpl implements SeatDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return seats;
@@ -99,7 +101,7 @@ public class SeatDaoImpl implements SeatDao {
 
 	@Override
 	public void update(Seat entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_UPDATE)) {
 			ps.setInt(1, entity.getRow());
 			ps.setInt(2, entity.getNumber());
@@ -108,20 +110,20 @@ public class SeatDaoImpl implements SeatDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_SEAT_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of SeatDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 

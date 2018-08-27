@@ -12,12 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.GenreDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
-import by.htp.epam.cinema.domain.Film;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Genre;
 
 public class GenreDaoImpl implements GenreDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(GenreDaoImpl.class);
 
 	private static final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
@@ -30,21 +31,21 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public void create(Genre entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_CREATE)) {
 			ps.setString(1, entity.getGenreName());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public Genre read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -53,7 +54,7 @@ public class GenreDaoImpl implements GenreDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -63,7 +64,7 @@ public class GenreDaoImpl implements GenreDao {
 	public List<Genre> readAll() {
 		List<Genre> genres = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_GENRE_READ_ALL);
 			genres = new ArrayList<>();
@@ -73,7 +74,7 @@ public class GenreDaoImpl implements GenreDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return genres;
@@ -86,7 +87,7 @@ public class GenreDaoImpl implements GenreDao {
 	public List<Genre> readAll(int filmId) {
 		List<Genre> genres = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_READ_BY_FILM_ID)) {
 			ps.setInt(1, filmId);
 			rs = ps.executeQuery();
@@ -97,7 +98,7 @@ public class GenreDaoImpl implements GenreDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll(Film film) method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return genres;
@@ -105,7 +106,7 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public void update(Genre entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_UPDATE)) {
 			ps.setString(1, entity.getGenreName());
 			ps.setInt(2, entity.getId());
@@ -113,20 +114,20 @@ public class GenreDaoImpl implements GenreDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_GENRE_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of GenreDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 

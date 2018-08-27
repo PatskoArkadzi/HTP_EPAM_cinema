@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.RoleDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Role;
 
 public class RoleDaoImpl implements RoleDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 
 	private static final String SQL_QUERY_ROLE_CREATE = "INSERT INTO `cinema_v2.0`.`roles` (`roleName`) VALUES (?);";
@@ -27,21 +29,21 @@ public class RoleDaoImpl implements RoleDao {
 
 	@Override
 	public void create(Role entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_ROLE_CREATE)) {
 			ps.setString(1, entity.getRoleName());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of RoleDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public Role read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_ROLE_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -50,7 +52,7 @@ public class RoleDaoImpl implements RoleDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of RoleDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -60,7 +62,7 @@ public class RoleDaoImpl implements RoleDao {
 	public List<Role> readAll() {
 		List<Role> roles = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_ROLE_READ_ALL);
 			roles = new ArrayList<>();
@@ -70,7 +72,7 @@ public class RoleDaoImpl implements RoleDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of RoleDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return roles;
@@ -78,7 +80,7 @@ public class RoleDaoImpl implements RoleDao {
 
 	@Override
 	public void update(Role entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_ROLE_UPDATE)) {
 			ps.setString(1, entity.getRoleName());
 			ps.setInt(2, entity.getId());
@@ -86,20 +88,20 @@ public class RoleDaoImpl implements RoleDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of RoleDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_ROLE_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of RoleDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 

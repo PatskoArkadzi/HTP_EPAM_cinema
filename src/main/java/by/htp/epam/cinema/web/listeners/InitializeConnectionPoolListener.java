@@ -3,7 +3,7 @@ package by.htp.epam.cinema.web.listeners;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 
 public class InitializeConnectionPoolListener implements ServletContextListener {
 

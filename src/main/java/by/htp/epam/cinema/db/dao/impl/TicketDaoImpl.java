@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Ticket;
 
 public class TicketDaoImpl implements TicketDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(TicketDaoImpl.class);
 
 	private static final String SQL_QUERY_TICKET_CREATE = "INSERT INTO `cinema_v2.0`.`tickets` (`session_id`, `seat_id`, `order_id`) VALUES (?,?,?);";
@@ -29,7 +31,7 @@ public class TicketDaoImpl implements TicketDao {
 
 	@Override
 	public void create(Ticket entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_CREATE)) {
 			ps.setInt(1, entity.getFilmSession_id());
 			ps.setInt(2, entity.getSeat_id());
@@ -38,14 +40,14 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public Ticket read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -54,7 +56,7 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -64,7 +66,7 @@ public class TicketDaoImpl implements TicketDao {
 	public List<Ticket> readAll() {
 		List<Ticket> tickets = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_TICKET_READ_ALL);
 			tickets = new ArrayList<>();
@@ -74,7 +76,7 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return tickets;
@@ -84,7 +86,7 @@ public class TicketDaoImpl implements TicketDao {
 	public List<Ticket> readAllWhereOrderIdPresent(int orderId) {
 		List<Ticket> tickets = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_READ_ALL_BY_ORDER_ID)) {
 			ps.setInt(1, orderId);
 			rs = ps.executeQuery();
@@ -95,7 +97,7 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return tickets;
@@ -105,7 +107,7 @@ public class TicketDaoImpl implements TicketDao {
 	public List<Ticket> readAllWhereFilmSessionIdPresent(int filmSessionId) {
 		List<Ticket> tickets = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID)) {
 			ps.setInt(1, filmSessionId);
 			rs = ps.executeQuery();
@@ -116,7 +118,7 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return tickets;
@@ -124,7 +126,7 @@ public class TicketDaoImpl implements TicketDao {
 
 	@Override
 	public void update(Ticket entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_UPDATE)) {
 			ps.setInt(1, entity.getFilmSession_id());
 			ps.setInt(2, entity.getSeat_id());
@@ -134,20 +136,20 @@ public class TicketDaoImpl implements TicketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of TicketDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 

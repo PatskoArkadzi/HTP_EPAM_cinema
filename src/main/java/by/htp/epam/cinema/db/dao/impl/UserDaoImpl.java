@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.UserDao;
-import by.htp.epam.cinema.db.pool.ConnectionPool;
+import by.htp.epam.cinema.db.pool.BaseConnectionPool;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.User;
 
 public class UserDaoImpl implements UserDao {
 
+	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `salt`, `role_id`) VALUES (?,?,?,?,?);";
@@ -29,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void create(User entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_CREATE)) {
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getEmail());
@@ -40,14 +42,14 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public User read(int id) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ)) {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -56,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read(int id) method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -65,7 +67,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User readByLogin(String login) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ_BY_LOGIN)) {
 			ps.setString(1, login);
 			rs = ps.executeQuery();
@@ -74,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read(String login, String password) method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -83,7 +85,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User readByEmail(String email) {
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_READ_BY_EMAIL)) {
 			ps.setString(1, email);
 			rs = ps.executeQuery();
@@ -92,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read(String login, String password) method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return null;
@@ -102,7 +104,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> readAll() {
 		List<User> users = null;
 		ResultSet rs = null;
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (Statement ps = con.createStatement()) {
 			rs = ps.executeQuery(SQL_QUERY_USER_READ_ALL);
 			users = new ArrayList<>();
@@ -112,7 +114,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 			close(rs);
 		}
 		return users;
@@ -120,7 +122,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void update(User entity) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_UPDATE)) {
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getEmail());
@@ -132,20 +134,20 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(int entityId) {
-		Connection con = ConnectionPool.getConnection();
+		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_USER_DELETE)) {
 			ps.setInt(1, entityId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of UserDaoImpl class", e);
 		} finally {
-			ConnectionPool.putConnection(con);
+			connectionPool.putConnection(con);
 		}
 	}
 
