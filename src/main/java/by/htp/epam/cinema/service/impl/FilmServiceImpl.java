@@ -19,20 +19,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
-import by.htp.epam.cinema.db.dao.impl.FilmDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.GenreDaoImpl;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.FilmService;
 
 public class FilmServiceImpl implements FilmService {
 
-	private FilmDao filmDao = new FilmDaoImpl();
-	private GenreDao genreDao = new GenreDaoImpl();
-
-	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
+	private FilmDao filmDao = DaoFactory.getFilmDao();
+	private GenreDao genreDao = DaoFactory.getGenreDao();
+	private static Logger logger = LoggerFactory.getLogger(FilmServiceImpl.class);
 
 	@Override
 	public List<Film> getAllFilms() {

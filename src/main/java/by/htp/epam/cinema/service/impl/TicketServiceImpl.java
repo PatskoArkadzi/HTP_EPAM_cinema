@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.dao.impl.FilmDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.FilmSessionDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.SeatDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.TicketDaoImpl;
 import by.htp.epam.cinema.domain.BaseEntity;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
@@ -23,10 +20,10 @@ import by.htp.epam.cinema.service.TicketService;
 
 public class TicketServiceImpl implements TicketService {
 
-	private TicketDao ticketDao = new TicketDaoImpl();
-	private FilmSessionDao filmSessionDao = new FilmSessionDaoImpl();
-	private FilmDao filmDao = new FilmDaoImpl();
-	private SeatDao seatDao = new SeatDaoImpl();
+	private TicketDao ticketDao = DaoFactory.getTicketDao();
+	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao();
+	private FilmDao filmDao = DaoFactory.getFilmDao();
+	private SeatDao seatDao = DaoFactory.getSeatDao();
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {

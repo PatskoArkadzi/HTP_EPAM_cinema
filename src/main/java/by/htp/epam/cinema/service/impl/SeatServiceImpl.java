@@ -2,18 +2,18 @@ package by.htp.epam.cinema.service.impl;
 
 import java.util.List;
 
+import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
-import by.htp.epam.cinema.db.dao.impl.SeatDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.TicketsOrderDaoImpl;
 import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Seat.State;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.service.SeatService;
 
 public class SeatServiceImpl implements SeatService {
-	private SeatDao seatDao = new SeatDaoImpl();
-	private TicketsOrderDao ticketsOrderDao = new TicketsOrderDaoImpl();
+
+	private SeatDao seatDao = DaoFactory.getSeatDao();
+	private TicketsOrderDao ticketsOrderDao = DaoFactory.getTicketsOrderDao();
 
 	@Override
 	public List<Seat> getSeatsWithState(int filmSessionId) {

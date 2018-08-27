@@ -14,21 +14,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.dao.impl.FilmDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.FilmSessionDaoImpl;
-import by.htp.epam.cinema.db.dao.impl.TicketDaoImpl;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.service.FilmSessionService;
 
 public class FilmSessionServiceImpl implements FilmSessionService {
 
-	private FilmSessionDao filmSessionDao = new FilmSessionDaoImpl();
-	private TicketDao ticketDao = new TicketDaoImpl();
+	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao();
+	private TicketDao ticketDao = DaoFactory.getTicketDao();
 
-	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(FilmSessionServiceImpl.class);
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 	@Override
