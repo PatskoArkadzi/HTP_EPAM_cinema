@@ -2,6 +2,8 @@ package by.htp.epam.cinema.domain;
 
 public class Ticket extends BaseEntity {
 
+	private static final long serialVersionUID = -4113164580477789927L;
+
 	private int filmSession_id;
 
 	private int seat_id;
@@ -76,8 +78,41 @@ public class Ticket extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Ticket [filmSession_id=" + filmSession_id + ", seat_id=" + seat_id + ", ticketsOrder_id="
-				+ ticketsOrder_id + "]";
+		return "Ticket [id=" + getId() + ", filmSession_id=" + filmSession_id + ", seat_id=" + seat_id
+				+ ", ticketsOrder_id=" + ticketsOrder_id + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new Ticket().new Builder();
+	}
+
+	public class Builder {
+
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			Ticket.this.setId(id);
+			return this;
+		}
+
+		public Builder setFilmSession_id(int filmSession_id) {
+			Ticket.this.filmSession_id = filmSession_id;
+			return this;
+		}
+
+		public Builder setSeat_id(int seat_id) {
+			Ticket.this.seat_id = seat_id;
+			return this;
+		}
+
+		public Builder setTicketsOrder_id(int ticketsOrder_id) {
+			Ticket.this.ticketsOrder_id = ticketsOrder_id;
+			return this;
+		}
+
+		public Ticket build() {
+			return Ticket.this;
+		}
+	}
 }

@@ -27,7 +27,8 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {
-		Ticket ticket = new Ticket(0, filmSession.getId(), seat.getId(), ticketsOrder.getId());
+		Ticket ticket = Ticket.newBuilder().setId(0).setFilmSession_id(filmSession.getId()).setId(seat.getId())
+				.setTicketsOrder_id(ticketsOrder.getId()).build();
 		ticketDao.create(ticket);
 	}
 

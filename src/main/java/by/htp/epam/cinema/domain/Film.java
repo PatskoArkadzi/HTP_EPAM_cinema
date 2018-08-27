@@ -2,6 +2,8 @@ package by.htp.epam.cinema.domain;
 
 public class Film extends BaseEntity {
 
+	private static final long serialVersionUID = -2248408866984238822L;
+
 	private String filmName;
 
 	private String description;
@@ -102,8 +104,45 @@ public class Film extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Film [filmName=" + filmName + ", description=" + description + ", posterUrl=" + posterUrl
-				+ ", youTubeVideoId=" + youTubeVideoId + "]";
+		return "Film [id=" + getId() + ", filmName=" + filmName + ", description=" + description + ", posterUrl="
+				+ posterUrl + ", youTubeVideoId=" + youTubeVideoId + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new Film().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			Film.this.setId(id);
+			return this;
+		}
+
+		public Builder setFilmName(String filmName) {
+			Film.this.filmName = filmName;
+			return this;
+		}
+
+		public Builder setDescription(String description) {
+			Film.this.description = description;
+			return this;
+		}
+
+		public Builder setPosterUrl(String posterUrl) {
+			Film.this.posterUrl = posterUrl;
+			return this;
+		}
+
+		public Builder setYouTubeVideoId(String youTubeVideoId) {
+			Film.this.youTubeVideoId = youTubeVideoId;
+			return this;
+		}
+
+		public Film build() {
+			return Film.this;
+		}
+	}
 }

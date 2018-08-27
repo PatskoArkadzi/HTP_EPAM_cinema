@@ -154,12 +154,12 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	private Ticket buildTicket(ResultSet rs) throws SQLException {
-		Ticket ticket = new Ticket();
-		ticket.setId(rs.getInt("id"));
-		ticket.setFilmSession_id(rs.getInt("session_id"));
-		ticket.setSeat_id(rs.getInt("seat_id"));
-		ticket.setTicketsOrder_id(rs.getInt("order_id"));
-		return ticket;
+		return Ticket.newBuilder()
+				.setId(rs.getInt("id"))
+				.setFilmSession_id(rs.getInt("session_id"))
+				.setSeat_id(rs.getInt("seat_id"))
+				.setTicketsOrder_id(rs.getInt("order_id"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

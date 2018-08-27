@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public class FilmSession extends BaseEntity {
 
+	private static final long serialVersionUID = -7160885760512229728L;
+
 	private String date;
 
 	private String time;
@@ -101,8 +103,45 @@ public class FilmSession extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "FilmSession [date=" + date + ", time=" + time + ", ticketPrice=" + ticketPrice + ", film_id=" + film_id
-				+ "]";
+		return "FilmSession [id=" + getId() + ", date=" + date + ", time=" + time + ", ticketPrice=" + ticketPrice
+				+ ", film_id=" + film_id + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new FilmSession().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			FilmSession.this.setId(id);
+			return this;
+		}
+
+		public Builder setDate(String date) {
+			FilmSession.this.date = date;
+			return this;
+		}
+
+		public Builder setTime(String time) {
+			FilmSession.this.time = time;
+			return this;
+		}
+
+		public Builder setTicketPrice(BigDecimal ticketPrice) {
+			FilmSession.this.ticketPrice = ticketPrice;
+			return this;
+		}
+
+		public Builder setFilm_id(int film_id) {
+			FilmSession.this.film_id = film_id;
+			return this;
+		}
+
+		public FilmSession build() {
+			return FilmSession.this;
+		}
+	}
 }

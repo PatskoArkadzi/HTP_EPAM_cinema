@@ -1,7 +1,10 @@
 package by.htp.epam.cinema.domain;
 
+import java.io.Serializable;
 
-public class BaseEntity  {
+public class BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -294442612361371280L;
 
 	private int id;
 
@@ -42,6 +45,11 @@ public class BaseEntity  {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "BaseEntity [id=" + id + "]";
 	}
 
 }

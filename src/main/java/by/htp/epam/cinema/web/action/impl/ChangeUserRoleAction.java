@@ -1,6 +1,5 @@
 package by.htp.epam.cinema.web.action.impl;
 
-import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.isPost;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
@@ -50,7 +49,7 @@ public class ChangeUserRoleAction implements BaseAction {
 					user = userService.getUser(Integer.parseInt(userId));
 					break;
 				case CRUD_COMMAND_UPDATE:
-					user = buildUser(request);
+					user = userService.buildUser(request);
 					userService.updateUser(user);
 					break;
 				}
@@ -69,23 +68,6 @@ public class ChangeUserRoleAction implements BaseAction {
 		}
 	}
 
-	private User buildUser(HttpServletRequest req) {
-		String userId = req.getParameter(REQUEST_PARAM_USER_ID);
-		String userLogin = req.getParameter(REQUEST_PARAM_USER_LOGIN);
-		String userEmail = req.getParameter(REQUEST_PARAM_USER_EMAIL);
-		String userPassword = req.getParameter(REQUEST_PARAM_USER_PASSWORD);
-		String userSalt = req.getParameter(REQUEST_PARAM_USER_SALT);
-		String userRoleId = req.getParameter(REQUEST_PARAM_USER_ROLE_ID);
-		validateRequestParamNotNull(userId, userLogin, userEmail, userPassword, userSalt, userRoleId);
-
-		User user = new User();
-		user.setId(getInt(userId));
-		user.setLogin(userLogin);
-		user.setEmail(userEmail);
-		user.setPassword(userPassword);
-		user.setSalt(userSalt);
-		user.setRole_id(getInt(userRoleId));
-		return user;
-	}
+	
 
 }

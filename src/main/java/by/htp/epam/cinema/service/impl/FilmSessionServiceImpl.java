@@ -83,12 +83,12 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 		String filmSessionTicketPrice = request.getParameter(REQUEST_PARAM_FILMSESSION_TICKET_PRICE);
 		validateRequestParamNotNull(filmSessionid, fkFilmId, filmSessionDate, filmSessionTime, filmSessionTicketPrice);
 
-		FilmSession filmSession = new FilmSession();
-		filmSession.setId(getInt(filmSessionid));
-		filmSession.setFilm_id(getInt(fkFilmId));
-		filmSession.setDate(filmSessionDate);
-		filmSession.setTime(filmSessionTime);
-		filmSession.setTicketPrice(new BigDecimal(filmSessionTicketPrice));
-		return filmSession;
+		return FilmSession.newBuilder()
+				.setId(getInt(filmSessionid))
+				.setFilm_id(getInt(fkFilmId))
+				.setDate(filmSessionDate)
+				.setTime(filmSessionTime)
+				.setTicketPrice(new BigDecimal(filmSessionTicketPrice))
+				.build();
 	}
 }

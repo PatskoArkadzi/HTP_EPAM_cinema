@@ -128,11 +128,11 @@ public class SeatDaoImpl implements SeatDao {
 	}
 
 	private Seat buildSeat(ResultSet rs) throws SQLException {
-		Seat seat = new Seat();
-		seat.setId(rs.getInt("id"));
-		seat.setRow(rs.getInt("row"));
-		seat.setNumber(rs.getInt("number"));
-		return seat;
+		return Seat.newBuilder()
+				.setId(rs.getInt("id"))
+				.setRow(rs.getInt("row"))
+				.setNumber(rs.getInt("number"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

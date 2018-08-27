@@ -152,14 +152,14 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private User buildUser(ResultSet rs) throws SQLException {
-		User user = new User();
-		user.setId(rs.getInt("id"));
-		user.setLogin(rs.getString("login"));
-		user.setEmail(rs.getString("email"));
-		user.setPassword(rs.getString("password"));
-		user.setSalt(rs.getString("salt"));
-		user.setRole_id(Integer.parseInt(rs.getString("role_id")));
-		return user;
+		return User.newBuilder()
+				.setId(rs.getInt("id"))
+				.setLogin(rs.getString("login"))
+				.setEmail(rs.getString("email"))
+				.setPassword(rs.getString("password"))
+				.setSalt(rs.getString("salt"))
+				.setRole_id(Integer.parseInt(rs.getString("role_id")))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

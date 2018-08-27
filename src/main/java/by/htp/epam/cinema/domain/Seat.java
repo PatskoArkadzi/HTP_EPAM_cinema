@@ -2,25 +2,13 @@ package by.htp.epam.cinema.domain;
 
 public class Seat extends BaseEntity {
 
+	private static final long serialVersionUID = -1644042888154752842L;
+
 	private int row;
 
 	private int number;
 
 	private State state;
-
-	public enum State {
-		FREE("green"), BOOKED("yellow"), OCCUPIED("red");
-
-		String buttonColor;
-
-		State(String buttonColor) {
-			this.buttonColor = buttonColor;
-		}
-
-		public String getButtonColor() {
-			return buttonColor;
-		}
-	}
 
 	public Seat() {
 		super();
@@ -84,7 +72,53 @@ public class Seat extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Seat [row=" + row + ", number=" + number + ", state=" + state + "]";
+		return "Seat [id=" + getId() + ", row=" + row + ", number=" + number + ", state=" + state + "]";
 	}
 
+	public enum State {
+		FREE("green"), BOOKED("yellow"), OCCUPIED("red");
+
+		String buttonColor;
+
+		State(String buttonColor) {
+			this.buttonColor = buttonColor;
+		}
+
+		public String getButtonColor() {
+			return buttonColor;
+		}
+	}
+
+	public static Builder newBuilder() {
+		return new Seat().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			Seat.this.setId(id);
+			return this;
+		}
+
+		public Builder setRow(int row) {
+			Seat.this.row = row;
+			return this;
+		}
+
+		public Builder setNumber(int number) {
+			Seat.this.number = number;
+			return this;
+		}
+
+		public Builder setState(State state) {
+			Seat.this.state = state;
+			return this;
+		}
+
+		public Seat build() {
+			return Seat.this;
+		}
+	}
 }

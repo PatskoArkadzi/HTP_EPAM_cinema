@@ -179,13 +179,13 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 	}
 
 	private FilmSession buildFilmSession(ResultSet rs) throws SQLException {
-		FilmSession filmSession = new FilmSession();
-		filmSession.setId(rs.getInt("id"));
-		filmSession.setFilm_id(rs.getInt("film_id"));
-		filmSession.setDate(rs.getString("date"));
-		filmSession.setTime(rs.getString("time"));
-		filmSession.setTicketPrice(new BigDecimal(rs.getString("ticketPrice")));
-		return filmSession;
+		return FilmSession.newBuilder()
+				.setId(rs.getInt("id"))
+				.setFilm_id(rs.getInt("film_id"))
+				.setDate(rs.getString("date"))
+				.setTime(rs.getString("time"))
+				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice")))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

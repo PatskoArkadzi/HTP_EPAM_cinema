@@ -2,6 +2,8 @@ package by.htp.epam.cinema.domain;
 
 public class User extends BaseEntity {
 
+	private static final long serialVersionUID = -6390489079397253530L;
+
 	private String login;
 
 	private String email;
@@ -116,8 +118,50 @@ public class User extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "User [login=" + login + ", email=" + email + ", password=" + password + ", salt=" + salt + ", role_id="
-				+ role_id + "]";
+		return "User [id=" + getId() + ", login=" + login + ", email=" + email + ", password=" + password + ", salt="
+				+ salt + ", role_id=" + role_id + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new User().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			User.this.setId(id);
+			return this;
+		}
+
+		public Builder setLogin(String login) {
+			User.this.login = login;
+			return this;
+		}
+
+		public Builder setEmail(String email) {
+			User.this.email = email;
+			return this;
+		}
+
+		public Builder setPassword(String password) {
+			User.this.password = password;
+			return this;
+		}
+
+		public Builder setSalt(String salt) {
+			User.this.salt = salt;
+			return this;
+		}
+
+		public Builder setRole_id(int role_id) {
+			User.this.role_id = role_id;
+			return this;
+		}
+
+		public User build() {
+			return User.this;
+		}
+	}
 }

@@ -236,13 +236,13 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	private Film buildFilm(ResultSet rs) throws SQLException {
-		Film film = new Film();
-		film.setId(rs.getInt("id"));
-		film.setFilmName(rs.getString("filmName"));
-		film.setDescription(rs.getString("description"));
-		film.setPosterUrl(rs.getString("posterUrl"));
-		film.setYouTubeVideoId(rs.getString("youTubeVideoId"));
-		return film;
+		return Film.newBuilder()
+				.setId(rs.getInt("id"))
+				.setFilmName(rs.getString("filmName"))
+				.setDescription(rs.getString("description"))
+				.setPosterUrl(rs.getString("posterUrl"))
+				.setYouTubeVideoId(rs.getString("youTubeVideoId"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

@@ -149,12 +149,12 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 	}
 
 	private TicketsOrder buildTicketsOrder(ResultSet rs) throws SQLException {
-		TicketsOrder ticketsOrder = new TicketsOrder();
-		ticketsOrder.setId(rs.getInt("id"));
-		ticketsOrder.setOrderNumber(rs.getInt("orderNumber"));
-		ticketsOrder.setUser_id(rs.getInt("user_id"));
-		ticketsOrder.setIsPaid(rs.getBoolean("isPaid"));
-		return ticketsOrder;
+		return TicketsOrder.newBuilder()
+				.setId(rs.getInt("id"))
+				.setOrderNumber(rs.getInt("orderNumber"))
+				.setUser_id(rs.getInt("user_id"))
+				.setIsPaid(rs.getBoolean("isPaid"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

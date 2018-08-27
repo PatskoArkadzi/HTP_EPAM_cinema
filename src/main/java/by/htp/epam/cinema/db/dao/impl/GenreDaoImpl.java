@@ -132,10 +132,10 @@ public class GenreDaoImpl implements GenreDao {
 	}
 
 	private Genre buildGenre(ResultSet rs) throws SQLException {
-		Genre genre = new Genre();
-		genre.setId(rs.getInt("id"));
-		genre.setGenreName(rs.getString("genreName"));
-		return genre;
+		return Genre.newBuilder()
+				.setId(rs.getInt("id"))
+				.setGenreName(rs.getString("genreName"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

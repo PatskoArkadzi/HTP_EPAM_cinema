@@ -18,4 +18,6 @@ public interface UserService extends Service {
 
 	void updateUser(User user);
 
+	User buildUser(HttpServletRequest request);
+
 }

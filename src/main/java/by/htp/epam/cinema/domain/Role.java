@@ -2,6 +2,7 @@ package by.htp.epam.cinema.domain;
 
 public class Role extends BaseEntity {
 
+	private static final long serialVersionUID = 5032248738042699962L;
 	private String roleName;
 
 	public Role() {
@@ -51,7 +52,29 @@ public class Role extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Role [roleName=" + roleName + "]";
+		return "Role [id=" + getId() + ", roleName=" + roleName + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new Role().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			Role.this.setId(id);
+			return this;
+		}
+
+		public Builder setRoleName(String roleName) {
+			Role.this.roleName = roleName;
+			return this;
+		}
+
+		public Role build() {
+			return Role.this;
+		}
+	}
 }

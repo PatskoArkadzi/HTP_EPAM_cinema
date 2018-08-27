@@ -12,7 +12,9 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateEmailInput;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 
 public class UserServiceImpl implements UserService {
 
@@ -48,7 +50,8 @@ public class UserServiceImpl implements UserService {
 	public void createUser(String login, String email, String password) {
 		String userSalt = PasswordSecurity.getSalt();
 		String userPassword = PasswordSecurity.getHashPassword(password, userSalt);
-		User user = new User(0, login, email, userPassword, userSalt, 2);
+		User user = User.newBuilder().setId(0).setLogin(login).setEmail(email).setPassword(userPassword)
+				.setSalt(userSalt).setRole_id(2).build();
 		userDao.create(user);
 	}
 
@@ -64,4 +67,23 @@ public class UserServiceImpl implements UserService {
 		userDao.update(user);
 	}
 
+	@Override
+	public User buildUser(HttpServletRequest request) {
+		String userId = request.getParameter(REQUEST_PARAM_USER_ID);
+		String userLogin = request.getParameter(REQUEST_PARAM_USER_LOGIN);
+		String userEmail = request.getParameter(REQUEST_PARAM_USER_EMAIL);
+		String userPassword = request.getParameter(REQUEST_PARAM_USER_PASSWORD);
+		String userSalt = request.getParameter(REQUEST_PARAM_USER_SALT);
+		String userRoleId = request.getParameter(REQUEST_PARAM_USER_ROLE_ID);
+		validateRequestParamNotNull(userId, userLogin, userEmail, userPassword, userSalt, userRoleId);
+
+		return User.newBuilder()
+				.setId(getInt(userId))
+				.setLogin(userLogin)
+				.setEmail(userEmail)
+				.setPassword(userPassword)
+				.setSalt(userSalt)
+				.setRole_id(getInt(userRoleId))
+				.build();
+	}
 }

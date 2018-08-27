@@ -2,7 +2,12 @@ package by.htp.epam.cinema.domain;
 
 public class TicketsOrder extends BaseEntity {
 
-	private int orderNumber; // SQL trigger-generated column
+	private static final long serialVersionUID = -5147482581752279068L;
+
+	/**
+	 * SQL trigger-generated column
+	 */
+	private int orderNumber;
 
 	private boolean isPaid;
 
@@ -76,7 +81,41 @@ public class TicketsOrder extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "TicketsOrder [orderNumber=" + orderNumber + ", isPaid=" + isPaid + ", user_id=" + user_id + "]";
+		return "TicketsOrder [id=" + getId() + ", orderNumber=" + orderNumber + ", isPaid=" + isPaid + ", user_id="
+				+ user_id + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new TicketsOrder().new Builder();
+	}
+
+	public class Builder {
+
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			TicketsOrder.this.setId(id);
+			return this;
+		}
+
+		public Builder setOrderNumber(int orderNumber) {
+			TicketsOrder.this.orderNumber = orderNumber;
+			return this;
+		}
+
+		public Builder setIsPaid(boolean isPaid) {
+			TicketsOrder.this.isPaid = isPaid;
+			return this;
+		}
+
+		public Builder setUser_id(int user_id) {
+			TicketsOrder.this.user_id = user_id;
+			return this;
+		}
+
+		public TicketsOrder build() {
+			return TicketsOrder.this;
+		}
+	}
 }

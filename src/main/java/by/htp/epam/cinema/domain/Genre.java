@@ -2,6 +2,7 @@ package by.htp.epam.cinema.domain;
 
 public class Genre extends BaseEntity {
 
+	private static final long serialVersionUID = -1045134943121533438L;
 	private String genreName;
 
 	public Genre() {
@@ -51,7 +52,29 @@ public class Genre extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Genre [genreName=" + genreName + "]";
+		return "Genre [id=" + getId() + ", genreName=" + genreName + "]";
 	}
 
+	public static Builder newBuilder() {
+		return new Genre().new Builder();
+	}
+
+	public class Builder {
+		private Builder() {
+		}
+
+		public Builder setId(int id) {
+			Genre.this.setId(id);
+			return this;
+		}
+
+		public Builder setGenreName(String genreName) {
+			Genre.this.genreName = genreName;
+			return this;
+		}
+
+		public Genre build() {
+			return Genre.this;
+		}
+	}
 }

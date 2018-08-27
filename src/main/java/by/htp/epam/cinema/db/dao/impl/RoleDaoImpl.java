@@ -106,10 +106,10 @@ public class RoleDaoImpl implements RoleDao {
 	}
 
 	private Role buildRole(ResultSet rs) throws SQLException {
-		Role role = new Role();
-		role.setId(rs.getInt("id"));
-		role.setRoleName(rs.getString("roleName"));
-		return role;
+		return Role.newBuilder()
+				.setId(rs.getInt("id"))
+				.setRoleName(rs.getString("roleName"))
+				.build();
 	}
 
 	private void close(ResultSet rs) {

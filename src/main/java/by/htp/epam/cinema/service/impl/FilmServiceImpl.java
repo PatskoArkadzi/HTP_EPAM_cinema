@@ -86,13 +86,12 @@ public class FilmServiceImpl implements FilmService {
 		String youTubeVideoId = request.getParameter(REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID);
 		validateRequestParamNotNull(id, filmName, description, posterUrl);
 
-		Film film = new Film();
-		film.setId(getInt(id));
-		film.setFilmName(filmName);
-		film.setDescription(description);
-		film.setPosterUrl(fixGoogleDriveUrl(posterUrl));
-		film.setYouTubeVideoId(youTubeVideoId);
-		return film;
+		return Film.newBuilder()
+				.setId(getInt(id))
+				.setFilmName(filmName)
+				.setDescription(description)
+				.setPosterUrl(fixGoogleDriveUrl(posterUrl))
+				.setYouTubeVideoId(youTubeVideoId)
+				.build();
 	}
-
 }
