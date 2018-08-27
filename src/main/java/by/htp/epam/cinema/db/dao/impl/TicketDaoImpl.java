@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Ticket;
 
-public class TicketDaoImpl implements TicketDao {
+public class TicketDaoImpl extends AbstractDao implements TicketDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(TicketDaoImpl.class);
 
 	private static final String SQL_QUERY_TICKET_CREATE = "INSERT INTO `cinema_v2.0`.`tickets` (`session_id`, `seat_id`, `order_id`) VALUES (?,?,?);";
@@ -154,21 +152,7 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	private Ticket buildTicket(ResultSet rs) throws SQLException {
-		return Ticket.newBuilder()
-				.setId(rs.getInt("id"))
-				.setFilmSession_id(rs.getInt("session_id"))
-				.setSeat_id(rs.getInt("seat_id"))
-				.setTicketsOrder_id(rs.getInt("order_id"))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of TicketDaoImpl class", e);
-			}
-		}
+		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSession_id(rs.getInt("session_id"))
+				.setSeat_id(rs.getInt("seat_id")).setTicketsOrder_id(rs.getInt("order_id")).build();
 	}
 }

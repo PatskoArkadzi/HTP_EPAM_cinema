@@ -2,6 +2,7 @@ package by.htp.epam.cinema.service.impl;
 
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.UserDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.util.PasswordSecurity;
@@ -18,7 +19,7 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequ
 
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao = DaoFactory.getUserDao();
+	private UserDao userDao = DaoFactory.getUserDao(ConnectionPool.getInstance());
 
 	@Override
 	public User getUser(int userId) {
@@ -77,13 +78,7 @@ public class UserServiceImpl implements UserService {
 		String userRoleId = request.getParameter(REQUEST_PARAM_USER_ROLE_ID);
 		validateRequestParamNotNull(userId, userLogin, userEmail, userPassword, userSalt, userRoleId);
 
-		return User.newBuilder()
-				.setId(getInt(userId))
-				.setLogin(userLogin)
-				.setEmail(userEmail)
-				.setPassword(userPassword)
-				.setSalt(userSalt)
-				.setRole_id(getInt(userRoleId))
-				.build();
+		return User.newBuilder().setId(getInt(userId)).setLogin(userLogin).setEmail(userEmail).setPassword(userPassword)
+				.setSalt(userSalt).setRole_id(getInt(userRoleId)).build();
 	}
 }

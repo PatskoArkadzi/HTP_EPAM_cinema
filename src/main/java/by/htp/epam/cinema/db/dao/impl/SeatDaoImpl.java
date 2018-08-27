@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Seat;
 
-public class SeatDaoImpl implements SeatDao {
+public class SeatDaoImpl extends AbstractDao implements SeatDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(SeatDaoImpl.class);
 
 	private static final String SQL_QUERY_SEAT_CREATE = "INSERT INTO `cinema_v2.0`.`seats` (`row`, `number`) VALUES (?,?);";
@@ -128,20 +126,6 @@ public class SeatDaoImpl implements SeatDao {
 	}
 
 	private Seat buildSeat(ResultSet rs) throws SQLException {
-		return Seat.newBuilder()
-				.setId(rs.getInt("id"))
-				.setRow(rs.getInt("row"))
-				.setNumber(rs.getInt("number"))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of SeatDaoImpl class", e);
-			}
-		}
+		return Seat.newBuilder().setId(rs.getInt("id")).setRow(rs.getInt("row")).setNumber(rs.getInt("number")).build();
 	}
 }

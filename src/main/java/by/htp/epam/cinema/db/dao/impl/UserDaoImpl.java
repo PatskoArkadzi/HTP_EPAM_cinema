@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.UserDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.User;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao implements UserDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `salt`, `role_id`) VALUES (?,?,?,?,?);";
@@ -152,23 +150,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private User buildUser(ResultSet rs) throws SQLException {
-		return User.newBuilder()
-				.setId(rs.getInt("id"))
-				.setLogin(rs.getString("login"))
-				.setEmail(rs.getString("email"))
-				.setPassword(rs.getString("password"))
-				.setSalt(rs.getString("salt"))
-				.setRole_id(Integer.parseInt(rs.getString("role_id")))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of UserDaoImpl class", e);
-			}
-		}
+		return User.newBuilder().setId(rs.getInt("id")).setLogin(rs.getString("login")).setEmail(rs.getString("email"))
+				.setPassword(rs.getString("password")).setSalt(rs.getString("salt"))
+				.setRole_id(Integer.parseInt(rs.getString("role_id"))).build();
 	}
 }

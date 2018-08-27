@@ -17,14 +17,15 @@ import org.slf4j.LoggerFactory;
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.service.FilmSessionService;
 
 public class FilmSessionServiceImpl implements FilmSessionService {
 
-	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao();
-	private TicketDao ticketDao = DaoFactory.getTicketDao();
+	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao(ConnectionPool.getInstance());
+	private TicketDao ticketDao = DaoFactory.getTicketDao(ConnectionPool.getInstance());
 
 	private static Logger logger = LoggerFactory.getLogger(FilmSessionServiceImpl.class);
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -83,12 +84,8 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 		String filmSessionTicketPrice = request.getParameter(REQUEST_PARAM_FILMSESSION_TICKET_PRICE);
 		validateRequestParamNotNull(filmSessionid, fkFilmId, filmSessionDate, filmSessionTime, filmSessionTicketPrice);
 
-		return FilmSession.newBuilder()
-				.setId(getInt(filmSessionid))
-				.setFilm_id(getInt(fkFilmId))
-				.setDate(filmSessionDate)
-				.setTime(filmSessionTime)
-				.setTicketPrice(new BigDecimal(filmSessionTicketPrice))
-				.build();
+		return FilmSession.newBuilder().setId(getInt(filmSessionid)).setFilm_id(getInt(fkFilmId))
+				.setDate(filmSessionDate).setTime(filmSessionTime)
+				.setTicketPrice(new BigDecimal(filmSessionTicketPrice)).build();
 	}
 }

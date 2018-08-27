@@ -14,12 +14,13 @@ import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.GenreDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.GenreService;
 
 public class GenreServiceImpl implements GenreService {
 
-	private GenreDao genreDao = DaoFactory.getGenreDao();
+	private GenreDao genreDao = DaoFactory.getGenreDao(ConnectionPool.getInstance());
 
 	private static Logger logger = LoggerFactory.getLogger(GenreServiceImpl.class);
 

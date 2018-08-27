@@ -5,6 +5,7 @@ import java.util.List;
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Seat.State;
 import by.htp.epam.cinema.domain.TicketsOrder;
@@ -12,8 +13,8 @@ import by.htp.epam.cinema.service.SeatService;
 
 public class SeatServiceImpl implements SeatService {
 
-	private SeatDao seatDao = DaoFactory.getSeatDao();
-	private TicketsOrderDao ticketsOrderDao = DaoFactory.getTicketsOrderDao();
+	private SeatDao seatDao = DaoFactory.getSeatDao(ConnectionPool.getInstance());
+	private TicketsOrderDao ticketsOrderDao = DaoFactory.getTicketsOrderDao(ConnectionPool.getInstance());
 
 	@Override
 	public List<Seat> getSeatsWithState(int filmSessionId) {

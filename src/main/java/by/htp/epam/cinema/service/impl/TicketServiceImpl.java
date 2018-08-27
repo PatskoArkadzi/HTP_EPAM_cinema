@@ -10,6 +10,7 @@ import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.BaseEntity;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
@@ -20,10 +21,10 @@ import by.htp.epam.cinema.service.TicketService;
 
 public class TicketServiceImpl implements TicketService {
 
-	private TicketDao ticketDao = DaoFactory.getTicketDao();
-	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao();
-	private FilmDao filmDao = DaoFactory.getFilmDao();
-	private SeatDao seatDao = DaoFactory.getSeatDao();
+	private TicketDao ticketDao = DaoFactory.getTicketDao(ConnectionPool.getInstance());
+	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao(ConnectionPool.getInstance());
+	private FilmDao filmDao = DaoFactory.getFilmDao(ConnectionPool.getInstance());
+	private SeatDao seatDao = DaoFactory.getSeatDao(ConnectionPool.getInstance());
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {

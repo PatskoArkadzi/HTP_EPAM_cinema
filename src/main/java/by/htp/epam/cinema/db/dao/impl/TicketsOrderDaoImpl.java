@@ -11,15 +11,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
 
-public class TicketsOrderDaoImpl implements TicketsOrderDao {
+public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(TicketsOrderDaoImpl.class);
 
 	private static final String SQL_QUERY_TICKETS_ORDER_CREATE = "INSERT INTO `cinema_v2.0`.`orders` (`user_id`, `isPaid`) VALUES (?,?);";
@@ -149,22 +147,8 @@ public class TicketsOrderDaoImpl implements TicketsOrderDao {
 	}
 
 	private TicketsOrder buildTicketsOrder(ResultSet rs) throws SQLException {
-		return TicketsOrder.newBuilder()
-				.setId(rs.getInt("id"))
-				.setOrderNumber(rs.getInt("orderNumber"))
-				.setUser_id(rs.getInt("user_id"))
-				.setIsPaid(rs.getBoolean("isPaid"))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of TicketsOrderDaoImpl class", e);
-			}
-		}
+		return TicketsOrder.newBuilder().setId(rs.getInt("id")).setOrderNumber(rs.getInt("orderNumber"))
+				.setUser_id(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();
 	}
 
 }

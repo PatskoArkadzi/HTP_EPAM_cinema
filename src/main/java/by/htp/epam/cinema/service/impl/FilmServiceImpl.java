@@ -22,14 +22,15 @@ import org.slf4j.LoggerFactory;
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.FilmService;
 
 public class FilmServiceImpl implements FilmService {
 
-	private FilmDao filmDao = DaoFactory.getFilmDao();
-	private GenreDao genreDao = DaoFactory.getGenreDao();
+	private FilmDao filmDao = DaoFactory.getFilmDao(ConnectionPool.getInstance());
+	private GenreDao genreDao = DaoFactory.getGenreDao(ConnectionPool.getInstance());
 	private static Logger logger = LoggerFactory.getLogger(FilmServiceImpl.class);
 
 	@Override

@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Genre;
 
-public class GenreDaoImpl implements GenreDao {
+public class GenreDaoImpl extends AbstractDao implements GenreDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(GenreDaoImpl.class);
 
 	private static final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
@@ -132,19 +130,7 @@ public class GenreDaoImpl implements GenreDao {
 	}
 
 	private Genre buildGenre(ResultSet rs) throws SQLException {
-		return Genre.newBuilder()
-				.setId(rs.getInt("id"))
-				.setGenreName(rs.getString("genreName"))
-				.build();
+		return Genre.newBuilder().setId(rs.getInt("id")).setGenreName(rs.getString("genreName")).build();
 	}
 
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of GenreDaoImpl class", e);
-			}
-		}
-	}
 }

@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.RoleDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Role;
 
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl extends AbstractDao implements RoleDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 
 	private static final String SQL_QUERY_ROLE_CREATE = "INSERT INTO `cinema_v2.0`.`roles` (`roleName`) VALUES (?);";
@@ -106,19 +104,6 @@ public class RoleDaoImpl implements RoleDao {
 	}
 
 	private Role buildRole(ResultSet rs) throws SQLException {
-		return Role.newBuilder()
-				.setId(rs.getInt("id"))
-				.setRoleName(rs.getString("roleName"))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of RoleDaoImpl class", e);
-			}
-		}
+		return Role.newBuilder().setId(rs.getInt("id")).setRoleName(rs.getString("roleName")).build();
 	}
 }

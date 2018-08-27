@@ -4,12 +4,13 @@ import java.util.List;
 
 import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.RoleDao;
+import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Role;
 import by.htp.epam.cinema.service.RoleService;
 
 public class RoleServiceImpl implements RoleService {
 
-	private RoleDao roleDao = DaoFactory.getRoleDao();
+	private RoleDao roleDao = DaoFactory.getRoleDao(ConnectionPool.getInstance());
 
 	@Override
 	public List<Role> getAll() {

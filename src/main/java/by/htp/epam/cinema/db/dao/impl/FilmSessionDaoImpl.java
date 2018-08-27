@@ -12,15 +12,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Seat;
 
-public class FilmSessionDaoImpl implements FilmSessionDao {
+public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(FilmSessionDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
@@ -179,22 +177,9 @@ public class FilmSessionDaoImpl implements FilmSessionDao {
 	}
 
 	private FilmSession buildFilmSession(ResultSet rs) throws SQLException {
-		return FilmSession.newBuilder()
-				.setId(rs.getInt("id"))
-				.setFilm_id(rs.getInt("film_id"))
-				.setDate(rs.getString("date"))
-				.setTime(rs.getString("time"))
-				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice")))
-				.build();
+		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilm_id(rs.getInt("film_id"))
+				.setDate(rs.getString("date")).setTime(rs.getString("time"))
+				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice"))).build();
 	}
 
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of FilmSessionDaoImpl class", e);
-			}
-		}
-	}
 }

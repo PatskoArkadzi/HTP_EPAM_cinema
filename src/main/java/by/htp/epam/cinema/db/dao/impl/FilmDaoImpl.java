@@ -11,14 +11,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.FilmDao;
-import by.htp.epam.cinema.db.pool.BaseConnectionPool;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Film;
 
-public class FilmDaoImpl implements FilmDao {
+public class FilmDaoImpl extends AbstractDao implements FilmDao {
 
-	BaseConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
@@ -236,22 +234,8 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	private Film buildFilm(ResultSet rs) throws SQLException {
-		return Film.newBuilder()
-				.setId(rs.getInt("id"))
-				.setFilmName(rs.getString("filmName"))
-				.setDescription(rs.getString("description"))
-				.setPosterUrl(rs.getString("posterUrl"))
-				.setYouTubeVideoId(rs.getString("youTubeVideoId"))
-				.build();
-	}
-
-	private void close(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in close method of FilmDaoImpl class", e);
-			}
-		}
+		return Film.newBuilder().setId(rs.getInt("id")).setFilmName(rs.getString("filmName"))
+				.setDescription(rs.getString("description")).setPosterUrl(rs.getString("posterUrl"))
+				.setYouTubeVideoId(rs.getString("youTubeVideoId")).build();
 	}
 }
