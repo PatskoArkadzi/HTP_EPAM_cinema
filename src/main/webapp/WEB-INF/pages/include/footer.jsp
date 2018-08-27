@@ -2,7 +2,6 @@
 </div>
 </div>
 <script type="text/javascript">
-	console.log(${isTimerNeed});
 	if (${isTimerNeed!=null?isTimerNeed:false}) {
 		var myInterval = setInterval(function getTimer() {
 			$.ajax({
@@ -33,5 +32,3 @@
 	crossorigin="anonymous"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-</body>
-</html>
