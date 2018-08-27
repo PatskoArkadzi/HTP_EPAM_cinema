@@ -19,16 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import by.htp.epam.cinema.domain.Role;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.RoleService;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
-import by.htp.epam.cinema.service.impl.RoleServiceImpl;
-import by.htp.epam.cinema.service.impl.UserServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 public class ChangeUserRoleAction implements BaseAction {
 
-	private UserService userService = new UserServiceImpl();
-	private RoleService roleService = new RoleServiceImpl();
+	private UserService userService = ServiceFactory.getUserService();
+	private RoleService roleService = ServiceFactory.getRoleService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
@@ -58,8 +57,9 @@ public class ChangeUserRoleAction implements BaseAction {
 				List<Role> roles = roleService.getAll();
 				request.setAttribute(REQUEST_PARAM_FOUND_USER, user);
 				request.setAttribute(REQUEST_PARAM_ROLELIST, roles);
-//				request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
-//				return;
+				// request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request,
+				// response);
+				// return;
 			}
 			request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
 		} catch (ValidateNullParamException e) {

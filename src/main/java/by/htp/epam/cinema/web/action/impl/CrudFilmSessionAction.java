@@ -23,19 +23,17 @@ import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.service.FilmService;
 import by.htp.epam.cinema.service.FilmSessionService;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
-import by.htp.epam.cinema.service.impl.FilmServiceImpl;
-import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
-import by.htp.epam.cinema.service.impl.UserServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 public class CrudFilmSessionAction implements BaseAction {
 
-	private UserService userService = new UserServiceImpl();
-	private FilmService filmService = new FilmServiceImpl();
-	private FilmSessionService filmSessionService = new FilmSessionServiceImpl();
+	private UserService userService = ServiceFactory.getUserService();
+	private FilmService filmService = ServiceFactory.getFilmService();
+	private FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

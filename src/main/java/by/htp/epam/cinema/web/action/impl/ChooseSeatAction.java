@@ -10,8 +10,7 @@ import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.FilmSessionService;
 import by.htp.epam.cinema.service.SeatService;
-import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
-import by.htp.epam.cinema.service.impl.SeatServiceImpl;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
@@ -25,8 +24,8 @@ import java.util.List;
 
 public class ChooseSeatAction implements BaseAction {
 
-	SeatService seatService = new SeatServiceImpl();
-	FilmSessionService filmSessionService = new FilmSessionServiceImpl();
+	SeatService seatService = ServiceFactory.getSeatService();
+	FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

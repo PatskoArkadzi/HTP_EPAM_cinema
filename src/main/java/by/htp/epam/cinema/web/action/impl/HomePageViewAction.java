@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.htp.epam.cinema.service.FilmService;
-import by.htp.epam.cinema.service.impl.FilmServiceImpl;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_WITH_GENRES;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class HomePageViewAction implements BaseAction {
 
-	private FilmService filmService = new FilmServiceImpl();
+	private FilmService filmService = ServiceFactory.getFilmService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

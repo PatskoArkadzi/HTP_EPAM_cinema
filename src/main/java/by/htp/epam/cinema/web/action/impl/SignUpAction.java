@@ -4,8 +4,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
-import by.htp.epam.cinema.service.impl.UserServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
@@ -22,7 +22,7 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 
 public class SignUpAction implements BaseAction {
 
-	private UserService userService = new UserServiceImpl();
+	private UserService userService = ServiceFactory.getUserService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

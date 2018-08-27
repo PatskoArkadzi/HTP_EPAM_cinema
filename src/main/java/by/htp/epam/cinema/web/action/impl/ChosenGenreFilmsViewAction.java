@@ -19,15 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.FilmService;
 import by.htp.epam.cinema.service.GenreService;
-import by.htp.epam.cinema.service.impl.FilmServiceImpl;
-import by.htp.epam.cinema.service.impl.GenreServiceImpl;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
 public class ChosenGenreFilmsViewAction implements BaseAction {
 
-	private FilmService filmService = new FilmServiceImpl();
-	private GenreService genreService = new GenreServiceImpl();
+	private FilmService filmService = ServiceFactory.getFilmService();
+	private GenreService genreService = ServiceFactory.getGenreService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

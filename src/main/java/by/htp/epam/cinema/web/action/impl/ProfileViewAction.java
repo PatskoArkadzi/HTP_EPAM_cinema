@@ -12,10 +12,9 @@ import by.htp.epam.cinema.domain.BaseEntity;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.TicketService;
 import by.htp.epam.cinema.service.TicketsOrderService;
-import by.htp.epam.cinema.service.impl.TicketServiceImpl;
-import by.htp.epam.cinema.service.impl.TicketsOrderServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_CURRENT_USER;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_USER_PROFILE;
@@ -24,8 +23,8 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 
 public class ProfileViewAction implements BaseAction {
 
-	private TicketsOrderService ticketsOrderService = new TicketsOrderServiceImpl();
-	private TicketService ticketsService = new TicketServiceImpl();
+	private TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
+	private TicketService ticketsService = ServiceFactory.getTicketService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

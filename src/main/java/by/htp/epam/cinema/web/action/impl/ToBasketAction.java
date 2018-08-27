@@ -13,12 +13,9 @@ import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.FilmSessionService;
 import by.htp.epam.cinema.service.SeatService;
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.TicketService;
 import by.htp.epam.cinema.service.TicketsOrderService;
-import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
-import by.htp.epam.cinema.service.impl.SeatServiceImpl;
-import by.htp.epam.cinema.service.impl.TicketServiceImpl;
-import by.htp.epam.cinema.service.impl.TicketsOrderServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.Timer;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
@@ -40,10 +37,10 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequ
 public class ToBasketAction implements BaseAction {
 
 	private static Logger logger = LoggerFactory.getLogger(ToBasketAction.class);
-	SeatService seatService = new SeatServiceImpl();
-	FilmSessionService filmSessionService = new FilmSessionServiceImpl();
-	TicketsOrderService ticketsOrderService = new TicketsOrderServiceImpl();
-	TicketService ticketService = new TicketServiceImpl();
+	SeatService seatService = ServiceFactory.getSeatService();
+	FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
+	TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
+	TicketService ticketService = ServiceFactory.getTicketService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)

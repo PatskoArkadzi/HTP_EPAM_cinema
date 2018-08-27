@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.TicketsOrderService;
-import by.htp.epam.cinema.service.impl.TicketsOrderServiceImpl;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateNullParamException;
 
@@ -22,7 +22,7 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequ
 
 public class PayOrderAction implements BaseAction {
 
-	private TicketsOrderService ticketsOrderService = new TicketsOrderServiceImpl();
+	private TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
 
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
