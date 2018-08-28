@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.chosenGenreFilms.">
+	<fmt:message key="filmsOfGenre" var="filmsOfGenreLoc" />
+	<fmt:message key="genres" var="genresLoc" />
+	<fmt:message key="description" var="descriptionLoc" />
+	<fmt:message key="filmDetails" var="filmDetailsLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +26,7 @@
 <body>
 	<c:import url="../include/header.jsp" />
 
-	<h3>Фильмы жанра "${chosenGenre.genreName}"</h3>
+	<h3>${filmsOfGenreLoc}"${chosenGenre.genreName}"</h3>
 	<hr>
 	<div class="container">
 		<c:forEach items="${chosenGenreFilms}" var="filmEntry">
@@ -32,7 +42,7 @@
 				</div>
 				<div class="col-md-8 container">
 					<div>
-						<b>Жанры :</b><br>
+						<b>${genresLoc}</b><br>
 						<c:forEach items="${filmEntry.value}" var="genre">
 							<a
 								href="cinema?action=view_genre_films&chosenGenreId=${genre.id}">
@@ -41,7 +51,7 @@
 					</div>
 					<br>
 					<div>
-						<b>Описание :</b> <br> ${filmEntry.key.description}
+						<b>${descriptionLoc}</b> <br> ${filmEntry.key.description}
 					</div>
 				</div>
 			</div>
@@ -49,7 +59,7 @@
 				<a
 					href="cinema?action=view_film_page&chosenFilmId=${filmEntry.key.id}"
 					class="btn btn-success btn-lg active" role="button"
-					aria-pressed="true">Details</a>
+					aria-pressed="true">${filmDetailsLoc}</a>
 			</div>
 			<hr>
 			<br>

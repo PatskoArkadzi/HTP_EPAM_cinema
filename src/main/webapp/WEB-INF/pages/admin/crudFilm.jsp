@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.crudFilm.">
+	<fmt:message key="createButton" var="createButtonLoc" />
+	<fmt:message key="updateButton" var="updateButtonLoc" />
+	<fmt:message key="deleteButton" var="deleteButtonLoc" />
+	<fmt:message key="searchButton" var="searchButtonLoc" />
+	<fmt:message key="filmName" var="filmNameLoc" />
+	<fmt:message key="description" var="descriptionLoc" />
+	<fmt:message key="posterURL" var="posterURLLoc" />
+	<fmt:message key="videoId" var="videoIdLoc" />
+	<fmt:message key="genres" var="genresLoc" />
+	<fmt:message key="chooseGenresMsg" var="chooseGenresMsgLoc" />
+	<fmt:message key="searchMsg" var="searchMsgLoc" />
+	<fmt:message key="searchResultMsg" var="searchResultMsgLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,17 +39,17 @@
 	<div class="container">
 		<button class="btn btn-success btn-lg" type="button"
 			data-toggle="collapse" data-target="#collapseExample"
-			aria-expanded="false" aria-controls="collapseExample">Create</button>
+			aria-expanded="false" aria-controls="collapseExample">${createButtonLoc}</button>
 
 		<div class="collapse" id="collapseExample">
 			<div class="card card-body">
 				<div class="container">
 					<div class="row">
-						<div class=col-md-2>FilmName</div>
-						<div class=col-md-4>Description</div>
-						<div class=col-md-2>PosterUrl</div>
-						<div class=col-md-2>VideoId</div>
-						<div class=col-md-2>Genres</div>
+						<div class=col-md-2>${filmNameLoc}</div>
+						<div class=col-md-4>${descriptionLoc}</div>
+						<div class=col-md-2>${posterURLLoc}</div>
+						<div class=col-md-2>${videoIdLoc}</div>
+						<div class=col-md-2>${genresLoc}</div>
 					</div>
 				</div>
 
@@ -57,7 +75,7 @@
 						<div class=col-md-2>
 							<select id="genre" class="form-control" name="filmGenresId"
 								multiple="multiple" size="5" required>
-								<option disabled>Выберите жанр</option>
+								<option disabled>${chooseGenresMsgLoc}</option>
 								<c:forEach items="${genrelist}" var="genre">
 									<option value="${genre.id}">${genre.genreName}</option>
 								</c:forEach>
@@ -72,16 +90,16 @@
 	</div>
 	<hr>
 	<div class="container">
-		<p>Введите id для поиска</p>
+		<p>${searchMsgLoc}</p>
 		<form class="read-film" action="cinema?action=crud_film" method=POST>
 			<div class="row">
 				<div class=col-md-2>
 					<input id="filmId" class="form-control input-md" name="filmId" />
 				</div>
 				<button id="read" value="read" name="crudCommand"
-					class="btn btn-success">search</button>
+					class="btn btn-success">${searchButtonLoc}</button>
 			</div>
-			<p>Результат поиска:</p>
+			<p>${searchResultMsgLoc}:</p>
 			<p>${foundFilm}</p>
 		</form>
 	</div>
@@ -101,21 +119,21 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class=col-md-3>FilmName :</div>
+					<div class=col-md-3>${filmNameLoc} :</div>
 					<div class=col-md-9>
 						<input id="filmName" class="form-control input-md" name="filmName"
 							value="${filmEntry.key.filmName}" />
 					</div>
 				</div>
 				<div class="row">
-					<div class=col-md-3>PosterUrl :</div>
+					<div class=col-md-3>${posterURLLoc} :</div>
 					<div class=col-md-9>
 						<input id="filmPosterUrl" class="form-control input-md"
 							name="filmPosterUrl" value="${filmEntry.key.posterUrl}" />
 					</div>
 				</div>
 				<div class="row">
-					<div class=col-md-3>youTubeVideoId :</div>
+					<div class=col-md-3>${videoIdLoc} :</div>
 					<div class=col-md-9>
 						<input id="filmYouTubeVideoId" class="form-control input-md"
 							name="filmYouTubeVideoId" value="${filmEntry.key.youTubeVideoId}" />
@@ -123,18 +141,18 @@
 				</div>
 
 				<div class="row">
-					<div class=col-md-3>Description :</div>
+					<div class=col-md-3>${descriptionLoc} :</div>
 					<div class=col-md-9>
 						<textarea id="filmDescription" name="filmDescription" cols="100"
 							rows="7">${filmEntry.key.description} </textarea>
 					</div>
 				</div>
 				<div class="row">
-					<div class=col-md-3>Genres :</div>
+					<div class=col-md-3>${genresLoc} :</div>
 					<div class=col-md-5>
 						<select id="filmGenresId" class="form-control" name="filmGenresId"
 							multiple="multiple" size="5" required>
-							<option disabled>Выберите жанр</option>
+							<option disabled>${chooseGenresMsgLoc}</option>
 							<c:forEach items="${genrelist}" var="genre">
 								<option value="${genre.id}"
 									${filmEntry.value.contains(genre)?"selected":""}>
@@ -144,10 +162,10 @@
 					</div>
 				</div>
 				<button id="update" value="update" name="crudCommand"
-					class="btn btn-success">Обновить</button>
+					class="btn btn-success">${updateButtonLoc}</button>
 
 				<button id="delete" value="delete" name="crudCommand"
-					class="btn btn-danger">Удалить</button>
+					class="btn btn-danger">${deleteButtonLoc}</button>
 			</form>
 			<br>
 		</c:forEach>

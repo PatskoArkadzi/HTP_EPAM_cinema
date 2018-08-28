@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.crudFilmSession.">
+	<fmt:message key="createButton" var="createButtonLoc" />
+	<fmt:message key="searchButton" var="searchButtonLoc" />
+	<fmt:message key="updateButton" var="updateButtonLoc" />
+	<fmt:message key="deleteButton" var="deleteButtonLoc" />
+	<fmt:message key="film" var="filmLoc" />
+	<fmt:message key="date" var="dateLoc" />
+	<fmt:message key="time" var="timeLoc" />
+	<fmt:message key="ticketPrice" var="ticketPriceLoc" />
+	<fmt:message key="searchMsg" var="searchMsgLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,17 +35,16 @@
 	<div class="container">
 		<button class="btn btn-success btn-lg" type="button"
 			data-toggle="collapse" data-target="#collapseExample"
-			aria-expanded="false" aria-controls="collapseExample">Create
-			FilmSession</button>
+			aria-expanded="false" aria-controls="collapseExample">${createButtonLoc}</button>
 
 		<div class="collapse" id="collapseExample">
 			<div class="card card-body">
 				<div class="container">
 					<div class="row">
-						<div class=col-md-3>Film</div>
-						<div class=col-md-3>Date</div>
-						<div class=col-md-2>Time</div>
-						<div class=col-md-2>TicketPrice</div>
+						<div class=col-md-3>${filmLoc}</div>
+						<div class=col-md-3>${dateLoc}</div>
+						<div class=col-md-2>${timeLoc}</div>
+						<div class=col-md-2>${ticketPriceLoc}</div>
 					</div>
 
 					<form class="create-filmSession"
@@ -57,7 +71,7 @@
 							</div>
 							<div class=col-md-2>
 								<input id="filmSessionTicketPrice" class="form-control input-md"
-									name="filmSessionTicketPrice" placeholder="price"
+									name="filmSessionTicketPrice" placeholder="${ticketPriceLoc}"
 									required="required" />
 							</div>
 							<button id="create" value="create" name="crudCommand"
@@ -70,7 +84,7 @@
 	</div>
 	<hr>
 	<div class="container">
-		<p>Введите id фильма для поиска киносеансов</p>
+		<p>${searchMsgLoc}</p>
 		<form class="read-film" action="cinema?action=crud_filmSession"
 			method=POST>
 			<div class="row">
@@ -78,7 +92,7 @@
 					<input id="filmId" class="form-control input-md" name="filmId" />
 				</div>
 				<button id="read" value="read" name="crudCommand"
-					class="btn btn-success">search</button>
+					class="btn btn-success">${searchButtonLoc}</button>
 			</div>
 		</form>
 	</div>
@@ -88,10 +102,10 @@
 		<div class="container">
 			<div class="row">
 				<div class=col-md-1>ID</div>
-				<div class=col-md-4>Film</div>
-				<div class=col-md-3>Date</div>
-				<div class=col-md-2>Time</div>
-				<div class=col-md-2>TicketPrice</div>
+				<div class=col-md-4>${filmLoc}</div>
+				<div class=col-md-3>${dateLoc}</div>
+				<div class=col-md-2>${timeLoc}</div>
+				<div class=col-md-2>${ticketPriceLoc}</div>
 			</div>
 		</div>
 		<div class="container">
@@ -124,15 +138,15 @@
 						</div>
 						<div class="col-md-2">
 							<input id="filmSessionTicketPrice" class="form-control input-md"
-								name="filmSessionTicketPrice" placeholder="price"
+								name="filmSessionTicketPrice" placeholder="${ticketPriceLoc}"
 								required="required" value="${filmSession.ticketPrice}" />
 						</div>
 					</div>
 					<button id="update" value="update" name="crudCommand"
-						class="btn btn-success">Обновить</button>
+						class="btn btn-success">${updateButtonLoc}</button>
 
 					<button id="delete" value="delete" name="crudCommand"
-						class="btn btn-danger">Удалить</button>
+						class="btn btn-danger">${deleteButtonLoc}</button>
 				</form>
 				<br>
 			</c:forEach>

@@ -29,6 +29,7 @@ public class SignUpAction implements BaseAction {
 			throws ServletException, IOException {
 		if (!isPost(request)) {
 			request.getRequestDispatcher(PAGE_USER_SIGNUP).forward(request, response);
+			return;
 		}
 		String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);
 		String email = request.getParameter(REQUEST_PARAM_USER_EMAIL);

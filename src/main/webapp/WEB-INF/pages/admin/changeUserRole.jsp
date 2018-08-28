@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.changeUserRole.">
+	<fmt:message key="searchMsg" var="searchMsgLoc" />
+	<fmt:message key="searchButton" var="searchButtonLoc" />
+	<fmt:message key="updateButton" var="updateButtonLoc" />
+	<fmt:message key="login" var="loginLoc" />
+	<fmt:message key="email" var="emailLoc" />
+	<fmt:message key="password" var="passwordLoc" />
+	<fmt:message key="salt" var="saltLoc" />
+	<fmt:message key="role" var="roleLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +34,7 @@
 
 
 	<div class="container">
-		<p>Введите id для поиска</p>
+		<p>${searchMsgLoc}</p>
 		<form class="read-user" action="cinema?action=change_user_role"
 			method=POST>
 			<div class="row">
@@ -28,7 +42,7 @@
 					<input id="userId" class="form-control input-md" name="userId" />
 				</div>
 				<button id="read" value="read" name="crudCommand"
-					class="btn btn-success">search</button>
+					class="btn btn-success">${searchButtonLoc}</button>
 			</div>
 		</form>
 	</div>
@@ -38,11 +52,11 @@
 		<div class="container">
 			<div class="row">
 				<div class=col-md-1>ID</div>
-				<div class=col-md-2>Login</div>
-				<div class=col-md-2>Email</div>
-				<div class=col-md-2>Password</div>
-				<div class=col-md-2>Salt</div>
-				<div class=col-md-2>Role</div>
+				<div class=col-md-2>${loginLoc}</div>
+				<div class=col-md-2>${emailLoc}</div>
+				<div class=col-md-2>${passwordLoc}</div>
+				<div class=col-md-2>${saltLoc}</div>
+				<div class=col-md-2>${roleLoc}</div>
 			</div>
 		</div>
 
@@ -82,7 +96,7 @@
 					</div>
 
 					<button id="update" value="update" name="crudCommand"
-						class="btn btn-success">Обновить</button>
+						class="btn btn-success">${updateButtonLoc}</button>
 				</div>
 			</form>
 		</div>

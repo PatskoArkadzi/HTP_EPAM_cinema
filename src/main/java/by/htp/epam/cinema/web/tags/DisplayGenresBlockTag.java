@@ -37,7 +37,6 @@ public class DisplayGenresBlockTag extends TagSupport {
 	public int doStartTag() {
 		List<Genre> genres = getGenres();
 		StringBuilder genresBlock = new StringBuilder();
-		genresBlock.append("<h5>Choose genre:</h5>");
 		for (Genre g : genres) {
 			genresBlock.append("<hr>").append("<a href=\"cinema?action=view_genre_films&chosenGenreId=")
 					.append(g.getId()).append("\">").append(g.getGenreName()).append("</a>");

@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.filmPage.">
+	<fmt:message key="genres" var="genresLoc" />
+	<fmt:message key="description" var="descriptionLoc" />
+	<fmt:message key="chooseDateAndTime" var="chooseDateAndTimeLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +30,8 @@
 	</div>
 	<div class="row">
 		<div class=col-md-3>
-			<img src="${chosenFilm.posterUrl}" width="250" height="400" /> <b>Выберите
-				дату и время:</b> <br>
+			<img src="${chosenFilm.posterUrl}" width="250" height="400" /> <b>${chooseDateAndTimeLoc}</b>
+			<br>
 			<c:forEach items="${chosenFilmFilmSessions}" var="session">
 				<a
 					href="cinema?action=choose_seat&chosenFilmSessionId=${session.id}"
@@ -33,14 +42,15 @@
 		</div>
 		<div class="col-md-8 container">
 			<div>
-				<b>Жанры :</b><br>
+				<b>${genresLoc}</b><br>
 				<c:forEach items="${chosenFilmGenres}" var="genre">
-								${genre.genreName}
-						</c:forEach>
+					<a href="cinema?action=view_genre_films&chosenGenreId=${genre.id}">${genre.genreName}
+					</a>
+				</c:forEach>
 			</div>
 			<br>
 			<div>
-				<b>Описание :</b> <br> ${chosenFilm.description}
+				<b>${descriptionLoc}</b> <br> ${chosenFilm.description}
 			</div>
 			<br>
 			<iframe width="600" height="400"

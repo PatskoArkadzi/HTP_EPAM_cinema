@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.msg" prefix="msg.jsp.logIn.">
+	<fmt:message key="login" var="loginLoc" />
+	<fmt:message key="password" var="passwordLoc" />
+	<fmt:message key="logInButton" var="logInButtonLoc" />
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,17 +28,16 @@
 
 	<form method="post" action="cinema?action=log_in">
 		<div class="form-group">
-			<label class="col-md-2">login</label> <input placeholder="login"
+			<label class="col-md-2">${loginLoc}</label> <input placeholder="${loginLoc}"
 				id="userLogin" name="userLogin" required="required" value="admin" />
 		</div>
 		<div class="form-group">
-			<label class="col-md-2">password</label> <input
-				placeholder="password" id="userPassword" name="userPassword"
+			<label class="col-md-2">${passwordLoc}</label> <input
+				placeholder="${passwordLoc}" id="userPassword" name="userPassword"
 				required="required" value="password" />
 		</div>
 		<div class="col-md-4">
-			<button id="singlebutton" name="singlebutton" class="btn btn-primary">log
-				in</button>
+			<button id="singlebutton" name="singlebutton" class="btn btn-primary">${logInButtonLoc}</button>
 		</div>
 	</form>
 

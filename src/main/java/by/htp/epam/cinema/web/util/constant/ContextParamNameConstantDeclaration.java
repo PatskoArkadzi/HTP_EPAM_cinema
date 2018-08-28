@@ -5,6 +5,7 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String SESSION_PARAM_CURRENT_USER = "currentUser";
 	public static final String SESSION_PARAM_GENRELIST = "genrelist";
 	public static final String SESSION_PARAM_IS_TIMER_NEED = "isTimerNeed";
+	public static final String SESSION_PARAM_CURRENT_LOCALES = "currentLocale";
 
 	public static final String REQUEST_PARAM_ACTION = "action";
 	public static final String REQUEST_PARAM_ERROR_MESSAGE = "errorMessage";
@@ -21,8 +22,7 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_CHOSEN_SEAT_ID = "chosenSeatId";
 	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION_ID = "chosenFilmSessionId";
 	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION = "chosenFilmSession";
-	public static final String REQUEST_PARAM_LOCALE_LANGUAGE = "localeLanguage";
-	public static final String REQUEST_PARAM_LOCALE_COUNTRY = "localeCountry";
+	public static final String REQUEST_PARAM_LOCALE = "locale";
 	public static final String REQUEST_PARAM_SEATS_WITH_STATES = "seatsWithStates";
 	public static final String REQUEST_PARAM_CRUD_COMMAND = "crudCommand";
 	public static final String REQUEST_PARAM_FILM_ID = "filmId";
