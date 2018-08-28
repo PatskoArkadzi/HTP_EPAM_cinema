@@ -17,7 +17,7 @@ import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ADMIN_CRUD_FILM;
@@ -78,7 +78,7 @@ public class CrudFilmAction implements BaseAction {
 				}
 				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_CRUD_FILM));
 				return;
-			} catch (SQLException | ValidateNullParamException e) {
+			} catch (SQLException | ValidateParamException e) {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

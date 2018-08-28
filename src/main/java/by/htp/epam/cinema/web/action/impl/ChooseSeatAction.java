@@ -12,7 +12,7 @@ import by.htp.epam.cinema.service.FilmSessionService;
 import by.htp.epam.cinema.service.SeatService;
 import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
@@ -42,7 +42,7 @@ public class ChooseSeatAction implements BaseAction {
 				request.setAttribute(REQUEST_PARAM_CHOSEN_FILMSESSION, chosenFilmSession);
 				request.setAttribute(REQUEST_PARAM_SEATS_WITH_STATES, seatsWithStates);
 				request.getRequestDispatcher(PAGE_USER_SEAT_CHOICE).forward(request, response);
-			} catch (ValidateNullParamException e) {
+			} catch (ValidateParamException e) {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_CHOOSE_SEAT_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

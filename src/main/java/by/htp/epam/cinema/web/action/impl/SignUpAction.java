@@ -8,7 +8,7 @@ import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_LOGIN;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
@@ -43,7 +43,7 @@ public class SignUpAction implements BaseAction {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE, resourceManager.getValue(resultOfCheck));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
-		} catch (ValidateNullParamException e) {
+		} catch (ValidateParamException e) {
 			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR));
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

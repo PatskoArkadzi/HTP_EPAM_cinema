@@ -21,7 +21,7 @@ import by.htp.epam.cinema.service.FilmService;
 import by.htp.epam.cinema.service.GenreService;
 import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 public class ChosenGenreFilmsViewAction implements BaseAction {
 
@@ -38,7 +38,7 @@ public class ChosenGenreFilmsViewAction implements BaseAction {
 			request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE_FILMS, filmService.getAllFilmsWithTheirGenres(genre));
 			request.setAttribute(REQUEST_PARAM_CHOSEN_GENRE, genre);
 			request.getRequestDispatcher(PAGE_USER_CHOSEN_GENRE_FILMS).forward(request, response);
-		} catch (ValidateNullParamException e) {
+		} catch (ValidateParamException e) {
 			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 					resourceManager.getValue(ERROR_MSG_GENRE_FILMS_VIEW_ACTION_INDEFINITE_ERROR));
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

@@ -18,7 +18,7 @@ import by.htp.epam.cinema.service.TicketService;
 import by.htp.epam.cinema.service.TicketsOrderService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.Timer;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_SEAT_ID;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_IS_TIMER_NEED;
@@ -52,7 +52,7 @@ public class ToBasketAction implements BaseAction {
 			String chosenFilmSessioIdString = request.getParameter(REQUEST_PARAM_CHOSEN_FILMSESSION_ID);
 			try {
 				validateRequestParamNotNull(chosenSeatIdString, chosenFilmSessioIdString);
-			} catch (ValidateNullParamException e) {
+			} catch (ValidateParamException e) {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_TO_BASKET_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);

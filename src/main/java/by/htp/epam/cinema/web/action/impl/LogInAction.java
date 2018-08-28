@@ -10,7 +10,7 @@ import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
-import by.htp.epam.cinema.web.util.ValidateNullParamException;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_VIEW_HOME_PAGE;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
@@ -45,7 +45,7 @@ public class LogInAction implements BaseAction {
 				session.setAttribute(SESSION_PARAM_CURRENT_USER, user);
 				session.setMaxInactiveInterval(500);
 				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_VIEW_HOME_PAGE));
-			} catch (ValidateNullParamException e) {
+			} catch (ValidateParamException e) {
 				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
 						resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_INDEFINITE_ERROR));
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
