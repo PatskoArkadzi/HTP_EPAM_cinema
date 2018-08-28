@@ -13,7 +13,7 @@ public class TicketsOrderServiceImpl implements TicketsOrderService {
 
 	@Override
 	public TicketsOrder readUserNonPaidOrder(User user) {
-		return ticketsOrderDao.read(user);
+		return ticketsOrderDao.readByUserId(user.getId());
 	}
 
 	@Override
