@@ -1,9 +1,6 @@
 package by.htp.epam.cinema.db.dao;
 
-import by.htp.epam.cinema.domain.FilmSession;
-import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.TicketsOrder;
-import by.htp.epam.cinema.domain.User;
 
 public interface TicketsOrderDao extends BaseDao<TicketsOrder> {
 
@@ -17,6 +14,6 @@ public interface TicketsOrderDao extends BaseDao<TicketsOrder> {
 	/**
 	 * read one user non-paid order
 	 */
-	TicketsOrder read(User user);
+	TicketsOrder readByUserId(int userId);
 
 }

@@ -62,11 +62,11 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	}
 
 	@Override
-	public TicketsOrder read(User user) {
+	public TicketsOrder readByUserId(int userId) {
 		ResultSet rs = null;
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_READ_NON_PAID_BY_USER)) {
-			ps.setInt(1, user.getId());
+			ps.setInt(1, userId);
 			rs = ps.executeQuery();
 			if (rs.next())
 				return buildTicketsOrder(rs);
