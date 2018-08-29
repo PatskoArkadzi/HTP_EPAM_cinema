@@ -9,6 +9,7 @@ import by.htp.epam.cinema.service.TicketsOrderService;
 import by.htp.epam.cinema.web.util.Timer;
 
 public class TicketsOrderServiceImpl implements TicketsOrderService {
+	
 	private TicketsOrderDao ticketsOrderDao = DaoFactory.getTicketsOrderDao(ConnectionPool.getInstance());
 
 	@Override

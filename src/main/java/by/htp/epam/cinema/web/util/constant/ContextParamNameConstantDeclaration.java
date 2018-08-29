@@ -48,6 +48,8 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_USER_PASSWORD = "userPassword";
 	public static final String REQUEST_PARAM_USER_SALT = "userSalt";
 	public static final String REQUEST_PARAM_USER_ROLE_ID = "userRoleId";
+	public static final String REQUEST_PARAM_OLD_PASSWORD = "oldPassword";
+	public static final String REQUEST_PARAM_NEW_PASSWORD = "newPassword";
 
 	public static final String CRUD_COMMAND_CREATE = "create";
 	public static final String CRUD_COMMAND_READ = "read";

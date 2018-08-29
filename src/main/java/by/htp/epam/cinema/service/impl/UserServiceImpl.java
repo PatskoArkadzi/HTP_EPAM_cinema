@@ -6,6 +6,8 @@ import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.util.PasswordSecurity;
+import by.htp.epam.cinema.web.util.ResourceManager;
+import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
@@ -14,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
-import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateEmailInput;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateUserCredentialsInput;
 
 public class UserServiceImpl implements UserService {
 
@@ -28,23 +30,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUser(String login, String password) throws IllegalArgumentException {
+		validateUserCredentialsInput(login, password);
 		User user = userDao.readByLogin(login);
 		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(password, user.getSalt()))) {
 			return user;
 		} else
-			throw new IllegalArgumentException();
+			throw new ValidateParamException(
+					ResourceManager.LOCALIZATION.getValue(ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR));
 	}
 
 	@Override
-	public String checkUserData(String login, String email) {
-		if (userDao.readByLogin(login) != null)
-			return ERROR_MSG_SIGN_UP_ACTION_LOGIN;
-		else if (userDao.readByEmail(email) != null)
-			return ERROR_MSG_SIGN_UP_ACTION_EMAIL;
-		else if (!validateEmailInput(email))
-			return ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALIDATE;
-		else
+	public String checkUserData(String login, String email, String password) {
+		try {
+			validateUserCredentialsInput(login, email, password);
+			if (userDao.readByLogin(login) != null)
+				return ResourceManager.LOCALIZATION.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN);
+			if (userDao.readByEmail(email) != null)
+				return ResourceManager.LOCALIZATION.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL);
 			return "";
+		} catch (ValidateParamException e) {
+			return e.getMessage();
+		}
 	}
 
 	@Override
@@ -66,6 +72,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(User user) {
 		userDao.update(user);
+	}
+
+	@Override
+	public User changeUserPassword(int userId, String oldPassword, String newPassword) {
+		User user = userDao.read(userId);
+		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(oldPassword, user.getSalt()))) {
+			String newPasswordSalt = PasswordSecurity.getSalt();
+			String newPasswordHash = PasswordSecurity.getHashPassword(newPassword, newPasswordSalt);
+			user.setSalt(newPasswordSalt);
+			user.setPassword(newPasswordHash);
+			userDao.update(user);
+			return user;
+		}
+		return null;
 	}
 
 	@Override

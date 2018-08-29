@@ -25,7 +25,6 @@
 <body>
 	<c:import url="../include/header.jsp" />
 
-
 	<form method="post" action="cinema?action=log_in">
 		<div class="form-group">
 			<label class="col-md-2">${loginLoc}</label> <input placeholder="${loginLoc}"
@@ -33,8 +32,8 @@
 		</div>
 		<div class="form-group">
 			<label class="col-md-2">${passwordLoc}</label> <input
-				placeholder="${passwordLoc}" id="userPassword" name="userPassword"
-				required="required" value="password" />
+				type="password" placeholder="${passwordLoc}" id="userPassword"
+				name="userPassword" required="required" value="Pass%1" />
 		</div>
 		<div class="col-md-4">
 			<button id="singlebutton" name="singlebutton" class="btn btn-primary">${logInButtonLoc}</button>

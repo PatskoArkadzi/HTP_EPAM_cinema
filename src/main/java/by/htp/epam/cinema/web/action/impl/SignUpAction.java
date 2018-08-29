@@ -8,13 +8,11 @@ import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
-import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_LOGIN;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_USER_SIGNUP;
-import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR;
 
 import java.io.IOException;
 
@@ -34,19 +32,13 @@ public class SignUpAction implements BaseAction {
 		String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);
 		String email = request.getParameter(REQUEST_PARAM_USER_EMAIL);
 		String password = request.getParameter(REQUEST_PARAM_USER_PASSWORD);
-		try {
-			validateRequestParamNotNull(login, email, password);
-			String resultOfCheck = userService.checkUserData(login, email);
-			if (resultOfCheck.length() == 0) {
-				userService.createUser(login, email, password);
-				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_LOGIN));
-			} else {
-				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE, resourceManager.getValue(resultOfCheck));
-				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
-			}
-		} catch (ValidateParamException e) {
-			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
-					resourceManager.getValue(ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR));
+
+		String resultOfCheck = userService.checkUserData(login, email, password);
+		if (resultOfCheck.length() == 0) {
+			userService.createUser(login, email, password);
+			response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_LOGIN));
+		} else {
+			request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE, resultOfCheck);
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}

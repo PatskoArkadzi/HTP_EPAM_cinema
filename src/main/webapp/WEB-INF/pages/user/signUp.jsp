@@ -31,17 +31,17 @@
 		<div class="form-group">
 			<label class="col-md-2">${loginLoc}</label> <input class="col-md-3"
 				placeholder="${loginLoc}" onkeyup="checkLogin()" required="required"
-				name="login" /> <span class="col-md-2" id="loginResultValue"></span>
+				name="userLogin" /> <span class="col-md-2" id="loginResultValue"></span>
 		</div>
 		<div class="form-group">
 			<label class="col-md-2">${emailLoc}</label> <input class="col-md-3"
 				placeholder="${emailLoc}" onblur="checkEmail()" required="required"
-				name="email" /> <span class="col-md-2" id="emailResultValue"></span>
+				name="userEmail" /> <span class="col-md-2" id="emailResultValue"></span>
 		</div>
 		<div class="form-group">
 			<label class="col-md-2">${passwordLoc}</label> <input class="col-md-3"
 				placeholder="${passwordLoc}" onkeyup="checkPassword()" required="required"
-				name="password" /> <span class="col-md-2" id="passwordResultValue"></span>
+				name="userPassword" /> <span class="col-md-2" id="passwordResultValue"></span>
 		</div>
 		<div class="col-md-4">
 			<button class="btn btn-primary">${signUpButtonLoc}</button>

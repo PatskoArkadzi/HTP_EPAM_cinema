@@ -15,6 +15,11 @@
 	<fmt:message key="time" var="timeLoc" />
 	<fmt:message key="seat" var="seatLoc" />
 	<fmt:message key="payButton" var="payButtonLoc" />
+	<fmt:message key="changePassword" var="changePasswordLoc" />
+	<fmt:message key="enterPassword" var="enterPasswordLoc" />
+	<fmt:message key="oldPassword" var="oldPasswordLoc" />
+	<fmt:message key="newPassword" var="newPasswordLoc" />
+	<fmt:message key="savePasswordButton" var="savePasswordButtonLoc" />
 </fmt:bundle>
 
 <!DOCTYPE html>
@@ -33,13 +38,64 @@
 	<c:import url="../include/header.jsp" />
 
 	<div class="row">
-		<div class=col-md-2>${loginLoc} :</div>
+		<div class=col-md-2>${loginLoc}:</div>
 		<div class=col-md-2>${currentUser.login}</div>
 	</div>
 	<div class="row">
-		<div class=col-md-2>${emailLoc} :</div>
+		<div class=col-md-2>${emailLoc}:</div>
 		<div class=col-md-2>${currentUser.email}</div>
 	</div>
+	<form class="form-horizontal"
+		action="cinema?action=change_user_password" method="post">
+		<fieldset>
+			<!-- Button trigger modal -->
+			<button type="button" class="col-md-3 btn btn-primary"
+				data-toggle="modal" data-target="#exampleModal">${changePasswordLoc}</button>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">${enterPasswordLoc}</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!--Old password input-->
+							<div class="form-group">
+								<label class="col-md-12 control-label" for="newPassword">${oldPasswordLoc}</label>
+								<div class="col-md-12">
+									<input id="oldPassword" name="oldPassword" type="password"
+										placeholder="${oldPasswordLoc}" class="form-control input-md"
+										required="required">
+								</div>
+							</div>
+							<!--New password input-->
+							<div class="form-group">
+								<label class="col-md-12 control-label" for="newPassword">${newPasswordLoc}</label>
+								<div class="col-md-12">
+									<input id="newPassword" name="newPassword" type="password"
+										placeholder="${newPasswordLoc}" class="form-control input-md"
+										required="required">
+								</div>
+							</div>
+							<!-- Button -->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="singlebutton"></label>
+								<div class="col-md-4">
+									<button id="singlebutton" name="singlebutton"
+										class="btn btn-primary">${savePasswordButtonLoc}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
 
 	<c:if test="${currentUserCurrentOrder!=null}">
 		<hr style="border: 1px solid black;">
@@ -70,7 +126,7 @@
 					<div class="col-md-9">${seat.row}/${seat.number}</div>
 				</div>
 			</div>
-			<div align="right">${priceLoc}: ${ticketPrice}</div>
+			<div align="right">${priceLoc}:${ticketPrice}</div>
 			<hr>
 		</c:forEach>
 
@@ -84,6 +140,7 @@
 	</c:if>
 
 	<%@ include file="../include/footer.jsp"%>
+
 
 </body>
 </html>

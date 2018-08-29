@@ -6,7 +6,7 @@ import by.htp.epam.cinema.domain.User;
 
 public interface UserService extends Service {
 
-	String checkUserData(String login, String email);
+	String checkUserData(String login, String email, String password);
 
 	User getUser(String login, String password) throws IllegalArgumentException;
 
@@ -19,5 +19,7 @@ public interface UserService extends Service {
 	void updateUser(User user);
 
 	User buildUser(HttpServletRequest request);
+
+	User changeUserPassword(int userId, String oldPassword, String newPassword);
 
 }

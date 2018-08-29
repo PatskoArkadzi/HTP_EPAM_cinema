@@ -5,11 +5,12 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CONTROLLER_INDEFINITE_ERROR = "msg.error.controller.indefiniteError";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN = "msg.error.signUpAction.login";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL = "msg.error.signUpAction.email";
-	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALIDATE = "msg.error.signUpAction.emailIsNotValidate";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_VALID = "msg.error.signUpAction.loginIsNotValid";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALID = "msg.error.signUpAction.emailIsNotValid";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_NOT_VALID = "msg.error.signUpAction.passwordIsNotValid";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR = "msg.error.signUpAction.indefiniteError";
 	public static final String ERROR_MSG_LOG_IN_ACTION_REPEATED_LOGGING = "msg.error.logInAction.repeatedLogging";
-	public static final String ERROR_MSG_LOG_IN_ACTION_INDEFINITE_ERROR = "msg.error.logInAction.indefiniteError";
-	public static final String ERROR_MSG_LOG_IN_ACTION_INCORRECT_USER_DATA = "msg.error.logInAction.incorrectUserData";
+	public static final String ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR = "msg.error.logInAction.authenticationError";
 	public static final String ERROR_MSG_GENRE_FILMS_VIEW_ACTION_INDEFINITE_ERROR = "msg.error.chosenGenreFilmsViewAction.indefiniteError";
 	public static final String ERROR_MSG_FILM_PAGE_VIEW_ACTION_INDEFINITE_ERROR = "msg.error.filmPageViewAction.indefiniteError";
 	public static final String ERROR_MSG_CHOOSE_SEAT_ACTION_INDEFINITE_ERROR = "msg.error.chooseSeatAction.indefiniteError";
@@ -27,6 +28,8 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN = "msg.error.changeUserRoleAction.userIsNotAdmin";
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR = "msg.error.changeUserRoleAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_LOCALE_ACTION_INDEFINITE_ERROR = "msg.error.changeLocaleAction.indefiniteError";
+	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.changeUserPasswordAction.indefiniteError";
+	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD = "msg.error.changeUserPasswordAction.incorrectPassword";
 
 	public static final String DB_CONNECTION_DRIVER = "db.driver";
 	public static final String DB_CONNECTION_URL = "db.url";
@@ -34,6 +37,7 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String DB_CONNECTION_PASSWORD = "db.pass";
 
 	public static final String SUCCESS_MSG_PAY_ORDER_ACTION_SUCCESSFULL_PAYMENT = "msg.success.payOrderAcrion.successfullPayment";
+	public static final String SUCCESS_MSG_CHANGE_USER_PASSWORD_ACTION_SUCCESSFULL_CHANGE = "msg.success.changeUserPasswordAction.successfullChange";
 
 	private ResourceBundleKeysConstantDeclaration() {
 	}

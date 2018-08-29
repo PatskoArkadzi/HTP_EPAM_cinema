@@ -13,7 +13,6 @@ public enum ResourceManager {
 	private ResourceManager(String resourceName) {
 		Locale.setDefault(Locale.US);
 		this.resourceBundle = ResourceBundle.getBundle(resourceName, Locale.getDefault());
-		// this.resourceBundle = ResourceBundle.getBundle(resourceName, Locale.US);
 		this.resourceName = resourceName;
 	}
 

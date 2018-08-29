@@ -36,26 +36,20 @@ public class LogInAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			return;
 		}
-		if (isPost(request)) {
+		if (!isPost(request)) {
+			request.getRequestDispatcher(PAGE_USER_LOGIN).forward(request, response);
+		} else {
 			String login = request.getParameter(REQUEST_PARAM_USER_LOGIN);
 			String password = request.getParameter(REQUEST_PARAM_USER_PASSWORD);
 			try {
-				validateRequestParamNotNull(login, password);
 				User user = userService.getUser(login, password);
 				session.setAttribute(SESSION_PARAM_CURRENT_USER, user);
 				session.setMaxInactiveInterval(500);
 				response.sendRedirect(HttpManager.getLocationForRedirect(ACTION_NAME_VIEW_HOME_PAGE));
 			} catch (ValidateParamException e) {
-				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
-						resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_INDEFINITE_ERROR));
-				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
-			} catch (IllegalArgumentException e) {
-				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
-						resourceManager.getValue(ERROR_MSG_LOG_IN_ACTION_INCORRECT_USER_DATA));
+				request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher(PAGE_USER_LOGIN).forward(request, response);
 		}
 	}
 }
