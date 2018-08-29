@@ -16,6 +16,7 @@ public class HttpRequestParamValidator {
 	private static final String EMAIL_INPUT_VALIDATION_REGEX = "(\\w{5,})@(\\w+\\.)([a-z]{2,4})";
 	private static final String PASSWORD_INPUT_VALIDATION_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{5,10}";
 	private static final String LOCALE_PARAM_VALIDATION_REGEX = "[a-zA-Z]{2}_[a-zA-Z]{2}";
+	
 	private static final String METHOD_NAME_POST = "POST";
 	private static final String ERROR_MSG_EMPTY_PARAM = "Empty param recieved";
 	private static final String ERROR_MSG_UNDEFINED_LOCALE = "Undefined locale";
@@ -53,15 +54,15 @@ public class HttpRequestParamValidator {
 			throw new ValidateParamException(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_NOT_VALID));
 	}
 
-	private static boolean validateLoginInput(String login) {
+	public static boolean validateLoginInput(String login) {
 		return Pattern.matches(LOGIN_INPUT_VALIDATION_REGEX, login);
 	}
 
-	private static boolean validateEmailInput(String email) {
+	public static boolean validateEmailInput(String email) {
 		return Pattern.matches(EMAIL_INPUT_VALIDATION_REGEX, email);
 	}
 
-	private static boolean validatePasswordInput(String password) {
+	public static boolean validatePasswordInput(String password) {
 		return Pattern.matches(PASSWORD_INPUT_VALIDATION_REGEX, password);
 	}
 }

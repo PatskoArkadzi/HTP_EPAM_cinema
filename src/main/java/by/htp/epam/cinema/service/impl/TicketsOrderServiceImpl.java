@@ -1,16 +1,16 @@
 package by.htp.epam.cinema.service.impl;
 
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.TicketsOrderService;
 import by.htp.epam.cinema.web.util.Timer;
+import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketsOrderDao;
 
 public class TicketsOrderServiceImpl implements TicketsOrderService {
-	
-	private TicketsOrderDao ticketsOrderDao = DaoFactory.getTicketsOrderDao(ConnectionPool.getInstance());
+
+	private TicketsOrderDao ticketsOrderDao = getTicketsOrderDao(CUSTOM_CONNECTION_POOL);
 
 	@Override
 	public TicketsOrder readUserNonPaidOrder(User user) {

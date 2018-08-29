@@ -8,6 +8,7 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_NAME;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_POSTER_URL;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID;
+import static by.htp.epam.cinema.db.dao.DaoFactory.*;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -16,22 +17,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.FilmService;
 
 public class FilmServiceImpl implements FilmService {
 
-	private FilmDao filmDao = DaoFactory.getFilmDao(ConnectionPool.getInstance());
-	private GenreDao genreDao = DaoFactory.getGenreDao(ConnectionPool.getInstance());
-	private static Logger logger = LoggerFactory.getLogger(FilmServiceImpl.class);
+	private FilmDao filmDao = getFilmDao(CUSTOM_CONNECTION_POOL);
+	private GenreDao genreDao = getGenreDao(CUSTOM_CONNECTION_POOL);
 
 	@Override
 	public List<Film> getAllFilms() {
@@ -87,12 +82,7 @@ public class FilmServiceImpl implements FilmService {
 		String youTubeVideoId = request.getParameter(REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID);
 		validateRequestParamNotNull(id, filmName, description, posterUrl);
 
-		return Film.newBuilder()
-				.setId(getInt(id))
-				.setFilmName(filmName)
-				.setDescription(description)
-				.setPosterUrl(fixGoogleDriveUrl(posterUrl))
-				.setYouTubeVideoId(youTubeVideoId)
-				.build();
+		return Film.newBuilder().setId(getInt(id)).setFilmName(filmName).setDescription(description)
+				.setPosterUrl(fixGoogleDriveUrl(posterUrl)).setYouTubeVideoId(youTubeVideoId).build();
 	}
 }

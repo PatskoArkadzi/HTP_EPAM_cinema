@@ -3,26 +3,19 @@ package by.htp.epam.cinema.service.impl;
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_GENRES_ID;
-
+import static by.htp.epam.cinema.db.dao.DaoFactory.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.GenreDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.GenreService;
 
 public class GenreServiceImpl implements GenreService {
 
-	private GenreDao genreDao = DaoFactory.getGenreDao(ConnectionPool.getInstance());
-
-	private static Logger logger = LoggerFactory.getLogger(GenreServiceImpl.class);
+	private GenreDao genreDao = getGenreDao(CUSTOM_CONNECTION_POOL);
 
 	@Override
 	public List<Genre> getAllGenres() {

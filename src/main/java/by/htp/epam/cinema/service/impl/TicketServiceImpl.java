@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.BaseEntity;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
@@ -18,13 +16,18 @@ import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.service.TicketService;
+import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmSessionDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getSeatDao;
 
 public class TicketServiceImpl implements TicketService {
 
-	private TicketDao ticketDao = DaoFactory.getTicketDao(ConnectionPool.getInstance());
-	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao(ConnectionPool.getInstance());
-	private FilmDao filmDao = DaoFactory.getFilmDao(ConnectionPool.getInstance());
-	private SeatDao seatDao = DaoFactory.getSeatDao(ConnectionPool.getInstance());
+	private TicketDao ticketDao = getTicketDao(CUSTOM_CONNECTION_POOL);
+	private FilmSessionDao filmSessionDao = getFilmSessionDao(CUSTOM_CONNECTION_POOL);
+	private FilmDao filmDao = getFilmDao(CUSTOM_CONNECTION_POOL);
+	private SeatDao seatDao = getSeatDao(CUSTOM_CONNECTION_POOL);
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {

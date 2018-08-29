@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 public class ActionManager {
+	
 	private static Map<String, BaseAction> actions;
 
 	static {

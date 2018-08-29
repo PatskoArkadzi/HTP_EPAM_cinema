@@ -14,21 +14,21 @@ import by.htp.epam.cinema.web.util.ResourceManager;
 
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
-public class ConnectionPool implements BaseConnectionPool {
+public class CustomConnectionPool implements BaseConnectionPool {
 
-	private static ConnectionPool instance;
+	private static CustomConnectionPool instance;
 	protected final static int POOL_SIZE = 10;
 	private final static ResourceManager RM = ResourceManager.DATA_BASE;
-	private static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+	private static Logger logger = LoggerFactory.getLogger(CustomConnectionPool.class);
 	private static BlockingQueue<Connection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 	private static BlockingQueue<Connection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
-	private ConnectionPool() {
+	private CustomConnectionPool() {
 	}
 
 	public static BaseConnectionPool getInstance() {
 		if (instance == null) {
-			instance = new ConnectionPool();
+			instance = new CustomConnectionPool();
 		}
 		return instance;
 	}

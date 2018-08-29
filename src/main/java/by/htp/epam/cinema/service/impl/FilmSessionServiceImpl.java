@@ -3,7 +3,7 @@ package by.htp.epam.cinema.service.impl;
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
-
+import static by.htp.epam.cinema.db.dao.DaoFactory.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,23 +11,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.service.FilmSessionService;
 
 public class FilmSessionServiceImpl implements FilmSessionService {
 
-	private FilmSessionDao filmSessionDao = DaoFactory.getFilmSessionDao(ConnectionPool.getInstance());
-	private TicketDao ticketDao = DaoFactory.getTicketDao(ConnectionPool.getInstance());
+	private FilmSessionDao filmSessionDao = getFilmSessionDao(CUSTOM_CONNECTION_POOL);
+	private TicketDao ticketDao = getTicketDao(CUSTOM_CONNECTION_POOL);
 
-	private static Logger logger = LoggerFactory.getLogger(FilmSessionServiceImpl.class);
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 	@Override

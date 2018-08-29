@@ -1,8 +1,6 @@
 package by.htp.epam.cinema.service.impl;
 
-import by.htp.epam.cinema.db.dao.DaoFactory;
 import by.htp.epam.cinema.db.dao.UserDao;
-import by.htp.epam.cinema.db.pool.impl.ConnectionPool;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.util.PasswordSecurity;
@@ -16,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
-import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
-import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateUserCredentialsInput;
+import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
+import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getUserDao;
 
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao = DaoFactory.getUserDao(ConnectionPool.getInstance());
+	private UserDao userDao = getUserDao(CUSTOM_CONNECTION_POOL);
 
 	@Override
 	public User getUser(int userId) {
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String login, String password) throws IllegalArgumentException {
+	public User getUser(String login, String password) {
 		validateUserCredentialsInput(login, password);
 		User user = userDao.readByLogin(login);
 		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(password, user.getSalt()))) {
@@ -76,15 +75,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User changeUserPassword(int userId, String oldPassword, String newPassword) {
-		User user = userDao.read(userId);
-		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(oldPassword, user.getSalt()))) {
-			String newPasswordSalt = PasswordSecurity.getSalt();
-			String newPasswordHash = PasswordSecurity.getHashPassword(newPassword, newPasswordSalt);
-			user.setSalt(newPasswordSalt);
-			user.setPassword(newPasswordHash);
-			userDao.update(user);
-			return user;
-		}
+		validateRequestParamNotNull(oldPassword, newPassword);
+		if (validatePasswordInput(newPassword)) {
+			User user = userDao.read(userId);
+			if (user != null
+					&& user.getPassword().equals(PasswordSecurity.getHashPassword(oldPassword, user.getSalt()))) {
+				String newPasswordSalt = PasswordSecurity.getSalt();
+				String newPasswordHash = PasswordSecurity.getHashPassword(newPassword, newPasswordSalt);
+				user.setSalt(newPasswordSalt);
+				user.setPassword(newPasswordHash);
+				userDao.update(user);
+				return user;
+			}
+		} else
+			throw new ValidateParamException(
+					ResourceManager.LOCALIZATION.getValue(ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD));
 		return null;
 	}
 
