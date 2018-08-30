@@ -5,12 +5,14 @@ import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.TicketsOrderService;
 import by.htp.epam.cinema.web.util.Timer;
-import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketsOrderDao;
 
 public class TicketsOrderServiceImpl implements TicketsOrderService {
 
-	private TicketsOrderDao ticketsOrderDao = getTicketsOrderDao(CUSTOM_CONNECTION_POOL);
+	private TicketsOrderDao ticketsOrderDao;
+
+	public TicketsOrderServiceImpl(TicketsOrderDao ticketsOrderDao) {
+		this.ticketsOrderDao = ticketsOrderDao;
+	}
 
 	@Override
 	public TicketsOrder readUserNonPaidOrder(User user) {

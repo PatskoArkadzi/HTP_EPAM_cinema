@@ -8,7 +8,6 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_NAME;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_POSTER_URL;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID;
-import static by.htp.epam.cinema.db.dao.DaoFactory.*;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -25,8 +24,13 @@ import by.htp.epam.cinema.service.FilmService;
 
 public class FilmServiceImpl implements FilmService {
 
-	private FilmDao filmDao = getFilmDao(CUSTOM_CONNECTION_POOL);
-	private GenreDao genreDao = getGenreDao(CUSTOM_CONNECTION_POOL);
+	private FilmDao filmDao;
+	private GenreDao genreDao;
+
+	public FilmServiceImpl(FilmDao filmDao, GenreDao genreDao) {
+		this.filmDao = filmDao;
+		this.genreDao = genreDao;
+	}
 
 	@Override
 	public List<Film> getAllFilms() {

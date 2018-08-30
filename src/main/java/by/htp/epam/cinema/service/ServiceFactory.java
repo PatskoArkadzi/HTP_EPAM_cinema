@@ -1,5 +1,15 @@
 package by.htp.epam.cinema.service;
 
+import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmSessionDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getGenreDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getRoleDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getSeatDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketsOrderDao;
+import static by.htp.epam.cinema.db.dao.DaoFactory.getUserDao;
+
 import by.htp.epam.cinema.service.impl.FilmServiceImpl;
 import by.htp.epam.cinema.service.impl.FilmSessionServiceImpl;
 import by.htp.epam.cinema.service.impl.GenreServiceImpl;
@@ -14,14 +24,20 @@ public class ServiceFactory {
 	private ServiceFactory() {
 	}
 
-	private static final FilmService FILM_SERVICE = new FilmServiceImpl();
-	private static final FilmSessionService FILM_SESSION_SERVICE = new FilmSessionServiceImpl();
-	private static final GenreService GENRE_SERVICE = new GenreServiceImpl();
-	private static final RoleService ROLE_SERVICE = new RoleServiceImpl();
-	private static final SeatService SEAT_SERVICE = new SeatServiceImpl();
-	private static final TicketService TICKET_SERVICE = new TicketServiceImpl();
-	private static final TicketsOrderService TICKETS_ORDER_SERVICE = new TicketsOrderServiceImpl();
-	private static final UserService USER_SERVICE = new UserServiceImpl();
+	private static final FilmService FILM_SERVICE = new FilmServiceImpl(getFilmDao(CUSTOM_CONNECTION_POOL),
+			getGenreDao(CUSTOM_CONNECTION_POOL));
+	private static final FilmSessionService FILM_SESSION_SERVICE = new FilmSessionServiceImpl(
+			getFilmSessionDao(CUSTOM_CONNECTION_POOL), getTicketDao(CUSTOM_CONNECTION_POOL));
+	private static final GenreService GENRE_SERVICE = new GenreServiceImpl(getGenreDao(CUSTOM_CONNECTION_POOL));
+	private static final RoleService ROLE_SERVICE = new RoleServiceImpl(getRoleDao(CUSTOM_CONNECTION_POOL));
+	private static final SeatService SEAT_SERVICE = new SeatServiceImpl(getSeatDao(CUSTOM_CONNECTION_POOL),
+			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
+	private static final TicketService TICKET_SERVICE = new TicketServiceImpl(getTicketDao(CUSTOM_CONNECTION_POOL),
+			getFilmSessionDao(CUSTOM_CONNECTION_POOL), getFilmDao(CUSTOM_CONNECTION_POOL),
+			getSeatDao(CUSTOM_CONNECTION_POOL));
+	private static final TicketsOrderService TICKETS_ORDER_SERVICE = new TicketsOrderServiceImpl(
+			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
+	private static final UserService USER_SERVICE = new UserServiceImpl(getUserDao(CUSTOM_CONNECTION_POOL));
 
 	public static FilmService getFilmService() {
 		return FILM_SERVICE;

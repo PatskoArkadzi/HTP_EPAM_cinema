@@ -3,7 +3,6 @@ package by.htp.epam.cinema.service.impl;
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.*;
-import static by.htp.epam.cinema.db.dao.DaoFactory.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,8 +18,13 @@ import by.htp.epam.cinema.service.FilmSessionService;
 
 public class FilmSessionServiceImpl implements FilmSessionService {
 
-	private FilmSessionDao filmSessionDao = getFilmSessionDao(CUSTOM_CONNECTION_POOL);
-	private TicketDao ticketDao = getTicketDao(CUSTOM_CONNECTION_POOL);
+	private FilmSessionDao filmSessionDao;
+	private TicketDao ticketDao;
+
+	public FilmSessionServiceImpl(FilmSessionDao filmSessionDao, TicketDao ticketDao) {
+		this.filmSessionDao = filmSessionDao;
+		this.ticketDao = ticketDao;
+	}
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

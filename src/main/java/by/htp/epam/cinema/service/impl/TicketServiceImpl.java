@@ -16,18 +16,21 @@ import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.service.TicketService;
-import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketDao;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmSessionDao;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getFilmDao;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getSeatDao;
 
 public class TicketServiceImpl implements TicketService {
 
-	private TicketDao ticketDao = getTicketDao(CUSTOM_CONNECTION_POOL);
-	private FilmSessionDao filmSessionDao = getFilmSessionDao(CUSTOM_CONNECTION_POOL);
-	private FilmDao filmDao = getFilmDao(CUSTOM_CONNECTION_POOL);
-	private SeatDao seatDao = getSeatDao(CUSTOM_CONNECTION_POOL);
+	private TicketDao ticketDao;
+	private FilmSessionDao filmSessionDao;
+	private FilmDao filmDao;
+	private SeatDao seatDao;
+
+	public TicketServiceImpl(TicketDao ticketDao, FilmSessionDao filmSessionDao, FilmDao filmDao, SeatDao seatDao) {
+		super();
+		this.ticketDao = ticketDao;
+		this.filmSessionDao = filmSessionDao;
+		this.filmDao = filmDao;
+		this.seatDao = seatDao;
+	}
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {

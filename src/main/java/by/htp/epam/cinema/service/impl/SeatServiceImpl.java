@@ -8,14 +8,16 @@ import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Seat.State;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.service.SeatService;
-import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getSeatDao;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getTicketsOrderDao;
 
 public class SeatServiceImpl implements SeatService {
 
-	private SeatDao seatDao = getSeatDao(CUSTOM_CONNECTION_POOL);
-	private TicketsOrderDao ticketsOrderDao = getTicketsOrderDao(CUSTOM_CONNECTION_POOL);
+	private SeatDao seatDao;
+	private TicketsOrderDao ticketsOrderDao;
+
+	public SeatServiceImpl(SeatDao seatDao, TicketsOrderDao ticketsOrderDao) {
+		this.seatDao = seatDao;
+		this.ticketsOrderDao = ticketsOrderDao;
+	}
 
 	@Override
 	public List<Seat> getSeatsWithState(int filmSessionId) {

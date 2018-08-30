@@ -15,12 +15,14 @@ import javax.servlet.http.HttpSession;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
-import static by.htp.epam.cinema.db.dao.DaoFactory.CUSTOM_CONNECTION_POOL;
-import static by.htp.epam.cinema.db.dao.DaoFactory.getUserDao;
 
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao = getUserDao(CUSTOM_CONNECTION_POOL);
+	private UserDao userDao;
+
+	public UserServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	@Override
 	public User getUser(int userId) {
