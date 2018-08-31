@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
+import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.styleCheckUserDataResult;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 
 public class UserServiceImpl implements UserService {
-
+	private static final ResourceManager RM = ResourceManager.LOCALIZATION;
 	private UserDao userDao;
 
 	public UserServiceImpl(UserDao userDao) {
@@ -36,8 +37,7 @@ public class UserServiceImpl implements UserService {
 		if (user != null && user.getPassword().equals(PasswordSecurity.getHashPassword(password, user.getSalt()))) {
 			return user;
 		} else
-			throw new ValidateParamException(
-					ResourceManager.LOCALIZATION.getValue(ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR));
+			throw new ValidateParamException(RM.getValue(ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR));
 	}
 
 	@Override
@@ -45,13 +45,45 @@ public class UserServiceImpl implements UserService {
 		try {
 			validateUserCredentialsInput(login, email, password);
 			if (userDao.readByLogin(login) != null)
-				return ResourceManager.LOCALIZATION.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN);
+				return RM.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_FREE);
 			if (userDao.readByEmail(email) != null)
-				return ResourceManager.LOCALIZATION.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL);
+				return RM.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_FREE);
 			return "";
 		} catch (ValidateParamException e) {
 			return e.getMessage();
 		}
+	}
+
+	@Override
+	public String checkUserLogin(String login) {
+		if (!validateLoginInput(login))
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_VALID), false);
+		else if (userDao.readByLogin(login) != null)
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_FREE), false);
+		else
+			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_LOGIN_IS_FREE), true);
+	}
+
+	@Override
+	public String checkUserEmail(String email) {
+		if (!validateEmailInput(email))
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALID), false);
+		else if (userDao.readByEmail(email) != null)
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_FREE), false);
+		else
+			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_EMAIL_IS_FREE), true);
+	}
+
+	@Override
+	public String checkUserPassword(String password) {
+		if (password.length() < 5)
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_SMALL), false);
+		else if (password.length() > 15)
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_LONG), false);
+		else if (!validatePasswordInput(password))
+			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_NOT_VALID), false);
+		else
+			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_PASSWORD_IS_VALID), true);
 	}
 
 	@Override
@@ -90,8 +122,7 @@ public class UserServiceImpl implements UserService {
 				return user;
 			}
 		} else
-			throw new ValidateParamException(
-					ResourceManager.LOCALIZATION.getValue(ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD));
+			throw new ValidateParamException(RM.getValue(ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD));
 		return null;
 	}
 

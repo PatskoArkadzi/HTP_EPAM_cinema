@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.service.GenreService;
-import by.htp.epam.cinema.service.impl.GenreServiceImpl;
+import by.htp.epam.cinema.service.ServiceFactory;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_GENRELIST;
 
 public class DisplayGenresBlockTag extends TagSupport {
@@ -26,7 +26,7 @@ public class DisplayGenresBlockTag extends TagSupport {
 		HttpSession session = pageContext.getSession();
 		List<Genre> genres = (List<Genre>) session.getAttribute(SESSION_PARAM_GENRELIST);
 		if (genres == null) {
-			GenreService genreService = new GenreServiceImpl();
+			GenreService genreService = ServiceFactory.getGenreService();
 			genres = genreService.getAllGenres();
 			session.setAttribute(SESSION_PARAM_GENRELIST, genres);
 		}

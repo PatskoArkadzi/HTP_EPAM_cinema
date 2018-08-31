@@ -22,4 +22,10 @@ public interface UserService extends Service {
 
 	User changeUserPassword(int userId, String oldPassword, String newPassword);
 
+	String checkUserLogin(String login);
+
+	String checkUserEmail(String email);
+
+	String checkUserPassword(String password);
+
 }

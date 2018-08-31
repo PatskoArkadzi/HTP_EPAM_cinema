@@ -12,11 +12,11 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 public class HttpRequestParamValidator {
 
 	private static final ResourceManager RM = ResourceManager.LOCALIZATION;
-	private static final String LOGIN_INPUT_VALIDATION_REGEX = "[A-Za-z0-9_]{4,15}";
+	private static final String LOGIN_INPUT_VALIDATION_REGEX = "[A-Za-z0-9_]{5,15}";
 	private static final String EMAIL_INPUT_VALIDATION_REGEX = "(\\w{5,})@(\\w+\\.)([a-z]{2,4})";
 	private static final String PASSWORD_INPUT_VALIDATION_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{5,10}";
 	private static final String LOCALE_PARAM_VALIDATION_REGEX = "[a-zA-Z]{2}_[a-zA-Z]{2}";
-	
+
 	private static final String METHOD_NAME_POST = "POST";
 	private static final String ERROR_MSG_EMPTY_PARAM = "Empty param recieved";
 	private static final String ERROR_MSG_UNDEFINED_LOCALE = "Undefined locale";

@@ -28,20 +28,25 @@
 
 
 	<form method="post" action="cinema?action=sign_up">
-		<div class="form-group">
+		<div class="form-group row">
 			<label class="col-md-2">${loginLoc}</label> <input class="col-md-3"
 				placeholder="${loginLoc}" onkeyup="checkLogin()" required="required"
-				name="userLogin" /> <span class="col-md-2" id="loginResultValue"></span>
+				name="userLogin" id="userLogin" />
+			<div class="col-md-7" id="loginResultValue"></div>
 		</div>
-		<div class="form-group">
+
+		<div class="form-group row">
 			<label class="col-md-2">${emailLoc}</label> <input class="col-md-3"
-				placeholder="${emailLoc}" onblur="checkEmail()" required="required"
-				name="userEmail" /> <span class="col-md-2" id="emailResultValue"></span>
+				placeholder="${emailLoc}" onkeyup="checkEmail()" required="required"
+				name="userEmail" id="userEmail" />
+			<div class="col-md-7" id="emailResultValue"></div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2">${passwordLoc}</label> <input class="col-md-3"
-				placeholder="${passwordLoc}" onkeyup="checkPassword()" required="required"
-				name="userPassword" /> <span class="col-md-2" id="passwordResultValue"></span>
+		<div class="form-group row">
+			<label class="col-md-2">${passwordLoc}</label> <input
+				class="col-md-3" placeholder="${passwordLoc}"
+				onkeyup="checkPassword()" required="required" name="userPassword"
+				id="userPassword" />
+			<div class="col-md-7" id="passwordResultValue"></div>
 		</div>
 		<div class="col-md-4">
 			<button class="btn btn-primary">${signUpButtonLoc}</button>
@@ -49,46 +54,42 @@
 		<!-- <input type="submit" value="sign up" /> -->
 	</form>
 
-	<!-- <script type="text/javascript">
-	function checkLogin() {
-		var data = {
-			login : $('#login').val()
-		};
-		var dataJson = JSON.stringify(data);
-		console.log($);
-		$.ajax({
-			url : 'checkLog',
-			data : ({
-				jsonLogin : dataJson
-			}),
-			success : function(data) {
-				$('#loginResultValue').html(data);
-			}
-		});
-	}
-	function checkEmail() {
-		$.ajax({
-			url : 'checkEmail',
-			data : ({
-				email : $('#email').val()
-			}),
-			success : function(data) {
-				$('#emailResultValue').html(data);
-			}
-		})
-	}
-	function checkPassword() {
-		$.ajax({
-			url : 'checkPass',
-			data : ({
-				password : $('#password').val()
-			}),
-			success : function(data) {
-				$('#passwordResultValue').html(data);
-			}
-		})
-	}
-</script> -->
+	<script type="text/javascript">
+		function checkLogin() {
+			$.ajax({
+				url : 'cinema?action=checkUserRegistrationData',
+				data : ({
+					userLogin : $('#userLogin').val()
+				}),
+				success : function(data) {
+					$('#loginResultValue').html(data);
+				}
+			});
+		}
+
+		function checkEmail() {
+			$.ajax({
+				url : 'cinema?action=checkUserRegistrationData',
+				data : ({
+					userEmail : $('#userEmail').val()
+				}),
+				success : function(data) {
+					$('#emailResultValue').html(data);
+				}
+			})
+		}
+		function checkPassword() {
+			$.ajax({
+				url : 'cinema?action=checkUserRegistrationData',
+				data : ({
+					userPassword : $('#userPassword').val()
+				}),
+				success : function(data) {
+					$('#passwordResultValue').html(data);
+				}
+			})
+		}
+	</script>
 
 
 	<%@ include file="../include/footer.jsp"%>

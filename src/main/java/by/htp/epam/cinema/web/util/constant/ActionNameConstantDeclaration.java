@@ -20,6 +20,7 @@ public final class ActionNameConstantDeclaration {
 	public static final String ACTION_NAME_VIEW_TIMER = "view_timer";
 	public static final String ACTION_NAME_DELETE_NON_PAID_ORDER = "deleteNonPaidOrder";
 	public static final String ACTION_NAME_PAY_ORDER = "payOrder";
+	public static final String ACTION_NAME_CHECK_USER_REGISTRATION_DATA = "checkUserRegistrationData";
 
 	private ActionNameConstantDeclaration() {
 	}

@@ -3,11 +3,13 @@ package by.htp.epam.cinema.web.util.constant;
 public class ResourceBundleKeysConstantDeclaration {
 
 	public static final String ERROR_MSG_CONTROLLER_INDEFINITE_ERROR = "msg.error.controller.indefiniteError";
-	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN = "msg.error.signUpAction.login";
-	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL = "msg.error.signUpAction.email";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_FREE = "msg.error.signUpAction.emailIsNotFree";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_VALID = "msg.error.signUpAction.loginIsNotValid";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_FREE = "msg.error.signUpAction.loginIsNotfree";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALID = "msg.error.signUpAction.emailIsNotValid";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_NOT_VALID = "msg.error.signUpAction.passwordIsNotValid";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_SMALL = "msg.error.signUpAction.passwordIsTooSmall";
+	public static final String ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_LONG = "msg.error.signUpAction.passwordIsTooLong";
 	public static final String ERROR_MSG_SIGN_UP_ACTION_INDEFINITE_ERROR = "msg.error.signUpAction.indefiniteError";
 	public static final String ERROR_MSG_LOG_IN_ACTION_REPEATED_LOGGING = "msg.error.logInAction.repeatedLogging";
 	public static final String ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR = "msg.error.logInAction.authenticationError";
@@ -30,6 +32,7 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CHANGE_LOCALE_ACTION_INDEFINITE_ERROR = "msg.error.changeLocaleAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.changeUserPasswordAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD = "msg.error.changeUserPasswordAction.incorrectPassword";
+	public static final String ERROR_MSG_CHECK_USER_REGISTRATION_DATA_ACTION_INDEFINITE_ERROR = "msg.error.checkUserRegistrationDataAction.indefiniteError";
 
 	public static final String DB_CONNECTION_DRIVER = "db.driver";
 	public static final String DB_CONNECTION_URL = "db.url";
@@ -38,6 +41,9 @@ public class ResourceBundleKeysConstantDeclaration {
 
 	public static final String SUCCESS_MSG_PAY_ORDER_ACTION_SUCCESSFULL_PAYMENT = "msg.success.payOrderAcrion.successfullPayment";
 	public static final String SUCCESS_MSG_CHANGE_USER_PASSWORD_ACTION_SUCCESSFULL_CHANGE = "msg.success.changeUserPasswordAction.successfullChange";
+	public static final String SUCCESS_MSG_SIGN_UP_ACTION_LOGIN_IS_FREE = "msg.success.signUpAction.loginIsFree";
+	public static final String SUCCESS_MSG_SIGN_UP_ACTION_EMAIL_IS_FREE = "msg.success.signUpAction.emailIsFree";
+	public static final String SUCCESS_MSG_SIGN_UP_ACTION_PASSWORD_IS_VALID = "msg.success.signUpAction.passwordIsValid";
 
 	private ResourceBundleKeysConstantDeclaration() {
 	}
