@@ -23,7 +23,7 @@ INSERT INTO `films` (`id`, `filmName`, `description`, `posterUrl`, `youTubeVideo
 	(6, 'Мстители: Война бесконечности', 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности -  артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту -  судьба Земли никогда ещё не была столь неопределённой. ', 'https://drive.google.com/uc?id=157z5PWXbBEzKjd09-cbfZup-4HWeZ3Kf', 'QwievZ1Tx-8');
 /*!40000 ALTER TABLE `films` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.films_genres: ~4 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.films_genres: ~23 rows (приблизительно)
 DELETE FROM `films_genres`;
 /*!40000 ALTER TABLE `films_genres` DISABLE KEYS */;
 INSERT INTO `films_genres` (`film_id`, `genre_id`) VALUES
@@ -67,17 +67,15 @@ INSERT INTO `genres` (`id`, `genreName`) VALUES
 	(9, 'Фэнтези');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.orders: ~6 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.orders: ~5 rows (приблизительно)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
-	(1, 776170, 2, b'0'),
+	(1, 776170, 2, b'1'),
 	(2, 745287, 1, b'1'),
-	(3, 397928, 4, b'0'),
 	(4, 553779, 3, b'1'),
 	(13, 300850, 1, b'1'),
-	(14, 933849, 1, b'1'),
-	(18, 260247, 1, b'0');
+	(14, 933849, 1, b'1');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Дамп данных таблицы cinema_v2.0.roles: ~2 rows (приблизительно)
@@ -358,32 +356,28 @@ INSERT INTO `sessions` (`id`, `film_id`, `date`, `time`, `ticketPrice`) VALUES
 	(7, 2, '2018-07-10', '12:00', 5.00);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.tickets: ~12 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.tickets: ~8 rows (приблизительно)
 DELETE FROM `tickets`;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
 INSERT INTO `tickets` (`id`, `session_id`, `seat_id`, `order_id`) VALUES
 	(3, 2, 5, 2),
-	(25, 6, 1, 3),
-	(26, 6, 2, 3),
 	(27, 6, 3, 4),
 	(28, 6, 4, 4),
 	(29, 6, 251, 2),
 	(31, 6, 5, 4),
-	(32, 6, 6, 3),
 	(51, 6, 250, 13),
 	(52, 6, 249, 14),
-	(53, 6, 248, 14),
-	(69, 1, 114, 18);
+	(53, 6, 248, 14);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.users: ~5 rows (приблизительно)
+-- Дамп данных таблицы cinema_v2.0.users: ~4 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `salt`, `role_id`) VALUES
-	(1, 'admin', 'admin@admin.com', '61fbd54dd28a2c75ccfd2a4fd0c0ec3ac928677697755e3b96dcd9d00aca47d7bc5080b7b4c8fdc8bc67a870f11fcaf48e71d34514ff51d509e7998a50c2e091', '9ba7185c6d59f98d39c924415a0ca708', 1),
-	(2, 'user1', 'user1@user.com', '69a99ec3a3e9626b4a75ee589d0b6e4e6703b79f2b573486bf6f36b166d20568c921a72931cff2ddfcbb72c4e82748a4d561de94868fa25a587ac29d8878f481', 'b7daad5c533ba192135ffd2c2c24056f', 2),
-	(3, 'user2', 'user2@user.com', '4ae840b0fd09c3776e2fddf5efccbb6b3ac9e4a8528e5f492fc52e8ad082e858b63d212afbbb4b743a7fce2db604315b9f9f093556dfa1527f42cf728ecb768e', '8aa4a39f3436e38e1eec36c448266a13', 2),
-	(4, 'user3', 'user3@user.com', '41f2c87786e51807f205154bdcd55b9d129ec887805d9a2ce9a5e5c487e50fbc93d72a51698acf7614719450b9593fe81a9e04c8315d8eb6b2cf38e03c792c09', 'e28fa306345cf39971055c1156e60c82', 2);
+	(1, 'admin', 'admin@admin.com', '85849797dcaa384454b70590195d8821c346ea838a409cbecfcd4ad78fc2c78174876eb9e224a8ea6243191fbf315b0ec2279a1cb224e8ef216521d6d3ec77b4', '5ae5c44d2fcbab3dfb532a923840fd3c', 1),
+	(2, 'user1', 'user1@user.com', '3780c8fe39a8ace65bd0c4a3a6ac6c23e3036bda60b85e3b756c51aa6a033c6be899c907c6fd11e3a8e9bb770d8d5c645e5e5ab32ceba4d953c3b1afefca0813', 'fcad6cfeb76b33501f83613def110fe2', 2),
+	(3, 'user2', 'user2@user.com', '764d418cd1d3a2e573f3388bd39a21c48c3c74031274bf2d9bd0a05f4cbaeb09d9efc7d51e9f3cc8d04de7e19a4e94e86b30885be384ca2528ff88e28729d61c', 'dc3afde74bd69ea7c4328b88d69b9500', 2),
+	(4, 'user3', 'user3@user.com', 'ad6d0d2a14f5e1f96e8b9c137c5c143896c63ba064541593727f24ac71208dc3f1a61482b2ef85647cddacc4d3ad49abffd2b1c43f301275a8c7c5f7bb1d2afe', '5c6ab9f4c7ef4d921e8a9edf7afe4c6c', 2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

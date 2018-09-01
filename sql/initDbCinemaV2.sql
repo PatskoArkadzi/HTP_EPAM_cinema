@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   `posterUrl` varchar(100) NOT NULL,
   `youTubeVideoId` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.films_genres
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   UNIQUE KEY `orderNumber` (`orderNumber`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.roles
@@ -110,8 +110,8 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   KEY `order_id` (`order_id`),
   CONSTRAINT `FK_tickets_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tickets_seats` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`),
-  CONSTRAINT `FK_tickets_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_tickets_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица cinema_v2.0.users
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `login` (`login`),
   KEY `roles_id` (`role_id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='admin-password\r\nuser1-qwerty\r\nuser2-12345\r\nuser3-54321';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='admin-Pass%1\r\nuser1-Pass%2\r\nuser2-Pass%3\r\nuser3-Pass%4';
 
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для триггер cinema_v2.0.generate orderNumber
