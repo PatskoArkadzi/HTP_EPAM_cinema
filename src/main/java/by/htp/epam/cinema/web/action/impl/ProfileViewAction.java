@@ -2,16 +2,14 @@ package by.htp.epam.cinema.web.action.impl;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.epam.cinema.domain.BaseEntity;
-import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
+import by.htp.epam.cinema.domain.CompositeEntities.CompositeTicket;
 import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.service.TicketService;
 import by.htp.epam.cinema.service.TicketsOrderService;
@@ -32,9 +30,9 @@ public class ProfileViewAction implements BaseAction {
 		User currentUser = (User) request.getSession().getAttribute(SESSION_PARAM_CURRENT_USER);
 		TicketsOrder ticketsOrder = ticketsOrderService.readUserNonPaidOrder(currentUser);
 		if (ticketsOrder != null) {
-			Map<Ticket, List<BaseEntity>> currentOrderTickets = ticketsService.getOrderTickets(ticketsOrder);
 			request.setAttribute(REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER, ticketsOrder);
-			request.setAttribute(REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS, currentOrderTickets);
+			List<CompositeTicket> compositeTickets = ticketsService.getOrderTickets(ticketsOrder);
+			request.setAttribute(REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS, compositeTickets);
 		}
 		request.getRequestDispatcher(PAGE_USER_PROFILE).forward(request, response);
 	}

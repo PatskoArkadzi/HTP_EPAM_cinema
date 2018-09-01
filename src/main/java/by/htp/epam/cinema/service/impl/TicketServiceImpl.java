@@ -1,20 +1,18 @@
 package by.htp.epam.cinema.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
-import by.htp.epam.cinema.domain.BaseEntity;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.domain.TicketsOrder;
+import by.htp.epam.cinema.domain.CompositeEntities.CompositeTicket;
 import by.htp.epam.cinema.service.TicketService;
 
 public class TicketServiceImpl implements TicketService {
@@ -40,23 +38,24 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public Map<Ticket, List<BaseEntity>> getOrderTickets(TicketsOrder order) {
+	public List<CompositeTicket> getOrderTickets(TicketsOrder order) {
 		List<Ticket> tickets = ticketDao.readAllWhereOrderIdPresent(order.getId());
-		Map<Ticket, List<BaseEntity>> currentOrderTickets = new HashMap<>();
+		List<CompositeTicket> compositeTickets = new ArrayList<>();
 		for (Ticket t : tickets) {
-			currentOrderTickets.put(t, getRelatedEntities(t));
+			compositeTickets.add(getCompositeTicket(t, order));
 		}
-		return currentOrderTickets;
+		return compositeTickets;
 	}
 
-	private List<BaseEntity> getRelatedEntities(Ticket ticket) {
-		List<BaseEntity> relatedEntities = new ArrayList<>();
+	private CompositeTicket getCompositeTicket(Ticket ticket, TicketsOrder order) {
+		CompositeTicket ct = new CompositeTicket();
 		FilmSession filmSession = filmSessionDao.read(ticket.getFilmSessionId());
-		relatedEntities.add(filmSession);
 		Film film = filmDao.read(filmSession.getFilmId());
-		relatedEntities.add(film);
 		Seat seat = seatDao.read(ticket.getSeatId());
-		relatedEntities.add(seat);
-		return relatedEntities;
+		ct.setFilmSession(filmSession);
+		ct.setFilm(film);
+		ct.setSeat(seat);
+		ct.setTicketsOrder(order);
+		return new CompositeTicket(ticket.getId(), filmSession, film, seat, order);
 	}
 }

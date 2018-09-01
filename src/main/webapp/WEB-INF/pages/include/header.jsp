@@ -33,7 +33,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="nav navbar-nav">
-				<c:if test="${currentUser.role_id==1}">
+				<c:if test="${currentUser.roleId==1}">
 					<div class="dropdown">
 						<button class="btn btn-secondary dropdown-toggle" type="button"
 							id="dropdownMenuButton" data-toggle="dropdown"

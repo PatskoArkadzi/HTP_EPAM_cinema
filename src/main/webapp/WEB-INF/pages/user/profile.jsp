@@ -106,12 +106,12 @@
 		</div>
 
 		<c:set var="totalPrice" value="0" />
-		<c:forEach items="${currentUserCurrentOrderTickets}" var="ticketEntry"
+		<c:forEach items="${currentUserCurrentOrderTickets}" var="ticket"
 			varStatus="loop">
 
-			<c:set var="filmSession" value="${ticketEntry.value.get(0)}" />
-			<c:set var="film" value="${ticketEntry.value.get(1)}" />
-			<c:set var="seat" value="${ticketEntry.value.get(2)}" />
+			<c:set var="filmSession" value="${ticket.filmSession}" />
+			<c:set var="film" value="${ticket.film}" />
+			<c:set var="seat" value="${ticket.seat}" />
 			<c:set var="ticketPrice" value="${filmSession.ticketPrice}" />
 			<c:set var="totalPrice" value="${totalPrice+ticketPrice}" />
 
