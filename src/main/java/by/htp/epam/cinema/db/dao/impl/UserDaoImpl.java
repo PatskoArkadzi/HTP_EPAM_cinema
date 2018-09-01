@@ -35,7 +35,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			ps.setString(2, entity.getEmail());
 			ps.setString(3, entity.getPassword());
 			ps.setString(4, entity.getSalt());
-			ps.setInt(5, entity.getRole_id());
+			ps.setInt(5, entity.getRoleId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of UserDaoImpl class", e);
@@ -126,7 +126,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			ps.setString(2, entity.getEmail());
 			ps.setString(3, entity.getPassword());
 			ps.setString(4, entity.getSalt());
-			ps.setInt(5, entity.getRole_id());
+			ps.setInt(5, entity.getRoleId());
 			ps.setInt(6, entity.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -152,6 +152,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	private User buildUser(ResultSet rs) throws SQLException {
 		return User.newBuilder().setId(rs.getInt("id")).setLogin(rs.getString("login")).setEmail(rs.getString("email"))
 				.setPassword(rs.getString("password")).setSalt(rs.getString("salt"))
-				.setRole_id(Integer.parseInt(rs.getString("role_id"))).build();
+				.setRoleId(Integer.parseInt(rs.getString("role_id"))).build();
 	}
 }

@@ -49,11 +49,11 @@ public class FilmSession extends BaseEntity {
 		this.ticketPrice = ticketPrice;
 	}
 
-	public int getFilm_id() {
+	public int getFilmId() {
 		return film_id;
 	}
 
-	public void setFilm_id(int film_id) {
+	public void setFilmId(int film_id) {
 		this.film_id = film_id;
 	}
 
@@ -135,7 +135,7 @@ public class FilmSession extends BaseEntity {
 			return this;
 		}
 
-		public Builder setFilm_id(int film_id) {
+		public Builder setFilmId(int film_id) {
 			FilmSession.this.film_id = film_id;
 			return this;
 		}

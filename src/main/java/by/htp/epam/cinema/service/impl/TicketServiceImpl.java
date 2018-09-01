@@ -34,8 +34,8 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {
-		Ticket ticket = Ticket.newBuilder().setId(0).setFilmSession_id(filmSession.getId()).setSeat_id(seat.getId())
-				.setTicketsOrder_id(ticketsOrder.getId()).build();
+		Ticket ticket = Ticket.newBuilder().setId(0).setFilmSessionId(filmSession.getId()).setSeatId(seat.getId())
+				.setTicketsOrderId(ticketsOrder.getId()).build();
 		ticketDao.create(ticket);
 	}
 
@@ -51,11 +51,11 @@ public class TicketServiceImpl implements TicketService {
 
 	private List<BaseEntity> getRelatedEntities(Ticket ticket) {
 		List<BaseEntity> relatedEntities = new ArrayList<>();
-		FilmSession filmSession = filmSessionDao.read(ticket.getFilmSession_id());
+		FilmSession filmSession = filmSessionDao.read(ticket.getFilmSessionId());
 		relatedEntities.add(filmSession);
-		Film film = filmDao.read(filmSession.getFilm_id());
+		Film film = filmDao.read(filmSession.getFilmId());
 		relatedEntities.add(film);
-		Seat seat = seatDao.read(ticket.getSeat_id());
+		Seat seat = seatDao.read(ticket.getSeatId());
 		relatedEntities.add(seat);
 		return relatedEntities;
 	}

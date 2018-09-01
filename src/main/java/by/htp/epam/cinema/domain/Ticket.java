@@ -20,27 +20,27 @@ public class Ticket extends BaseEntity {
 		this.ticketsOrder_id = ticketsOrder_id;
 	}
 
-	public int getFilmSession_id() {
+	public int getFilmSessionId() {
 		return filmSession_id;
 	}
 
-	public void setFilmSession_id(int filmSession_id) {
+	public void setFilmSessionId(int filmSession_id) {
 		this.filmSession_id = filmSession_id;
 	}
 
-	public int getSeat_id() {
+	public int getSeatId() {
 		return seat_id;
 	}
 
-	public void setSeat_id(int seat_id) {
+	public void setSeatId(int seat_id) {
 		this.seat_id = seat_id;
 	}
 
-	public int getTicketsOrder_id() {
+	public int getTicketsOrderId() {
 		return ticketsOrder_id;
 	}
 
-	public void setTicketsOrder_id(int ticketsOrder_id) {
+	public void setTicketsOrderId(int ticketsOrder_id) {
 		this.ticketsOrder_id = ticketsOrder_id;
 	}
 
@@ -96,17 +96,17 @@ public class Ticket extends BaseEntity {
 			return this;
 		}
 
-		public Builder setFilmSession_id(int filmSession_id) {
+		public Builder setFilmSessionId(int filmSession_id) {
 			Ticket.this.filmSession_id = filmSession_id;
 			return this;
 		}
 
-		public Builder setSeat_id(int seat_id) {
+		public Builder setSeatId(int seat_id) {
 			Ticket.this.seat_id = seat_id;
 			return this;
 		}
 
-		public Builder setTicketsOrder_id(int ticketsOrder_id) {
+		public Builder setTicketsOrderId(int ticketsOrder_id) {
 			Ticket.this.ticketsOrder_id = ticketsOrder_id;
 			return this;
 		}

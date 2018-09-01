@@ -58,11 +58,11 @@ public class User extends BaseEntity {
 		this.salt = salt;
 	}
 
-	public int getRole_id() {
+	public int getRoleId() {
 		return role_id;
 	}
 
-	public void setRole_id(int role_id) {
+	public void setRoleId(int role_id) {
 		this.role_id = role_id;
 	}
 
@@ -155,7 +155,7 @@ public class User extends BaseEntity {
 			return this;
 		}
 
-		public Builder setRole_id(int role_id) {
+		public Builder setRoleId(int role_id) {
 			User.this.role_id = role_id;
 			return this;
 		}

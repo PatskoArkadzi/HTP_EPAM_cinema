@@ -31,9 +31,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	public void create(Ticket entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_CREATE)) {
-			ps.setInt(1, entity.getFilmSession_id());
-			ps.setInt(2, entity.getSeat_id());
-			ps.setInt(3, entity.getTicketsOrder_id());
+			ps.setInt(1, entity.getFilmSessionId());
+			ps.setInt(2, entity.getSeatId());
+			ps.setInt(3, entity.getTicketsOrderId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of TicketDaoImpl class", e);
@@ -126,9 +126,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	public void update(Ticket entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_UPDATE)) {
-			ps.setInt(1, entity.getFilmSession_id());
-			ps.setInt(2, entity.getSeat_id());
-			ps.setInt(3, entity.getTicketsOrder_id());
+			ps.setInt(1, entity.getFilmSessionId());
+			ps.setInt(2, entity.getSeatId());
+			ps.setInt(3, entity.getTicketsOrderId());
 			ps.setInt(4, entity.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -152,7 +152,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	}
 
 	private Ticket buildTicket(ResultSet rs) throws SQLException {
-		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSession_id(rs.getInt("session_id"))
-				.setSeat_id(rs.getInt("seat_id")).setTicketsOrder_id(rs.getInt("order_id")).build();
+		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
+				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
 	}
 }

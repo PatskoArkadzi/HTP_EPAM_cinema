@@ -39,11 +39,11 @@ public class TicketsOrder extends BaseEntity {
 		this.isPaid = isPaid;
 	}
 
-	public int getUser_id() {
+	public int getUserId() {
 		return user_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUserId(int user_id) {
 		this.user_id = user_id;
 	}
 
@@ -109,7 +109,7 @@ public class TicketsOrder extends BaseEntity {
 			return this;
 		}
 
-		public Builder setUser_id(int user_id) {
+		public Builder setUserId(int user_id) {
 			TicketsOrder.this.user_id = user_id;
 			return this;
 		}

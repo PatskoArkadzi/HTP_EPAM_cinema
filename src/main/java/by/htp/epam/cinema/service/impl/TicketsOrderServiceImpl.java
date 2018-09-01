@@ -21,7 +21,7 @@ public class TicketsOrderServiceImpl implements TicketsOrderService {
 
 	@Override
 	public TicketsOrder createTicketsOrder(User user) {
-		TicketsOrder ticketsOrder = TicketsOrder.newBuilder().setUser_id(user.getId()).build();
+		TicketsOrder ticketsOrder = TicketsOrder.newBuilder().setUserId(user.getId()).build();
 		ticketsOrderDao.create(ticketsOrder);
 		return readUserNonPaidOrder(user);
 	}

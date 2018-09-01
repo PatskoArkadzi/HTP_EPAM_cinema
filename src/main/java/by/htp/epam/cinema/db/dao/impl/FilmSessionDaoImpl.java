@@ -35,7 +35,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	public void create(FilmSession entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_SESSION_CREATE)) {
-			ps.setInt(1, entity.getFilm_id());
+			ps.setInt(1, entity.getFilmId());
 			ps.setString(2, entity.getDate());
 			ps.setString(3, entity.getTime());
 			ps.setBigDecimal(4, entity.getTicketPrice());
@@ -150,7 +150,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	public void update(FilmSession entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_SESSION_UPDATE)) {
-			ps.setInt(1, entity.getFilm_id());
+			ps.setInt(1, entity.getFilmId());
 			ps.setString(2, entity.getDate());
 			ps.setString(3, entity.getTime());
 			ps.setBigDecimal(4, entity.getTicketPrice());
@@ -177,7 +177,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	}
 
 	private FilmSession buildFilmSession(ResultSet rs) throws SQLException {
-		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilm_id(rs.getInt("film_id"))
+		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilmId(rs.getInt("film_id"))
 				.setDate(rs.getString("date")).setTime(rs.getString("time"))
 				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice"))).build();
 	}

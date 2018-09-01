@@ -47,7 +47,7 @@ public class TestTicketsOrderServiceImpl {
 		PowerMockito.when(TicketsOrder.newBuilder()).thenReturn(ticketsOrderBuilder);
 		Mockito.when(ticketsOrderService.readUserNonPaidOrder(user)).thenReturn(ticketsOrder);
 		Mockito.when(ticketsOrderDao.read(Mockito.anyInt())).thenReturn(ticketsOrder);
-		Mockito.when(ticketsOrderBuilder.setUser_id(Mockito.anyInt())).thenReturn(ticketsOrderBuilder);
+		Mockito.when(ticketsOrderBuilder.setUserId(Mockito.anyInt())).thenReturn(ticketsOrderBuilder);
 		Mockito.when(ticketsOrderBuilder.build()).thenReturn(ticketsOrder);
 		Mockito.doNothing().when(timer).setStop(true);
 	}
@@ -63,7 +63,7 @@ public class TestTicketsOrderServiceImpl {
 		ticketsOrderService.createTicketsOrder(user);
 		PowerMockito.verifyStatic(times(1));
 		TicketsOrder.newBuilder();
-		Mockito.verify(ticketsOrderBuilder, times(1)).setUser_id(Mockito.anyInt());
+		Mockito.verify(ticketsOrderBuilder, times(1)).setUserId(Mockito.anyInt());
 		Mockito.verify(ticketsOrderBuilder, times(1)).build();
 		Mockito.verify(ticketsOrderDao, times(1)).create(ticketsOrder);
 		Mockito.verify(ticketsOrderDao, times(1)).readByUserId(user.getId());

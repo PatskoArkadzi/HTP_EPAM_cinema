@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
 import by.htp.epam.cinema.domain.TicketsOrder;
-import by.htp.epam.cinema.domain.User;
 
 public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao {
 
@@ -33,7 +32,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	public void create(TicketsOrder entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_CREATE)) {
-			ps.setInt(1, entity.getUser_id());
+			ps.setInt(1, entity.getUserId());
 			ps.setBoolean(2, entity.getIsPaid());
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -122,7 +121,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	public void update(TicketsOrder entity) {
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKETS_ORDER_UPDATE)) {
-			ps.setInt(1, entity.getUser_id());
+			ps.setInt(1, entity.getUserId());
 			ps.setBoolean(2, entity.getIsPaid());
 			ps.setInt(3, entity.getId());
 			ps.executeUpdate();
@@ -148,7 +147,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 
 	private TicketsOrder buildTicketsOrder(ResultSet rs) throws SQLException {
 		return TicketsOrder.newBuilder().setId(rs.getInt("id")).setOrderNumber(rs.getInt("orderNumber"))
-				.setUser_id(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();
+				.setUserId(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();
 	}
 
 }

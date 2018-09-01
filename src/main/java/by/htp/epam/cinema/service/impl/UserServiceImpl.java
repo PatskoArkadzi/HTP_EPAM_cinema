@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		String userSalt = PasswordSecurity.getSalt();
 		String userPassword = PasswordSecurity.getHashPassword(password, userSalt);
 		User user = User.newBuilder().setId(0).setLogin(login).setEmail(email).setPassword(userPassword)
-				.setSalt(userSalt).setRole_id(2).build();
+				.setSalt(userSalt).setRoleId(2).build();
 		userDao.create(user);
 	}
 
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 	public boolean isUserAdmin(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(SESSION_PARAM_CURRENT_USER);
-		return user != null && user.getRole_id() == 1;
+		return user != null && user.getRoleId() == 1;
 	}
 
 	@Override
@@ -143,6 +143,6 @@ public class UserServiceImpl implements UserService {
 		validateRequestParamNotNull(userId, userLogin, userEmail, userPassword, userSalt, userRoleId);
 
 		return User.newBuilder().setId(getInt(userId)).setLogin(userLogin).setEmail(userEmail).setPassword(userPassword)
-				.setSalt(userSalt).setRole_id(getInt(userRoleId)).build();
+				.setSalt(userSalt).setRoleId(getInt(userRoleId)).build();
 	}
 }
