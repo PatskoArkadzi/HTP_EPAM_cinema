@@ -56,7 +56,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String checkUserLogin(String login) {
-		if (!validateLoginInput(login))
+		if (login.length() == 0)
+			return "";
+		else if (!validateLoginInput(login))
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_VALID), false);
 		else if (userDao.readByLogin(login) != null)
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_LOGIN_IS_NOT_FREE), false);
@@ -66,7 +68,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String checkUserEmail(String email) {
-		if (!validateEmailInput(email))
+		if (email.length() == 0)
+			return "";
+		else if (!validateEmailInput(email))
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_VALID), false);
 		else if (userDao.readByEmail(email) != null)
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_EMAIL_IS_NOT_FREE), false);
@@ -76,7 +80,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String checkUserPassword(String password) {
-		if (password.length() < 5)
+		if (password.length() == 0)
+			return "";
+		else if (password.length() < 5)
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_SMALL), false);
 		else if (password.length() > 15)
 			return styleCheckUserDataResult(RM.getValue(ERROR_MSG_SIGN_UP_ACTION_PASSWORD_IS_TOO_LONG), false);

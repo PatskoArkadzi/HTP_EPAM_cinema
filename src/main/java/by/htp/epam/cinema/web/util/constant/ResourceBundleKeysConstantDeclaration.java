@@ -33,6 +33,7 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.changeUserPasswordAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD = "msg.error.changeUserPasswordAction.incorrectPassword";
 	public static final String ERROR_MSG_CHECK_USER_REGISTRATION_DATA_ACTION_INDEFINITE_ERROR = "msg.error.checkUserRegistrationDataAction.indefiniteError";
+	public static final String ERROR_MSG_CHECK_CHANGING_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.checkChangingPasswordAction.indefiniteError";
 
 	public static final String DB_CONNECTION_DRIVER = "db.driver";
 	public static final String DB_CONNECTION_URL = "db.url";

@@ -70,18 +70,20 @@
 								<div class="col-md-12">
 									<input id="oldPassword" name="oldPassword" type="password"
 										placeholder="${oldPasswordLoc}" class="form-control input-md"
-										required="required">
+										required="required" onkeyup="checkOldPassword()">
 								</div>
 							</div>
+							<div class="col-md-12" id="oldPasswordResultValue"></div>
 							<!--New password input-->
 							<div class="form-group">
 								<label class="col-md-12 control-label" for="newPassword">${newPasswordLoc}</label>
 								<div class="col-md-12">
 									<input id="newPassword" name="newPassword" type="password"
 										placeholder="${newPasswordLoc}" class="form-control input-md"
-										required="required">
+										required="required" onkeyup="checkNewPassword()">
 								</div>
 							</div>
+							<div class="col-md-12" id="newPasswordResultValue"></div>
 							<!-- Button -->
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="singlebutton"></label>
@@ -140,6 +142,31 @@
 	</c:if>
 
 	<%@ include file="../include/footer.jsp"%>
+
+	<script type="text/javascript">
+		function checkOldPassword() {
+			$.ajax({
+				url : 'cinema?action=checkChangingPassword',
+				data : ({
+					oldPassword : $('#oldPassword').val()
+				}),
+				success : function(data) {
+					$('#oldPasswordResultValue').html(data);
+				}
+			})
+		}
+		function checkNewPassword() {
+			$.ajax({
+				url : 'cinema?action=checkChangingPassword',
+				data : ({
+					newPassword : $('#newPassword').val()
+				}),
+				success : function(data) {
+					$('#newPasswordResultValue').html(data);
+				}
+			})
+		}
+	</script>
 
 </body>
 </html>

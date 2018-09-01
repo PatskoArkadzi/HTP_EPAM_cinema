@@ -3,6 +3,7 @@ package by.htp.epam.cinema.web.action;
 import by.htp.epam.cinema.web.action.impl.ChangeLocaleAction;
 import by.htp.epam.cinema.web.action.impl.ChangeUserPasswordAction;
 import by.htp.epam.cinema.web.action.impl.ChangeUserRoleAction;
+import by.htp.epam.cinema.web.action.impl.CheckChangingPasswordAction;
 import by.htp.epam.cinema.web.action.impl.CheckUserRegistrationDataAction;
 import by.htp.epam.cinema.web.action.impl.ChooseSeatAction;
 import by.htp.epam.cinema.web.action.impl.ChosenGenreFilmsViewAction;
@@ -52,6 +53,7 @@ public class ActionManager {
 		actions.put(ACTION_NAME_CHANGE_USER_ROLE, new ChangeUserRoleAction());
 		actions.put(ACTION_NAME_CHANGE_USER_PASSWORD, new ChangeUserPasswordAction());
 		actions.put(ACTION_NAME_CHECK_USER_REGISTRATION_DATA, new CheckUserRegistrationDataAction());
+		actions.put(ACTION_NAME_CHECK_CHANGING_PASSWORD, new CheckChangingPasswordAction());
 	}
 
 	public static BaseAction defineAction(HttpServletRequest req) {
