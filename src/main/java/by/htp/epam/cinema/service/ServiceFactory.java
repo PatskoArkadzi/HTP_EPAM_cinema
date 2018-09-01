@@ -24,50 +24,50 @@ public class ServiceFactory {
 	private ServiceFactory() {
 	}
 
-	private static final FilmService FILM_SERVICE = new FilmServiceImpl(getFilmDao(CUSTOM_CONNECTION_POOL),
+	private static final FilmService filmService = new FilmServiceImpl(getFilmDao(CUSTOM_CONNECTION_POOL),
 			getGenreDao(CUSTOM_CONNECTION_POOL));
-	private static final FilmSessionService FILM_SESSION_SERVICE = new FilmSessionServiceImpl(
+	private static final FilmSessionService filmSessionService = new FilmSessionServiceImpl(
 			getFilmSessionDao(CUSTOM_CONNECTION_POOL), getTicketDao(CUSTOM_CONNECTION_POOL));
-	private static final GenreService GENRE_SERVICE = new GenreServiceImpl(getGenreDao(CUSTOM_CONNECTION_POOL));
-	private static final RoleService ROLE_SERVICE = new RoleServiceImpl(getRoleDao(CUSTOM_CONNECTION_POOL));
-	private static final SeatService SEAT_SERVICE = new SeatServiceImpl(getSeatDao(CUSTOM_CONNECTION_POOL),
+	private static final GenreService genreService = new GenreServiceImpl(getGenreDao(CUSTOM_CONNECTION_POOL));
+	private static final RoleService roleService = new RoleServiceImpl(getRoleDao(CUSTOM_CONNECTION_POOL));
+	private static final SeatService seatService = new SeatServiceImpl(getSeatDao(CUSTOM_CONNECTION_POOL),
 			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
-	private static final TicketService TICKET_SERVICE = new TicketServiceImpl(getTicketDao(CUSTOM_CONNECTION_POOL),
+	private static final TicketService ticketService = new TicketServiceImpl(getTicketDao(CUSTOM_CONNECTION_POOL),
 			getFilmSessionDao(CUSTOM_CONNECTION_POOL), getFilmDao(CUSTOM_CONNECTION_POOL),
 			getSeatDao(CUSTOM_CONNECTION_POOL));
-	private static final TicketsOrderService TICKETS_ORDER_SERVICE = new TicketsOrderServiceImpl(
+	private static final TicketsOrderService ticketsOrderService = new TicketsOrderServiceImpl(
 			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
-	private static final UserService USER_SERVICE = new UserServiceImpl(getUserDao(CUSTOM_CONNECTION_POOL));
+	private static final UserService userService = new UserServiceImpl(getUserDao(CUSTOM_CONNECTION_POOL));
 
 	public static FilmService getFilmService() {
-		return FILM_SERVICE;
+		return filmService;
 	}
 
 	public static FilmSessionService getFilmSessionService() {
-		return FILM_SESSION_SERVICE;
+		return filmSessionService;
 	}
 
 	public static GenreService getGenreService() {
-		return GENRE_SERVICE;
+		return genreService;
 	}
 
 	public static RoleService getRoleService() {
-		return ROLE_SERVICE;
+		return roleService;
 	}
 
 	public static SeatService getSeatService() {
-		return SEAT_SERVICE;
+		return seatService;
 	}
 
 	public static TicketService getTicketService() {
-		return TICKET_SERVICE;
+		return ticketService;
 	}
 
 	public static TicketsOrderService getTicketsOrderService() {
-		return TICKETS_ORDER_SERVICE;
+		return ticketsOrderService;
 	}
 
 	public static UserService getUserService() {
-		return USER_SERVICE;
+		return userService;
 	}
 }

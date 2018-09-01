@@ -20,14 +20,14 @@ public class DaoFactory {
 	}
 
 	private static Map<Integer, BaseConnectionPool> connectionPools;
-	private static final FilmDaoImpl FILM_DAO_IMPL = new FilmDaoImpl();
-	private static final FilmSessionDaoImpl FILM_SESSION_DAO_IMPL = new FilmSessionDaoImpl();
-	private static final GenreDaoImpl GENRE_DAO_IMPL = new GenreDaoImpl();
-	private static final RoleDaoImpl ROLE_DAO_IMPL = new RoleDaoImpl();
-	private static final SeatDaoImpl SEAT_DAO_IMPL = new SeatDaoImpl();
-	private static final TicketDaoImpl TICKET_DAO_IMPL = new TicketDaoImpl();
-	private static final TicketsOrderDaoImpl TICKETS_ORDER_DAO_IMPL = new TicketsOrderDaoImpl();
-	private static final UserDaoImpl USER_DAO_IMPL = new UserDaoImpl();
+	private static final FilmDaoImpl filmDaoImpl = new FilmDaoImpl();
+	private static final FilmSessionDaoImpl filmSessionDaoImpl = new FilmSessionDaoImpl();
+	private static final GenreDaoImpl genreDaoImpl = new GenreDaoImpl();
+	private static final RoleDaoImpl roleDaoImpl = new RoleDaoImpl();
+	private static final SeatDaoImpl seatDaoImpl = new SeatDaoImpl();
+	private static final TicketDaoImpl ticketDaoImpl = new TicketDaoImpl();
+	private static final TicketsOrderDaoImpl ticketsOrderDaoImpl = new TicketsOrderDaoImpl();
+	private static final UserDaoImpl userDaoImpl = new UserDaoImpl();
 
 	public static final int CUSTOM_CONNECTION_POOL = 1;
 
@@ -37,42 +37,42 @@ public class DaoFactory {
 	}
 
 	public static FilmDao getFilmDao(int connectionPoolNum) {
-		FILM_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return FILM_DAO_IMPL;
+		filmDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return filmDaoImpl;
 	}
 
 	public static FilmSessionDao getFilmSessionDao(int connectionPoolNum) {
-		FILM_SESSION_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return FILM_SESSION_DAO_IMPL;
+		filmSessionDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return filmSessionDaoImpl;
 	}
 
 	public static GenreDao getGenreDao(int connectionPoolNum) {
-		GENRE_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return GENRE_DAO_IMPL;
+		genreDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return genreDaoImpl;
 	}
 
 	public static RoleDao getRoleDao(int connectionPoolNum) {
-		ROLE_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return ROLE_DAO_IMPL;
+		roleDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return roleDaoImpl;
 	}
 
 	public static SeatDao getSeatDao(int connectionPoolNum) {
-		SEAT_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return SEAT_DAO_IMPL;
+		seatDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return seatDaoImpl;
 	}
 
 	public static TicketDao getTicketDao(int connectionPoolNum) {
-		TICKET_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return TICKET_DAO_IMPL;
+		ticketDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return ticketDaoImpl;
 	}
 
 	public static TicketsOrderDao getTicketsOrderDao(int connectionPoolNum) {
-		TICKETS_ORDER_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return TICKETS_ORDER_DAO_IMPL;
+		ticketsOrderDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return ticketsOrderDaoImpl;
 	}
 
 	public static UserDao getUserDao(int connectionPoolNum) {
-		USER_DAO_IMPL.setConnectionPool(connectionPools.get(connectionPoolNum));
-		return USER_DAO_IMPL;
+		userDaoImpl.setConnectionPool(connectionPools.get(connectionPoolNum));
+		return userDaoImpl;
 	}
 }
