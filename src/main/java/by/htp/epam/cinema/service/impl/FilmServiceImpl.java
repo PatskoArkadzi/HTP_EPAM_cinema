@@ -10,9 +10,8 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID;
 
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +19,7 @@ import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.Genre;
+import by.htp.epam.cinema.domain.CompositeEntities.CompositeFilm;
 import by.htp.epam.cinema.service.FilmService;
 
 public class FilmServiceImpl implements FilmService {
@@ -38,21 +38,23 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public Map<Film, List<Genre>> getAllFilmsWithTheirGenres() {
+	public List<CompositeFilm> getAllFilmsWithTheirGenres() {
 		List<Film> films = filmDao.readAll();
 		return defineFilmsGenres(films);
 	}
 
 	@Override
-	public Map<Film, List<Genre>> getAllFilmsWithTheirGenres(Genre genre) {
+	public List<CompositeFilm> getAllFilmsWithTheirGenres(Genre genre) {
 		List<Film> films = filmDao.readAllFilmsWhereGenreIdPresent(genre.getId());
 		return defineFilmsGenres(films);
 	}
 
-	private Map<Film, List<Genre>> defineFilmsGenres(List<Film> films) {
-		Map<Film, List<Genre>> filmsWithGenres = new LinkedHashMap<>();
+	private List<CompositeFilm> defineFilmsGenres(List<Film> films) {
+		List<CompositeFilm> filmsWithGenres = new ArrayList<>();
 		for (Film f : films) {
-			filmsWithGenres.put(f, genreDao.readAll(f.getId()));
+			CompositeFilm cf = new CompositeFilm(f.getId(), f.getFilmName(), f.getDescription(), f.getPosterUrl(),
+					f.getYouTubeVideoId(), genreDao.readAll(f.getId()));
+			filmsWithGenres.add(cf);
 		}
 		return filmsWithGenres;
 	}
@@ -85,7 +87,6 @@ public class FilmServiceImpl implements FilmService {
 		String posterUrl = request.getParameter(REQUEST_PARAM_FILM_POSTER_URL);
 		String youTubeVideoId = request.getParameter(REQUEST_PARAM_FILM_YOUTUBE_VIDEO_ID);
 		validateRequestParamNotNull(id, filmName, description, posterUrl);
-
 		return Film.newBuilder().setId(getInt(id)).setFilmName(filmName).setDescription(description)
 				.setPosterUrl(fixGoogleDriveUrl(posterUrl)).setYouTubeVideoId(youTubeVideoId).build();
 	}

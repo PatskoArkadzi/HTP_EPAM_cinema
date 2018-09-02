@@ -26,21 +26,20 @@
 	<c:import url="../include/header.jsp" />
 
 	<div class="container">
-		<c:forEach items="${filmWithGenres}" var="filmEntry">
+		<c:forEach items="${filmWithGenres}" var="film">
 
 			<div class="row">
-				<h4>${filmEntry.key.filmName}</h4>
+				<h4>${film.filmName}</h4>
 			</div>
 			<div class="row">
 				<div class=col-md-3>
-					<a
-						href="cinema?action=view_film_page&chosenFilmId=${filmEntry.key.id}"><img
-						src="${filmEntry.key.posterUrl}" width="250" height="400" /></a>
+					<a href="cinema?action=view_film_page&chosenFilmId=${film.id}"><img
+						src="${film.posterUrl}" width="250" height="400" /></a>
 				</div>
 				<div class="col-md-8 container">
 					<div>
 						<b>${genresLoc}</b><br>
-						<c:forEach items="${filmEntry.value}" var="genre">
+						<c:forEach items="${film.genres}" var="genre">
 							<a
 								href="cinema?action=view_genre_films&chosenGenreId=${genre.id}">
 								${genre.genreName} </a>
@@ -48,13 +47,13 @@
 					</div>
 					<br>
 					<div>
-						<b>${descriptionLoc}</b> <br> ${filmEntry.key.description}
+						<b>${descriptionLoc}</b> <br> ${film.description}
 					</div>
 				</div>
 			</div>
 			<div align="right">
 				<a
-					href="cinema?action=view_film_page&chosenFilmId=${filmEntry.key.id}"
+					href="cinema?action=view_film_page&chosenFilmId=${film.id}"
 					class="btn btn-success btn-lg active" role="button"
 					aria-pressed="true">${filmDetailsLoc}</a>
 			</div>

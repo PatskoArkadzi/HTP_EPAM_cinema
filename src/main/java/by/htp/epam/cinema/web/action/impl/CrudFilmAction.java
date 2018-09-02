@@ -3,7 +3,6 @@ package by.htp.epam.cinema.web.action.impl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.Genre;
+import by.htp.epam.cinema.domain.CompositeEntities.CompositeFilm;
 import by.htp.epam.cinema.service.FilmService;
 import by.htp.epam.cinema.service.GenreService;
 import by.htp.epam.cinema.service.ServiceFactory;
@@ -43,7 +43,7 @@ public class CrudFilmAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			return;
 		}
-		Map<Film, List<Genre>> filmWithGenres = filmService.getAllFilmsWithTheirGenres();
+		List<CompositeFilm> filmWithGenres = filmService.getAllFilmsWithTheirGenres();
 		List<Genre> allGenres = genreService.getAllGenres();
 		request.setAttribute(REQUEST_PARAM_FILM_WITH_GENRES, filmWithGenres);
 		request.setAttribute(SESSION_PARAM_GENRELIST, allGenres);

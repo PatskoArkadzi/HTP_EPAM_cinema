@@ -122,7 +122,7 @@
 								required="required">
 								<c:forEach items="${filmlist}" var="film">
 									<option value="${film.id}"
-										${film.id==filmSession.film_id? 'selected':''}>${film.filmName}</option>
+										${film.id==filmSession.filmId? 'selected':''}>${film.filmName}</option>
 								</c:forEach>
 							</select>
 						</div>
