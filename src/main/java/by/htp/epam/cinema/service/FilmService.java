@@ -17,6 +17,14 @@ public interface FilmService extends Service {
 	List<Film> getAllFilms();
 
 	/**
+	 * get films with all their genres from start to start+step
+	 * 
+	 * @param step
+	 * @param step
+	 */
+	List<CompositeFilm> getFilmsWithTheirGenres(int start, int step);
+
+	/**
 	 * get all films with all their genres
 	 */
 	List<CompositeFilm> getAllFilmsWithTheirGenres();
@@ -55,4 +63,8 @@ public interface FilmService extends Service {
 	 */
 	Film buildFilm(HttpServletRequest request);
 
+	/**
+	 * get count of all films
+	 */
+	int getAllFilmsCount();
 }

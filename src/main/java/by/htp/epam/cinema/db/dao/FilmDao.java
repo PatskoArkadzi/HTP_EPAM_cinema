@@ -13,4 +13,8 @@ public interface FilmDao extends BaseDao<Film> {
 
 	void updateFilmWithGenres(Film film, List<Integer> genresId) throws SQLException;
 
+	List<Film> readAll(int start, int step);
+
+	int readCountOfAllFilms();
+
 }

@@ -50,6 +50,9 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_USER_ROLE_ID = "userRoleId";
 	public static final String REQUEST_PARAM_OLD_PASSWORD = "oldPassword";
 	public static final String REQUEST_PARAM_NEW_PASSWORD = "newPassword";
+	public static final String REQUEST_PARAM_PAGINATION_START = "start";
+	public static final String REQUEST_PARAM_PAGINATION_STEP = "step";
+	public static final String REQUEST_PARAM_ALL_FILMS_COUNT = "allFilmsCount";
 
 	public static final String CRUD_COMMAND_CREATE = "create";
 	public static final String CRUD_COMMAND_READ = "read";

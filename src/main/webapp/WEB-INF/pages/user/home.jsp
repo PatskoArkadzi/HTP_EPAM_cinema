@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tld/custom.tld" prefix="cctg"%>
 
 <fmt:setLocale value="${currentLocale}" />
 <fmt:bundle basename="localization.msg" prefix="msg.jsp.home.">
@@ -52,16 +53,18 @@
 				</div>
 			</div>
 			<div align="right">
-				<a
-					href="cinema?action=view_film_page&chosenFilmId=${film.id}"
+				<a href="cinema?action=view_film_page&chosenFilmId=${film.id}"
 					class="btn btn-success btn-lg active" role="button"
 					aria-pressed="true">${filmDetailsLoc}</a>
 			</div>
 			<hr>
-			<br>
 		</c:forEach>
 	</div>
-
+	<div align="center">
+		<cctg:Paginator urlprefix="cinema?step=5&start=" step="5"
+			count="${allFilmsCount}" />
+	</div>
+	<br>
 	<%@ include file="../include/footer.jsp"%>
 	<%-- <c:import url="../include/footer.jsp" /> --%>
 </body>

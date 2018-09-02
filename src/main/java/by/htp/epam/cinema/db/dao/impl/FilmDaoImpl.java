@@ -23,11 +23,13 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 	private static final String SQL_QUERY_ADD_GENRES_TO_FILM = "INSERT INTO `cinema_v2.0`.`films_genres` (`film_id`, `genre_id`) VALUES (?, ?);";
 	private static final String SQL_QUERY_FILM_READ = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
 	private static final String SQL_QUERY_FILM_READ_ALL = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films`;";
+	private static final String SQL_QUERY_FILM_READ_ALL_WITH_LIMIT = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` LIMIT ?,?;";
 	private static final String SQL_QUERY_FILM_READ_ALL_BY_GENRE_ID = "SELECT `id`, `filmName`, `description`, `posterUrl`, `youTubeVideoId` FROM `cinema_v2.0`.`films` f "
 			+ "inner join `cinema_v2.0`.`films_genres` fg on f.id=fg.film_id where fg.genre_id=?;";
 	private static final String SQL_QUERY_FILM_UPDATE = "UPDATE `cinema_v2.0`.`films` SET `filmName`=?, `description`=?, `posterUrl`=?, `youTubeVideoId`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_FILM_DELETE = "DELETE FROM `cinema_v2.0`.`films` WHERE  `id`=?;";
 	private static final String SQL_QUERY_FILM_GENRES_DELETE = "DELETE FROM `cinema_v2.0`.`films_genres` WHERE  `film_id`=?;";
+	private static final String SQL_QUERY_FILMS_COUNT = "SELECT COUNT(`id`) FROM `cinema_v2.0`.`films`;";
 
 	@Override
 	public void create(Film entity) {
@@ -131,6 +133,28 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 	}
 
 	@Override
+	public List<Film> readAll(int start, int step) {
+		List<Film> films = null;
+		ResultSet rs = null;
+		Connection con = connectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_READ_ALL_WITH_LIMIT)) {
+			ps.setInt(1, start);
+			ps.setInt(2, step);
+			rs = ps.executeQuery();
+			films = new ArrayList<>();
+			while (rs.next()) {
+				films.add(buildFilm(rs));
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAllFilmsWhereGenreIdPresent method of FilmDaoImpl class", e);
+		} finally {
+			connectionPool.putConnection(con);
+			close(rs);
+		}
+		return films;
+	}
+
+	@Override
 	public List<Film> readAllFilmsWhereGenreIdPresent(int genreId) {
 		List<Film> films = null;
 		ResultSet rs = null;
@@ -149,6 +173,24 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 			close(rs);
 		}
 		return films;
+	}
+
+	@Override
+	public int readCountOfAllFilms() {
+		ResultSet rs = null;
+		Connection con = connectionPool.getConnection();
+		try (Statement ps = con.createStatement()) {
+			rs = ps.executeQuery(SQL_QUERY_FILMS_COUNT);
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll method of FilmDaoImpl class", e);
+		} finally {
+			connectionPool.putConnection(con);
+			close(rs);
+		}
+		return -1;
 	}
 
 	@Override
@@ -238,4 +280,5 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 				.setDescription(rs.getString("description")).setPosterUrl(rs.getString("posterUrl"))
 				.setYouTubeVideoId(rs.getString("youTubeVideoId")).build();
 	}
+
 }

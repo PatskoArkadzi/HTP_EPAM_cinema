@@ -38,12 +38,6 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public List<CompositeFilm> getAllFilmsWithTheirGenres() {
-		List<Film> films = filmDao.readAll();
-		return defineFilmsGenres(films);
-	}
-
-	@Override
 	public List<CompositeFilm> getAllFilmsWithTheirGenres(Genre genre) {
 		List<Film> films = filmDao.readAllFilmsWhereGenreIdPresent(genre.getId());
 		return defineFilmsGenres(films);
@@ -90,4 +84,22 @@ public class FilmServiceImpl implements FilmService {
 		return Film.newBuilder().setId(getInt(id)).setFilmName(filmName).setDescription(description)
 				.setPosterUrl(fixGoogleDriveUrl(posterUrl)).setYouTubeVideoId(youTubeVideoId).build();
 	}
+
+	@Override
+	public List<CompositeFilm> getFilmsWithTheirGenres(int start, int step) {
+		List<Film> films = filmDao.readAll(start, step);
+		return defineFilmsGenres(films);
+	}
+
+	@Override
+	public List<CompositeFilm> getAllFilmsWithTheirGenres() {
+		List<Film> films = filmDao.readAll();
+		return defineFilmsGenres(films);
+	}
+
+	@Override
+	public int getAllFilmsCount() {
+		return filmDao.readCountOfAllFilms();
+	}
+
 }
