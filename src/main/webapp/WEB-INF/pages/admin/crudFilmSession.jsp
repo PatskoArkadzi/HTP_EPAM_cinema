@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:setLocale value="${currentLocale}" />
-<fmt:bundle basename="localization.msg" prefix="msg.jsp.crudFilmSession.">
+<fmt:bundle basename="localization.msg"
+	prefix="msg.jsp.crudFilmSession.">
 	<fmt:message key="createButton" var="createButtonLoc" />
 	<fmt:message key="searchButton" var="searchButtonLoc" />
 	<fmt:message key="updateButton" var="updateButtonLoc" />
@@ -88,11 +89,16 @@
 		<form class="read-film" action="cinema?action=crud_filmSession"
 			method=POST>
 			<div class="row">
-				<div class=col-md-2>
-					<input id="filmId" class="form-control input-md" name="filmId" />
+				<div class=col-md-6>
+					<select id="filmId" class="form-control" name="filmId"
+						required="required">
+						<c:forEach items="${filmlist}" var="film">
+							<option value="${film.id}">${film.filmName}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<button id="read" value="read" name="crudCommand"
-					class="btn btn-success">${searchButtonLoc}</button>
+					class="col-md-1 btn btn-success">${searchButtonLoc}</button>
 			</div>
 		</form>
 	</div>
@@ -152,7 +158,7 @@
 			</c:forEach>
 		</div>
 	</c:if>
-	
+
 	<%@ include file="../include/footer.jsp"%>
 
 </body>

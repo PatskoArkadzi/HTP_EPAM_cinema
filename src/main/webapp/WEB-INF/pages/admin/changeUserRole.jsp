@@ -89,7 +89,7 @@
 						<select id="userRoleId" class="form-control" name="userRoleId">
 							<c:forEach items="${rolelist}" var="role">
 								<option value="${role.id}"
-									${role.id==foundUser.role_id?"selected":""}>
+									${role.id==foundUser.roleId?"selected":""}>
 									${role.roleName}</option>
 							</c:forEach>
 						</select>
@@ -101,8 +101,8 @@
 			</form>
 		</div>
 	</c:if>
-	
-	
+
+
 	<%@ include file="../include/footer.jsp"%>
 
 </body>
