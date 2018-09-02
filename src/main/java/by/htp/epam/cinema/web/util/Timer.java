@@ -2,26 +2,13 @@ package by.htp.epam.cinema.web.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.TIMER_RESERVATION_PERIOD;
 
 public class Timer extends Thread {
 
-	private Timer() {
-	}
-
-	private static Timer instance;
-
-	public static Timer getInstance() {
-		if (instance == null) {
-			instance = new Timer();
-		}
-		return instance;
-	}
-
+	private static final ResourceManager RM = ResourceManager.TIMER;
 	private static Logger logger = LoggerFactory.getLogger(Timer.class);
-
 	private boolean stop = false;
-
-	private static final long RESERVATION_PERIOD = 1 * 30000L;// 30 sec
 	private long secondsDisplay;
 	private long minutesDisplay;
 
@@ -39,13 +26,14 @@ public class Timer extends Thread {
 
 	@Override
 	public void run() {
+		long reservationPeriod = Long.parseLong(RM.getValue(TIMER_RESERVATION_PERIOD));
 		long startTime = System.currentTimeMillis();
-		long endTime = startTime + RESERVATION_PERIOD;
+		long endTime = startTime + reservationPeriod;
 		long elapsedTime;
 		long remainingSeconds;
 		while (!stop && System.currentTimeMillis() < endTime) {
 			elapsedTime = System.currentTimeMillis() - startTime;
-			remainingSeconds = (RESERVATION_PERIOD - elapsedTime) / 1000;
+			remainingSeconds = (reservationPeriod - elapsedTime) / 1000;
 			secondsDisplay = remainingSeconds % 60;
 			minutesDisplay = remainingSeconds / 60;
 
@@ -56,6 +44,5 @@ public class Timer extends Thread {
 				logger.error("InterruptedException in Timer class", e);
 			}
 		}
-		instance = null;
 	}
 }

@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
@@ -21,7 +18,7 @@ import by.htp.epam.cinema.web.util.Timer;
 import by.htp.epam.cinema.web.util.ValidateParamException;
 
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_SEAT_ID;
-import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_IS_TIMER_NEED;
+import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_TIMER;
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_ERROR_MESSAGE;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_CURRENT_USER;
@@ -36,7 +33,6 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequ
 
 public class ToBasketAction implements BaseAction {
 
-	private static Logger logger = LoggerFactory.getLogger(ToBasketAction.class);
 	SeatService seatService = ServiceFactory.getSeatService();
 	FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 	TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
@@ -70,9 +66,9 @@ public class ToBasketAction implements BaseAction {
 			if ((ticketsOrder = ticketsOrderService.readUserNonPaidOrder(user)) == null) {
 				ticketsOrder = ticketsOrderService.createTicketsOrder(user);
 
-				Timer timer = Timer.getInstance();
+				Timer timer = new Timer();
 				timer.start();
-				session.setAttribute(SESSION_PARAM_IS_TIMER_NEED, true);
+				session.setAttribute(SESSION_PARAM_TIMER, timer);
 			}
 			ticketService.createTicket(filmSessionService.getFilmSession(chosenFilmSessioIdInt), chosenSeat,
 					ticketsOrder);

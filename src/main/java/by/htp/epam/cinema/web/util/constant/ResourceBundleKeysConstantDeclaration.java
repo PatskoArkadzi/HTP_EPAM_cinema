@@ -35,16 +35,18 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_CHECK_USER_REGISTRATION_DATA_ACTION_INDEFINITE_ERROR = "msg.error.checkUserRegistrationDataAction.indefiniteError";
 	public static final String ERROR_MSG_CHECK_CHANGING_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.checkChangingPasswordAction.indefiniteError";
 
-	public static final String DB_CONNECTION_DRIVER = "db.driver";
-	public static final String DB_CONNECTION_URL = "db.url";
-	public static final String DB_CONNECTION_LOGIN = "db.login";
-	public static final String DB_CONNECTION_PASSWORD = "db.pass";
-
 	public static final String SUCCESS_MSG_PAY_ORDER_ACTION_SUCCESSFULL_PAYMENT = "msg.success.payOrderAcrion.successfullPayment";
 	public static final String SUCCESS_MSG_CHANGE_USER_PASSWORD_ACTION_SUCCESSFULL_CHANGE = "msg.success.changeUserPasswordAction.successfullChange";
 	public static final String SUCCESS_MSG_SIGN_UP_ACTION_LOGIN_IS_FREE = "msg.success.signUpAction.loginIsFree";
 	public static final String SUCCESS_MSG_SIGN_UP_ACTION_EMAIL_IS_FREE = "msg.success.signUpAction.emailIsFree";
 	public static final String SUCCESS_MSG_SIGN_UP_ACTION_PASSWORD_IS_VALID = "msg.success.signUpAction.passwordIsValid";
+
+	public static final String DB_CONNECTION_DRIVER = "db.driver";
+	public static final String DB_CONNECTION_URL = "db.url";
+	public static final String DB_CONNECTION_LOGIN = "db.login";
+	public static final String DB_CONNECTION_PASSWORD = "db.pass";
+
+	public static final String TIMER_RESERVATION_PERIOD = "timer.reservationPeriod";
 
 	private ResourceBundleKeysConstantDeclaration() {
 	}

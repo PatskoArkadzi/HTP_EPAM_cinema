@@ -4,7 +4,6 @@ import by.htp.epam.cinema.db.dao.TicketsOrderDao;
 import by.htp.epam.cinema.domain.TicketsOrder;
 import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.service.TicketsOrderService;
-import by.htp.epam.cinema.web.util.Timer;
 
 public class TicketsOrderServiceImpl implements TicketsOrderService {
 
@@ -39,6 +38,5 @@ public class TicketsOrderServiceImpl implements TicketsOrderService {
 		TicketsOrder ticketsOrder = ticketsOrderDao.read(ticketOrderId);
 		ticketsOrder.setIsPaid(true);
 		ticketsOrderDao.update(ticketsOrder);
-		Timer.getInstance().setStop(true);
 	}
 }

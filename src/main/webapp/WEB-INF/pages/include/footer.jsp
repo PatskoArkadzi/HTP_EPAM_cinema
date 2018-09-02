@@ -2,7 +2,8 @@
 </div>
 </div>
 <script type="text/javascript">
-	if (${isTimerNeed!=null?isTimerNeed:false}) {
+	/* if (${isTimerNeed!=null?isTimerNeed:false}) { */
+	if (${timer!=null}) {
 		var myInterval = setInterval(function getTimer() {
 			$.ajax({
 				url : 'cinema?action=view_timer',

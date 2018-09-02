@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public enum ResourceManager {
 
-	LOCALIZATION("localization.msg"), DATA_BASE("db_config");
+	LOCALIZATION("localization.msg"), DATA_BASE("db_config"), TIMER("timer");
 
 	private ResourceBundle resourceBundle;
 	private final String resourceName;
