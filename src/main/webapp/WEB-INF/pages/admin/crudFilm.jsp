@@ -92,7 +92,7 @@
 	<div class="container">
 		<p>${searchMsgLoc}</p>
 		<form class="read-film" action="cinema?action=crud_film" method=POST>
-			<div class="row">
+			<%-- <div class="row">
 				<div class=col-md-2>
 					<input id="filmId" class="form-control input-md" name="filmId" />
 				</div>
@@ -100,13 +100,86 @@
 					class="btn btn-success">${searchButtonLoc}</button>
 			</div>
 			<p>${searchResultMsgLoc}:</p>
-			<p>${foundFilm}</p>
+			<p>${foundFilm}</p> --%>
+			<div class="row">
+				<div class=col-md-6>
+					<select id="filmId" class="form-control" name="filmId"
+						required="required">
+						<c:forEach items="${filmWithGenres}" var="film">
+							<option value="${film.id}">${film.filmName}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<button id="read" value="read" name="crudCommand"
+					class="col-md-1 btn btn-success">${searchButtonLoc}</button>
+			</div>
 		</form>
 	</div>
 	<hr>
-	<br>
-	<div class="container">
-		<c:forEach items="${filmWithGenres}" var="film">
+	<c:if test="${foundFilm!=null}">
+		<br>
+		<div class="container">
+			<form class="update-user" action="cinema?action=crud_film"
+				method=POST>
+
+				<div class="row">
+					<div class=col-md-3>ID :</div>
+					<div class=col-md-9>
+						<input id="filmId" class="form-control input-md" name="filmId"
+							value="${foundFilm.id}" readonly="readonly" />
+					</div>
+				</div>
+				<div class="row">
+					<div class=col-md-3>${filmNameLoc}:</div>
+					<div class=col-md-9>
+						<input id="filmName" class="form-control input-md" name="filmName"
+							value="${foundFilm.filmName}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class=col-md-3>${posterURLLoc}:</div>
+					<div class=col-md-9>
+						<input id="filmPosterUrl" class="form-control input-md"
+							name="filmPosterUrl" value="${foundFilm.posterUrl}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class=col-md-3>${videoIdLoc}:</div>
+					<div class=col-md-9>
+						<input id="filmYouTubeVideoId" class="form-control input-md"
+							name="filmYouTubeVideoId" value="${foundFilm.youTubeVideoId}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class=col-md-3>${descriptionLoc}:</div>
+					<div class=col-md-9>
+						<textarea id="filmDescription" name="filmDescription" cols="100"
+							rows="7">${foundFilm.description} </textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class=col-md-3>${genresLoc}:</div>
+					<div class=col-md-5>
+						<select id="filmGenresId" class="form-control" name="filmGenresId"
+							multiple="multiple" size="5" required>
+							<option disabled>${chooseGenresMsgLoc}</option>
+							<c:forEach items="${genrelist}" var="genre">
+								<option value="${genre.id}"
+									${foundFilm.genres.contains(genre)?"selected":""}>
+									${genre.genreName}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<button id="update" value="update" name="crudCommand"
+					class="btn btn-success">${updateButtonLoc}</button>
+
+				<button id="delete" value="delete" name="crudCommand"
+					class="btn btn-danger">${deleteButtonLoc}</button>
+			</form>
+
+			<%-- <c:forEach items="${filmWithGenres}" var="film">
 
 			<form class="update-user" action="cinema?action=crud_film"
 				method=POST>
@@ -168,10 +241,9 @@
 					class="btn btn-danger">${deleteButtonLoc}</button>
 			</form>
 			<br>
-		</c:forEach>
-	</div>
-
+		</c:forEach> --%>
+		</div>
+	</c:if>
 	<%@ include file="../include/footer.jsp"%>
-
 </body>
 </html>

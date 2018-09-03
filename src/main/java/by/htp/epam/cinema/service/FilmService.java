@@ -67,4 +67,9 @@ public interface FilmService extends Service {
 	 * get count of all films
 	 */
 	int getAllFilmsCount();
+
+	/**
+	 * get one film with genres
+	 */
+	CompositeFilm getFilmWithGenres(int int1);
 }

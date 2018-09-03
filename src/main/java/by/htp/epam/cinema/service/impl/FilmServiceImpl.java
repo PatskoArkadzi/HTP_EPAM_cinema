@@ -102,4 +102,11 @@ public class FilmServiceImpl implements FilmService {
 		return filmDao.readCountOfAllFilms();
 	}
 
+	@Override
+	public CompositeFilm getFilmWithGenres(int filmId) {
+		Film film = filmDao.read(filmId);
+		return new CompositeFilm(film.getId(), film.getFilmName(), film.getDescription(), film.getPosterUrl(),
+				film.getYouTubeVideoId(), genreDao.readAll(film.getId()));
+	}
+
 }

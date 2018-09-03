@@ -43,9 +43,9 @@ public class CrudFilmAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			return;
 		}
-		List<CompositeFilm> filmWithGenres = filmService.getAllFilmsWithTheirGenres();
+		List<CompositeFilm> allfilmsWithGenres = filmService.getAllFilmsWithTheirGenres();
 		List<Genre> allGenres = genreService.getAllGenres();
-		request.setAttribute(REQUEST_PARAM_FILM_WITH_GENRES, filmWithGenres);
+		request.setAttribute(REQUEST_PARAM_FILM_WITH_GENRES, allfilmsWithGenres);
 		request.setAttribute(SESSION_PARAM_GENRELIST, allGenres);
 		if (isPost(request)) {
 			String crudCommand = request.getParameter(REQUEST_PARAM_CRUD_COMMAND);
@@ -62,8 +62,8 @@ public class CrudFilmAction implements BaseAction {
 				case CRUD_COMMAND_READ:
 					String filmId = request.getParameter(REQUEST_PARAM_FILM_ID);
 					validateRequestParamNotNull(filmId);
-					film = filmService.getFilm(getInt(filmId));
-					request.setAttribute(REQUEST_PARAM_FOUND_FILM, film);
+					CompositeFilm filmWithGenres = filmService.getFilmWithGenres(getInt(filmId));
+					request.setAttribute(REQUEST_PARAM_FOUND_FILM, filmWithGenres);
 					request.getRequestDispatcher(PAGE_ADMIN_CRUD_FILM).forward(request, response);
 					return;
 				case CRUD_COMMAND_UPDATE:
