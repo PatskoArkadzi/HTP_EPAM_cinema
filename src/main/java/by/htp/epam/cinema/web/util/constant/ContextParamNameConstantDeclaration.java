@@ -18,10 +18,7 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_CHOSEN_FILM_ID = "chosenFilmId";
 	public static final String REQUEST_PARAM_CHOSEN_FILM = "chosenFilm";
 	public static final String REQUEST_PARAM_CHOSEN_FILM_GENRES = "chosenFilmGenres";
-	public static final String REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS = "chosenFilmFilmSessions";
 	public static final String REQUEST_PARAM_CHOSEN_SEAT_ID = "chosenSeatId";
-	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION_ID = "chosenFilmSessionId";
-	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION = "chosenFilmSession";
 	public static final String REQUEST_PARAM_LOCALE = "locale";
 	public static final String REQUEST_PARAM_SEATS_WITH_STATES = "seatsWithStates";
 	public static final String REQUEST_PARAM_CRUD_COMMAND = "crudCommand";
@@ -37,7 +34,14 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String REQUEST_PARAM_FILMSESSION_DATE = "filmSessionDate";
 	public static final String REQUEST_PARAM_FILMSESSION_TIME = "filmSessionTime";
 	public static final String REQUEST_PARAM_FILMSESSION_TICKET_PRICE = "filmSessionTicketPrice";
+	public static final String REQUEST_PARAM_CHOSEN_FILM_FILMSESSIONS = "chosenFilmFilmSessions";
 	public static final String REQUEST_PARAM_FOUND_FILMSESSIONS = "foundFilmSessions";
+	public static final String REQUEST_PARAM_FOUND_FILMSESSION_TICKETS = "foundFilmSessionTcikets";
+	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION_ID = "chosenFilmSessionId";
+	public static final String REQUEST_PARAM_CHOSEN_FILMSESSION = "chosenFilmSession";
+	public static final String REQUEST_PARAM_SOLD_TICKETS_COUNT = "soldTicketsCount";
+	public static final String REQUEST_PARAM_SOLD_TCIKETS_SUM = "soldTicketsSum";
+
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER = "currentUserCurrentOrder";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_ID = "currentUserCurrentOrderId";
 	public static final String REQUEST_PARAM_CURRENT_USER_CURRENT_ORDER_TICKETS = "currentUserCurrentOrderTickets";

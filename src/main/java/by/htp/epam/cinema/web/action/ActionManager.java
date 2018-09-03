@@ -12,6 +12,7 @@ import by.htp.epam.cinema.web.action.impl.CrudFilmSessionAction;
 import by.htp.epam.cinema.web.action.impl.DeleteNonPaidOrderAction;
 import by.htp.epam.cinema.web.action.impl.ErrorPageViewAction;
 import by.htp.epam.cinema.web.action.impl.FilmPageViewAction;
+import by.htp.epam.cinema.web.action.impl.FilmSessionsTicketsViewAction;
 import by.htp.epam.cinema.web.action.impl.HomePageViewAction;
 import by.htp.epam.cinema.web.action.impl.LogInAction;
 import by.htp.epam.cinema.web.action.impl.LogOutAction;
@@ -54,6 +55,7 @@ public class ActionManager {
 		actions.put(ACTION_NAME_CHANGE_USER_PASSWORD, new ChangeUserPasswordAction());
 		actions.put(ACTION_NAME_CHECK_USER_REGISTRATION_DATA, new CheckUserRegistrationDataAction());
 		actions.put(ACTION_NAME_CHECK_CHANGING_PASSWORD, new CheckChangingPasswordAction());
+		actions.put(ACTION_NAME_VIEW_FILMSESSIONS_TICKETS, new FilmSessionsTicketsViewAction());
 	}
 
 	public static BaseAction defineAction(HttpServletRequest req) {

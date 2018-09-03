@@ -1,5 +1,6 @@
 package by.htp.epam.cinema.db.dao.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,8 +25,11 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	private static final String SQL_QUERY_TICKET_READ_ALL = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets`;";
 	private static final String SQL_QUERY_TICKET_READ_ALL_BY_ORDER_ID = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets` WHERE `order_id`=?;";
 	private static final String SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID = "SELECT `id`, `session_id`, `seat_id`, `order_id` FROM `cinema_v2.0`.`tickets` WHERE `session_id`=?;";
+	private static final String SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID_WHERE_ORDER_PAID = "SELECT t.`id`, t.`session_id`, t.`seat_id`, t.`order_id` FROM `cinema_v2.0`.`tickets` t INNER JOIN `cinema_v2.0`.`orders` o ON t.`order_id`=o.`id` WHERE t.`session_id`=? AND o.`isPaid`=1 LIMIT ?, ?;";
 	private static final String SQL_QUERY_TICKET_UPDATE = "UPDATE `cinema_v2.0`.`tickets` SET `session_id`=?, `seat_id`=?, `order_id`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_TICKET_DELETE = "DELETE FROM `cinema_v2.0`.`tickets` WHERE  `id`=?;";
+	private static final String SQL_QUERY_TICKET_COUNT_READ_BY_FILMSESSION_ID = "SELECT COUNT(t.`id`) FROM `cinema_v2.0`.`tickets` t INNER JOIN `cinema_v2.0`.`orders` o ON t.`order_id`=o.`id` WHERE t.`session_id`=? AND o.`isPaid`=1;";
+	private static final String SQL_QUERY_TICKET_SUM_READ_BY_FILMSESSION_ID = "SELECT SUM(s.`ticketPrice`) FROM ((`cinema_v2.0`.`tickets` t INNER JOIN `cinema_v2.0`.`sessions` s ON t.`session_id`=s.`id`) INNER JOIN `cinema_v2.0`.`orders` o ON t.`order_id`=o.`id`) WHERE t.`session_id`=? AND o.`isPaid`=1;";
 
 	@Override
 	public void create(Ticket entity) {
@@ -114,7 +118,31 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 				tickets.add(buildTicket(rs));
 			}
 		} catch (SQLException e) {
-			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
+			logger.error("SQLException in readAllWhereFilmSessionIdPresent method of TicketDaoImpl class", e);
+		} finally {
+			connectionPool.putConnection(con);
+			close(rs);
+		}
+		return tickets;
+	}
+
+	@Override
+	public List<Ticket> readAllSoldTicketsByFilmSessionId(int filmSessionId, int start, int step) {
+		List<Ticket> tickets = null;
+		ResultSet rs = null;
+		Connection con = connectionPool.getConnection();
+		try (PreparedStatement ps = con
+				.prepareStatement(SQL_QUERY_TICKET_READ_ALL_BY_FILMSESSION_ID_WHERE_ORDER_PAID)) {
+			ps.setInt(1, filmSessionId);
+			ps.setInt(2, start);
+			ps.setInt(3, step);
+			rs = ps.executeQuery();
+			tickets = new ArrayList<>();
+			while (rs.next()) {
+				tickets.add(buildTicket(rs));
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAllSoldTicketsByFilmSessionId method of TicketDaoImpl class", e);
 		} finally {
 			connectionPool.putConnection(con);
 			close(rs);
@@ -154,5 +182,43 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	private Ticket buildTicket(ResultSet rs) throws SQLException {
 		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
 				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
+	}
+
+	@Override
+	public int readCountOfSoldTickets(int filmSessionId) {
+		ResultSet rs = null;
+		Connection con = connectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_COUNT_READ_BY_FILMSESSION_ID)) {
+			ps.setInt(1, filmSessionId);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll method of FilmDaoImpl class", e);
+		} finally {
+			connectionPool.putConnection(con);
+			close(rs);
+		}
+		return -1;
+	}
+
+	@Override
+	public BigDecimal readSumOfSoldTickets(int filmSessionId) {
+		ResultSet rs = null;
+		Connection con = connectionPool.getConnection();
+		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_TICKET_SUM_READ_BY_FILMSESSION_ID)) {
+			ps.setInt(1, filmSessionId);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getBigDecimal(1);
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in readAll method of FilmDaoImpl class", e);
+		} finally {
+			connectionPool.putConnection(con);
+			close(rs);
+		}
+		return null;
 	}
 }

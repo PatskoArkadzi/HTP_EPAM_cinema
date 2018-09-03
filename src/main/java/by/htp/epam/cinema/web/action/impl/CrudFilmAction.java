@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.htp.epam.cinema.domain.Film;
-import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.domain.CompositeEntities.CompositeFilm;
 import by.htp.epam.cinema.service.FilmService;
 import by.htp.epam.cinema.service.GenreService;
@@ -43,10 +42,8 @@ public class CrudFilmAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 			return;
 		}
-		List<CompositeFilm> allfilmsWithGenres = filmService.getAllFilmsWithTheirGenres();
-		List<Genre> allGenres = genreService.getAllGenres();
-		request.setAttribute(REQUEST_PARAM_FILM_WITH_GENRES, allfilmsWithGenres);
-		request.setAttribute(SESSION_PARAM_GENRELIST, allGenres);
+		List<Film> allfilms = filmService.getAllFilms();
+		request.setAttribute(REQUEST_PARAM_FILMLIST, allfilms);
 		if (isPost(request)) {
 			String crudCommand = request.getParameter(REQUEST_PARAM_CRUD_COMMAND);
 			try {

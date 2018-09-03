@@ -6,6 +6,7 @@ import by.htp.epam.cinema.domain.Film;
 import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Seat;
 import by.htp.epam.cinema.domain.TicketsOrder;
+import by.htp.epam.cinema.domain.User;
 
 public class CompositeTicket implements Serializable {
 
@@ -21,16 +22,19 @@ public class CompositeTicket implements Serializable {
 
 	private TicketsOrder ticketsOrder;
 
+	private User user;
+
 	public CompositeTicket() {
 	}
 
-	public CompositeTicket(int id, FilmSession filmSession, Film film, Seat seat, TicketsOrder ticketsOrder) {
-		super();
+	public CompositeTicket(int id, FilmSession filmSession, Film film, Seat seat, TicketsOrder ticketsOrder,
+			User user) {
 		this.id = id;
 		this.filmSession = filmSession;
 		this.film = film;
 		this.seat = seat;
 		this.ticketsOrder = ticketsOrder;
+		this.user = user;
 	}
 
 	public int getId() {
@@ -73,6 +77,14 @@ public class CompositeTicket implements Serializable {
 		this.film = film;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +94,7 @@ public class CompositeTicket implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((seat == null) ? 0 : seat.hashCode());
 		result = prime * result + ((ticketsOrder == null) ? 0 : ticketsOrder.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -116,12 +129,17 @@ public class CompositeTicket implements Serializable {
 				return false;
 		} else if (!ticketsOrder.equals(other.ticketsOrder))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "CompositeTicket [id=" + id + ", filmSession=" + filmSession + ", film=" + film + ", seat=" + seat
-				+ ", ticketsOrder=" + ticketsOrder + "]";
+				+ ", ticketsOrder=" + ticketsOrder + ", user=" + user + "]";
 	}
 }

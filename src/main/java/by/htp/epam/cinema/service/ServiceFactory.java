@@ -34,7 +34,8 @@ public class ServiceFactory {
 			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
 	private static final TicketService ticketService = new TicketServiceImpl(getTicketDao(CUSTOM_CONNECTION_POOL),
 			getFilmSessionDao(CUSTOM_CONNECTION_POOL), getFilmDao(CUSTOM_CONNECTION_POOL),
-			getSeatDao(CUSTOM_CONNECTION_POOL));
+			getSeatDao(CUSTOM_CONNECTION_POOL), getTicketsOrderDao(CUSTOM_CONNECTION_POOL),
+			getUserDao(CUSTOM_CONNECTION_POOL));
 	private static final TicketsOrderService ticketsOrderService = new TicketsOrderServiceImpl(
 			getTicketsOrderDao(CUSTOM_CONNECTION_POOL));
 	private static final UserService userService = new UserServiceImpl(getUserDao(CUSTOM_CONNECTION_POOL));

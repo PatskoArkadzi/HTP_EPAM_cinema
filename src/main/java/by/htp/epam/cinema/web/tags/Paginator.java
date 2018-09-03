@@ -36,7 +36,7 @@ public class Paginator extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		JspWriter out = pageContext.getOut();
-		for (int i = 0; i <= count / step; i++) {
+		for (int i = 0; (count % step == 0) ? i < count / step : i <= count / step; i++) {
 			try {
 				out.write(String.format("&nbsp<a href='%s%d'>%d</a>", urlprefix, i * step, i));
 			} catch (IOException e) {

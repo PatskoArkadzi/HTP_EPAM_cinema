@@ -22,6 +22,8 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_TO_BASKET_ACTION_USER_IS_NOT_LOGGED_IN = "msg.error.toBasketAction.userIsNotLoggedIn";
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_INDEFINITE_ERROR = "msg.error.crudFilmAction.indefiniteError";
 	public static final String ERROR_MSG_CRUD_FILM_ACTION_USER_IS_NOT_ADMIN = "msg.error.crudFilmAction.userIsNotAdmin";
+	public static final String ERROR_MSG_VIEW_FILMSESSIONS_TICKETS_INDEFINITE_ERROR = "msg.error.viewFilmSessionsTicketsAction.indefiniteError";
+	public static final String ERROR_MSG_VIEW_FILMSESSIONS_TICKETS_ACTION_USER_IS_NOT_ADMIN = "msg.error.viewFilmSessionsTicketsAction.userIsNotAdmin";
 	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_USER_IS_NOT_ADMIN = "msg.error.crudFilmSessionAction.userIsNotAdmin";
 	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_INDEFINITE_ERROR = "msg.error.crudFilmSessionAction.indefiniteError";
 	public static final String ERROR_MSG_CRUD_FILMSESSION_ACTION_TIME_IS_BUSY = "msg.error.crudFilmSessionAction.TimeIsBusy";

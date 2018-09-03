@@ -15,6 +15,8 @@
 	<fmt:message key="logIn" var="logInLoc" />
 	<fmt:message key="signUp" var="signUpLoc" />
 	<fmt:message key="chooseGenre" var="chooseGenreLoc" />
+	<fmt:message key="viewFilmSessionsTickets"
+		var="viewFilmSessionsTicketsLoc" />
 </fmt:bundle>
 <div class="container">
 	<nav class="navbar navbar-light bg-light">
@@ -44,6 +46,9 @@
 							<a class="dropdown-item" href="cinema?action=crud_film">${crudFilmLoc}</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="cinema?action=crud_filmSession">${crudFilmSessionLoc}</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								href="cinema?action=viewFilmSessionsTickets">${viewFilmSessionsTicketsLoc}</a>
 						</div>
 					</div>
 				</c:if>

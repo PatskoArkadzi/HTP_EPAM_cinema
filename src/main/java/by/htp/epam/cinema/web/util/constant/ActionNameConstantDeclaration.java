@@ -22,6 +22,7 @@ public final class ActionNameConstantDeclaration {
 	public static final String ACTION_NAME_PAY_ORDER = "payOrder";
 	public static final String ACTION_NAME_CHECK_USER_REGISTRATION_DATA = "checkUserRegistrationData";
 	public static final String ACTION_NAME_CHECK_CHANGING_PASSWORD = "checkChangingPassword";
+	public static final String ACTION_NAME_VIEW_FILMSESSIONS_TICKETS = "viewFilmSessionsTickets";
 
 	private ActionNameConstantDeclaration() {
 	}
