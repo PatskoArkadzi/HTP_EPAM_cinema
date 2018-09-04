@@ -8,15 +8,36 @@ import org.slf4j.LoggerFactory;
 
 import by.htp.epam.cinema.db.pool.BaseConnectionPool;
 
+/**
+ * Abstract class foer daoImpl classes
+ * 
+ * @author Arkadzi Patsko
+ */
 public abstract class AbstractDao {
 
 	private static Logger logger = LoggerFactory.getLogger(AbstractDao.class);
+
+	/**
+	 * Connection pool
+	 */
 	public BaseConnectionPool connectionPool;
 
+	/**
+	 * Sets connection pool
+	 * 
+	 * @param connectionPool
+	 *            {@link #connectionPool}
+	 */
 	public void setConnectionPool(BaseConnectionPool connectionPool) {
 		this.connectionPool = connectionPool;
 	}
 
+	/**
+	 * closes resultSet
+	 * 
+	 * @param rs
+	 *            resultSet for closing
+	 */
 	public void close(ResultSet rs) {
 		if (rs != null) {
 			try {

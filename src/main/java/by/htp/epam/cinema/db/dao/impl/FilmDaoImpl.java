@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.FilmDao;
 import by.htp.epam.cinema.domain.Film;
 
+/**
+ * Class provides operations for performing with films table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class FilmDaoImpl extends AbstractDao implements FilmDao {
-
 	private static Logger logger = LoggerFactory.getLogger(FilmDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_CREATE = "INSERT INTO `cinema_v2.0`.`films` (`filmName`, `description`, `posterUrl`, `youTubeVideoId`) VALUES (?,?,?,?);";
@@ -31,6 +35,10 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 	private static final String SQL_QUERY_FILM_GENRES_DELETE = "DELETE FROM `cinema_v2.0`.`films_genres` WHERE  `film_id`=?;";
 	private static final String SQL_QUERY_FILMS_COUNT = "SELECT COUNT(`id`) FROM `cinema_v2.0`.`films`;";
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public void create(Film entity) {
 		Connection con = connectionPool.getConnection();
@@ -47,6 +55,11 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	@Override
 	public void createFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
 		Connection con = connectionPool.getConnection();
 		PreparedStatement createFilmPs = null;
@@ -94,6 +107,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Film read(int id) {
 		ResultSet rs = null;
@@ -112,6 +128,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Film> readAll() {
 		List<Film> films = null;
@@ -132,6 +151,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		return films;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Film> readAll(int start, int step) {
 		List<Film> films = null;
@@ -154,6 +176,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		return films;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Film> readAllFilmsWhereGenreIdPresent(int genreId) {
 		List<Film> films = null;
@@ -175,6 +200,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		return films;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int readCountOfAllFilms() {
 		ResultSet rs = null;
@@ -193,6 +221,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		return -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Film entity) {
 		Connection con = connectionPool.getConnection();
@@ -210,6 +241,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateFilmWithGenres(Film film, List<Integer> genresId) throws SQLException {
 		Connection con = connectionPool.getConnection();
@@ -262,6 +296,9 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -275,6 +312,16 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to Film object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return Film object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private Film buildFilm(ResultSet rs) throws SQLException {
 		return Film.newBuilder().setId(rs.getInt("id")).setFilmName(rs.getString("filmName"))
 				.setDescription(rs.getString("description")).setPosterUrl(rs.getString("posterUrl"))

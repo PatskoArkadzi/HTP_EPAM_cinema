@@ -16,8 +16,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.TicketDao;
 import by.htp.epam.cinema.domain.Ticket;
 
+/**
+ * Class provides operations for performing with tickets table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class TicketDaoImpl extends AbstractDao implements TicketDao {
-
 	private static Logger logger = LoggerFactory.getLogger(TicketDaoImpl.class);
 
 	private static final String SQL_QUERY_TICKET_CREATE = "INSERT INTO `cinema_v2.0`.`tickets` (`session_id`, `seat_id`, `order_id`) VALUES (?,?,?);";
@@ -31,6 +35,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	private static final String SQL_QUERY_TICKET_COUNT_READ_BY_FILMSESSION_ID = "SELECT COUNT(t.`id`) FROM `cinema_v2.0`.`tickets` t INNER JOIN `cinema_v2.0`.`orders` o ON t.`order_id`=o.`id` WHERE t.`session_id`=? AND o.`isPaid`=1;";
 	private static final String SQL_QUERY_TICKET_SUM_READ_BY_FILMSESSION_ID = "SELECT SUM(s.`ticketPrice`) FROM ((`cinema_v2.0`.`tickets` t INNER JOIN `cinema_v2.0`.`sessions` s ON t.`session_id`=s.`id`) INNER JOIN `cinema_v2.0`.`orders` o ON t.`order_id`=o.`id`) WHERE t.`session_id`=? AND o.`isPaid`=1;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(Ticket entity) {
 		Connection con = connectionPool.getConnection();
@@ -46,6 +53,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Ticket read(int id) {
 		ResultSet rs = null;
@@ -64,6 +74,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Ticket> readAll() {
 		List<Ticket> tickets = null;
@@ -84,6 +97,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return tickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Ticket> readAllWhereOrderIdPresent(int orderId) {
 		List<Ticket> tickets = null;
@@ -105,6 +121,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return tickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Ticket> readAllWhereFilmSessionIdPresent(int filmSessionId) {
 		List<Ticket> tickets = null;
@@ -126,6 +145,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return tickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Ticket> readAllSoldTicketsByFilmSessionId(int filmSessionId, int start, int step) {
 		List<Ticket> tickets = null;
@@ -150,6 +172,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return tickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Ticket entity) {
 		Connection con = connectionPool.getConnection();
@@ -166,6 +191,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -179,11 +207,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		}
 	}
 
-	private Ticket buildTicket(ResultSet rs) throws SQLException {
-		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
-				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int readCountOfSoldTickets(int filmSessionId) {
 		ResultSet rs = null;
@@ -203,6 +229,9 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 		return -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public BigDecimal readSumOfSoldTickets(int filmSessionId) {
 		ResultSet rs = null;
@@ -220,5 +249,20 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			close(rs);
 		}
 		return null;
+	}
+
+	/**
+	 * get values from ResultSet and set them to Ticket object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return Ticket object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
+	private Ticket buildTicket(ResultSet rs) throws SQLException {
+		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
+				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
 	}
 }

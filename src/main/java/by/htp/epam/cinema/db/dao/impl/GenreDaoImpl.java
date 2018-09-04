@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.GenreDao;
 import by.htp.epam.cinema.domain.Genre;
 
+/**
+ * Class provides operations for performing with genres table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class GenreDaoImpl extends AbstractDao implements GenreDao {
-
 	private static Logger logger = LoggerFactory.getLogger(GenreDaoImpl.class);
 
 	private static final String SQL_QUERY_GENRE_CREATE = "INSERT INTO `cinema_v2.0`.`genres` (`genreName`) VALUES (?);";
@@ -27,6 +31,9 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 	private static final String SQL_QUERY_GENRE_UPDATE = "UPDATE `cinema_v2.0`.`genres` SET `genreName`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_GENRE_DELETE = "DELETE FROM `cinema_v2.0`.`genres` WHERE  `id`=?;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(Genre entity) {
 		Connection con = connectionPool.getConnection();
@@ -40,6 +47,9 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Genre read(int id) {
 		ResultSet rs = null;
@@ -58,6 +68,9 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Genre> readAll() {
 		List<Genre> genres = null;
@@ -79,7 +92,7 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 	}
 
 	/**
-	 * read only that genres which belong to film
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Genre> readAll(int filmId) {
@@ -102,6 +115,9 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 		return genres;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Genre entity) {
 		Connection con = connectionPool.getConnection();
@@ -116,6 +132,9 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -129,6 +148,16 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to Genre object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return Genre object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private Genre buildGenre(ResultSet rs) throws SQLException {
 		return Genre.newBuilder().setId(rs.getInt("id")).setGenreName(rs.getString("genreName")).build();
 	}

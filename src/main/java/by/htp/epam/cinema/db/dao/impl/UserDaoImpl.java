@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.UserDao;
 import by.htp.epam.cinema.domain.User;
 
+/**
+ * Class provides operations for performing with users table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class UserDaoImpl extends AbstractDao implements UserDao {
-
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	private static final String SQL_QUERY_USER_CREATE = "INSERT INTO `cinema_v2.0`.`users` (`login`, `email`, `password`, `salt`, `role_id`) VALUES (?,?,?,?,?);";
@@ -27,6 +31,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	private static final String SQL_QUERY_USER_UPDATE = "UPDATE `cinema_v2.0`.`users` SET `login`=?, `email`=?, `password`=?, `salt`=?, `role_id`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_USER_DELETE = "DELETE FROM `cinema_v2.0`.`users` WHERE  `id`=?;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(User entity) {
 		Connection con = connectionPool.getConnection();
@@ -44,6 +51,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User read(int id) {
 		ResultSet rs = null;
@@ -62,6 +72,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User readByLogin(String login) {
 		ResultSet rs = null;
@@ -80,6 +93,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User readByEmail(String email) {
 		ResultSet rs = null;
@@ -98,6 +114,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> readAll() {
 		List<User> users = null;
@@ -118,6 +137,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		return users;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(User entity) {
 		Connection con = connectionPool.getConnection();
@@ -136,6 +158,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -149,6 +174,16 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to User object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return User object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private User buildUser(ResultSet rs) throws SQLException {
 		return User.newBuilder().setId(rs.getInt("id")).setLogin(rs.getString("login")).setEmail(rs.getString("email"))
 				.setPassword(rs.getString("password")).setSalt(rs.getString("salt"))

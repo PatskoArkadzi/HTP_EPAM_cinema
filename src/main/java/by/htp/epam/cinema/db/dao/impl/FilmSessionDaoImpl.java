@@ -15,10 +15,13 @@ import org.slf4j.LoggerFactory;
 import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.FilmSessionDao;
 import by.htp.epam.cinema.domain.FilmSession;
-import by.htp.epam.cinema.domain.Seat;
 
+/**
+ * Class provides operations for performing with sessions table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
-
 	private static Logger logger = LoggerFactory.getLogger(FilmSessionDaoImpl.class);
 
 	private static final String SQL_QUERY_FILM_SESSION_CREATE = "INSERT INTO `cinema_v2.0`.`sessions` (`film_id`, `date`, `time`, `ticketPrice`) VALUES (?,?,?,?);";
@@ -28,9 +31,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_BY_FILM_ID = "SELECT `id`, `film_id`, `date`, `time`, `ticketPrice` FROM `cinema_v2.0`.`sessions` WHERE `film_id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_UPDATE = "UPDATE `cinema_v2.0`.`sessions` SET `film_id`=?, `date`=?, `time`=?, `ticketPrice`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_FILM_SESSION_DELETE = "DELETE FROM `cinema_v2.0`.`sessions` WHERE  `id`=?;";
-	private static final String SQL_QUERY_FILM_SESSION_READ_ALL_WHERE_SEAT_NOT_FREE = "SELECT s.`id`, s.`film_id`, s.`date`, s.`time`, s.`ticketPrice`"
-			+ "FROM `cinema_v2.0`.`sessions` s INNER JOIN `cinema_v2.0`.`tickets` t ON s.id=t.session_id WHERE t.seat_id = ?";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(FilmSession entity) {
 		Connection con = connectionPool.getConnection();
@@ -47,6 +51,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public FilmSession read(int id) {
 		ResultSet rs = null;
@@ -65,6 +73,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public FilmSession readByDateAndTime(String date, String time) {
 		ResultSet rs = null;
@@ -84,6 +96,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public List<FilmSession> readAll() {
 		List<FilmSession> filmSessions = null;
@@ -104,6 +120,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		return filmSessions;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public List<FilmSession> readAll(int filmId) {
 		List<FilmSession> filmSessions = null;
@@ -125,27 +145,10 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		return filmSessions;
 	}
 
-	@Override
-	public List<FilmSession> readAllWhereSeatNotFree(Seat seat) {
-		List<FilmSession> filmSessions = null;
-		ResultSet rs = null;
-		Connection con = connectionPool.getConnection();
-		try (PreparedStatement ps = con.prepareStatement(SQL_QUERY_FILM_SESSION_READ_ALL_WHERE_SEAT_NOT_FREE)) {
-			ps.setInt(1, seat.getId());
-			rs = ps.executeQuery();
-			filmSessions = new ArrayList<>();
-			while (rs.next()) {
-				filmSessions.add(buildFilmSession(rs));
-			}
-		} catch (SQLException e) {
-			logger.error("SQLException in readAllWhereSeatNotFree method of FilmSessionDaoImpl class", e);
-		} finally {
-			connectionPool.putConnection(con);
-			close(rs);
-		}
-		return filmSessions;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public void update(FilmSession entity) {
 		Connection con = connectionPool.getConnection();
@@ -163,6 +166,9 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -176,6 +182,16 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to FilmSession object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return FilmSession object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private FilmSession buildFilmSession(ResultSet rs) throws SQLException {
 		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilmId(rs.getInt("film_id"))
 				.setDate(rs.getString("date")).setTime(rs.getString("time"))

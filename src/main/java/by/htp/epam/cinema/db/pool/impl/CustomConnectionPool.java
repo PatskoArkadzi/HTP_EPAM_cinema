@@ -33,9 +33,7 @@ public class CustomConnectionPool implements BaseConnectionPool {
 	 * Resource manager enum constant which provides property for getting connection
 	 */
 	private static final ResourceManager RM = ResourceManager.DATA_BASE;
-	/**
-	 * logger
-	 */
+
 	private static final Logger logger = LoggerFactory.getLogger(CustomConnectionPool.class);
 	/**
 	 * queue for containing free connections

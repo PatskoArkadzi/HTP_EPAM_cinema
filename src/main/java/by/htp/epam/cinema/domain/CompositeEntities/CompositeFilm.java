@@ -58,7 +58,7 @@ public class CompositeFilm implements Serializable {
 	 *            {@link #description}
 	 * @param posterUrl
 	 *            {@link #posterUrl}
-	 * @param id
+	 * @param youTubeVideoId
 	 *            {@link #youTubeVideoId}
 	 * @param genres
 	 *            {@link #genres}

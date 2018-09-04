@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.TicketsOrderDao;
 import by.htp.epam.cinema.domain.TicketsOrder;
 
+/**
+ * Class provides operations for performing with orders table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao {
-
 	private static Logger logger = LoggerFactory.getLogger(TicketsOrderDaoImpl.class);
 
 	private static final String SQL_QUERY_TICKETS_ORDER_CREATE = "INSERT INTO `cinema_v2.0`.`orders` (`user_id`, `isPaid`) VALUES (?,?);";
@@ -28,6 +32,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	private static final String SQL_QUERY_TICKETS_ORDER_UPDATE = "UPDATE `cinema_v2.0`.`orders` SET `user_id`=?, `isPaid`=? WHERE  `id`=?;";
 	private static final String SQL_QUERY_TICKETS_ORDER_DELETE = "DELETE FROM `cinema_v2.0`.`orders` WHERE  `id`=?;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(TicketsOrder entity) {
 		Connection con = connectionPool.getConnection();
@@ -42,6 +49,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public TicketsOrder read(int id) {
 		ResultSet rs = null;
@@ -60,6 +70,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public TicketsOrder readByUserId(int userId) {
 		ResultSet rs = null;
@@ -78,6 +91,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public TicketsOrder read(int seatId, int filmSessionId) {
 		ResultSet rs = null;
@@ -97,6 +113,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<TicketsOrder> readAll() {
 		List<TicketsOrder> orders = null;
@@ -117,6 +136,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		return orders;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(TicketsOrder entity) {
 		Connection con = connectionPool.getConnection();
@@ -132,6 +154,9 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -145,6 +170,16 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to TicketsOrder object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return TicketsOrder object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private TicketsOrder buildTicketsOrder(ResultSet rs) throws SQLException {
 		return TicketsOrder.newBuilder().setId(rs.getInt("id")).setOrderNumber(rs.getInt("orderNumber"))
 				.setUserId(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();

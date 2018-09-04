@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.RoleDao;
 import by.htp.epam.cinema.domain.Role;
 
+/**
+ * Class provides operations for performing with roles table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class RoleDaoImpl extends AbstractDao implements RoleDao {
-
 	private static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 
 	private static final String SQL_QUERY_ROLE_CREATE = "INSERT INTO `cinema_v2.0`.`roles` (`roleName`) VALUES (?);";
@@ -25,6 +29,9 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 	private static final String SQL_QUERY_ROLE_UPDATE = "UPDATE `cinema_v2.0`.`roles` SET `roleName`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_ROLE_DELETE = "DELETE FROM `cinema_v2.0`.`roles` WHERE  `id`=?;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(Role entity) {
 		Connection con = connectionPool.getConnection();
@@ -38,6 +45,9 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Role read(int id) {
 		ResultSet rs = null;
@@ -56,6 +66,9 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Role> readAll() {
 		List<Role> roles = null;
@@ -76,6 +89,9 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 		return roles;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Role entity) {
 		Connection con = connectionPool.getConnection();
@@ -90,6 +106,9 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -103,6 +122,16 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to Role object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return Role object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private Role buildRole(ResultSet rs) throws SQLException {
 		return Role.newBuilder().setId(rs.getInt("id")).setRoleName(rs.getString("roleName")).build();
 	}

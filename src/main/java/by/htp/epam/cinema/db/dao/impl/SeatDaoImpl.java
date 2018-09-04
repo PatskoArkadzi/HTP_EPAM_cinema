@@ -15,8 +15,12 @@ import by.htp.epam.cinema.db.dao.AbstractDao;
 import by.htp.epam.cinema.db.dao.SeatDao;
 import by.htp.epam.cinema.domain.Seat;
 
+/**
+ * Class provides operations for performing with seats table in database
+ * 
+ * @author Arkadzi Patsko
+ */
 public class SeatDaoImpl extends AbstractDao implements SeatDao {
-
 	private static Logger logger = LoggerFactory.getLogger(SeatDaoImpl.class);
 
 	private static final String SQL_QUERY_SEAT_CREATE = "INSERT INTO `cinema_v2.0`.`seats` (`row`, `number`) VALUES (?,?);";
@@ -26,6 +30,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 	private static final String SQL_QUERY_SEAT_UPDATE = "UPDATE `cinema_v2.0`.`seats` SET `row`=?, `number`=? WHERE `id`=?;";
 	private static final String SQL_QUERY_SEAT_DELETE = "DELETE FROM `cinema_v2.0`.`seats` WHERE  `id`=?;";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create(Seat entity) {
 		Connection con = connectionPool.getConnection();
@@ -40,6 +47,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Seat read(int id) {
 		ResultSet rs = null;
@@ -58,6 +68,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Seat read(int row, int number) {
 		ResultSet rs = null;
@@ -77,6 +90,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Seat> readAll() {
 		List<Seat> seats = null;
@@ -97,6 +113,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		return seats;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Seat entity) {
 		Connection con = connectionPool.getConnection();
@@ -112,6 +131,9 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(int entityId) {
 		Connection con = connectionPool.getConnection();
@@ -125,6 +147,16 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 		}
 	}
 
+	/**
+	 * get values from ResultSet and set them to Seat object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return Seat object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
 	private Seat buildSeat(ResultSet rs) throws SQLException {
 		return Seat.newBuilder().setId(rs.getInt("id")).setRow(rs.getInt("row")).setNumber(rs.getInt("number")).build();
 	}
