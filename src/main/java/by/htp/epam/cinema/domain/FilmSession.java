@@ -64,6 +64,10 @@ public class FilmSession extends BaseEntity {
 		return film_id;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +80,10 @@ public class FilmSession extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -108,6 +116,10 @@ public class FilmSession extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return "FilmSession [id=" + getId() + ", date=" + date + ", time=" + time + ", ticketPrice=" + ticketPrice

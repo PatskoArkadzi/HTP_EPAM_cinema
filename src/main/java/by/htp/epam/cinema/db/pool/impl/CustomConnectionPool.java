@@ -14,18 +14,49 @@ import by.htp.epam.cinema.web.util.ResourceManager;
 
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.*;
 
+/**
+ * Class provides connections to the database
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CustomConnectionPool implements BaseConnectionPool {
-
+	/**
+	 * Singleton instance
+	 */
 	private static CustomConnectionPool instance;
-	protected final static int POOL_SIZE = 10;
-	private final static ResourceManager RM = ResourceManager.DATA_BASE;
-	private static Logger logger = LoggerFactory.getLogger(CustomConnectionPool.class);
+	/**
+	 * Connection pool size
+	 */
+	private static final int POOL_SIZE = 10;
+	/**
+	 * Resource manager enum constant which provides property for getting connection
+	 */
+	private static final ResourceManager RM = ResourceManager.DATA_BASE;
+	/**
+	 * logger
+	 */
+	private static final Logger logger = LoggerFactory.getLogger(CustomConnectionPool.class);
+	/**
+	 * queue for containing free connections
+	 */
 	private static BlockingQueue<Connection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
+	/**
+	 * queue for containing occupied connections
+	 */
 	private static BlockingQueue<Connection> givenAwayConectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
+	/**
+	 * Constructor without parameters
+	 */
 	private CustomConnectionPool() {
 	}
 
+	/**
+	 * static method for getting instance of connection pool
+	 * 
+	 * @return BaseConnectionPool
+	 */
 	public static BaseConnectionPool getInstance() {
 		if (instance == null) {
 			instance = new CustomConnectionPool();
@@ -33,6 +64,10 @@ public class CustomConnectionPool implements BaseConnectionPool {
 		return instance;
 	}
 
+	/**
+	 * fill connection pool in InitializeConnectionPoolListener class during context
+	 * initializing
+	 */
 	public static void initializeConnectionPool() {
 		try {
 			Class.forName(RM.getValue(DB_CONNECTION_DRIVER));
@@ -47,11 +82,21 @@ public class CustomConnectionPool implements BaseConnectionPool {
 		}
 	}
 
+	/**
+	 * destroy connection pool in InitializeConnectionPoolListener class during
+	 * context destroying
+	 */
 	public static void destroyConnectionPool() {
 		closeConnectionQueue(connectionQueue);
 		closeConnectionQueue(givenAwayConectionQueue);
 	}
 
+	/**
+	 * purge queue with connections
+	 * 
+	 * @param queue
+	 *            queue for purging
+	 */
 	private static void closeConnectionQueue(BlockingQueue<Connection> queue) {
 		Connection connection = null;
 		while ((connection = queue.poll()) != null) {
@@ -64,6 +109,10 @@ public class CustomConnectionPool implements BaseConnectionPool {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public Connection getConnection() {
 		Connection connection = null;
@@ -76,6 +125,10 @@ public class CustomConnectionPool implements BaseConnectionPool {
 		return connection;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public void putConnection(Connection connection) {
 		try {

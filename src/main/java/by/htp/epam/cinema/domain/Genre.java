@@ -29,6 +29,10 @@ public class Genre extends BaseEntity {
 		return genreName;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -38,6 +42,10 @@ public class Genre extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,6 +66,10 @@ public class Genre extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return "Genre [id=" + getId() + ", genreName=" + genreName + "]";

@@ -51,6 +51,10 @@ public class Ticket extends BaseEntity {
 		return ticketsOrder_id;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,6 +66,10 @@ public class Ticket extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,6 +91,10 @@ public class Ticket extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return "Ticket [id=" + getId() + ", filmSession_id=" + filmSession_id + ", seat_id=" + seat_id
