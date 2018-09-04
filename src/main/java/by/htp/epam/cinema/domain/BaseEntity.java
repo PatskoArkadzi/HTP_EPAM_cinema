@@ -53,10 +53,6 @@ public class BaseEntity implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,10 +61,6 @@ public class BaseEntity implements Serializable {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,10 +75,6 @@ public class BaseEntity implements Serializable {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 */
 	@Override
 	public String toString() {
 		return "BaseEntity [id=" + id + "]";

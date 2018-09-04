@@ -93,9 +93,6 @@ public class User extends BaseEntity {
 		return role_id;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,9 +106,6 @@ public class User extends BaseEntity {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -149,9 +143,6 @@ public class User extends BaseEntity {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "User [id=" + getId() + ", login=" + login + ", email=" + email + ", password=" + password + ", salt="

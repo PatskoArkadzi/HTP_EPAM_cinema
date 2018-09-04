@@ -61,9 +61,6 @@ public class Seat extends BaseEntity {
 		this.state = state;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,9 +72,6 @@ public class Seat extends BaseEntity {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -99,9 +93,6 @@ public class Seat extends BaseEntity {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "Seat [id=" + getId() + ", row=" + row + ", number=" + number + ", state=" + state + "]";

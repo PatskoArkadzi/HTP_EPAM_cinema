@@ -62,9 +62,6 @@ public class TicketsOrder extends BaseEntity {
 		this.isPaid = isPaid;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,9 +73,6 @@ public class TicketsOrder extends BaseEntity {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -100,9 +94,6 @@ public class TicketsOrder extends BaseEntity {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "TicketsOrder [id=" + getId() + ", orderNumber=" + orderNumber + ", isPaid=" + isPaid + ", user_id="

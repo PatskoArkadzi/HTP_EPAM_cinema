@@ -67,9 +67,6 @@ public class Film extends BaseEntity {
 		return youTubeVideoId;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -105,9 +102,6 @@ public class Film extends BaseEntity {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -120,9 +114,6 @@ public class Film extends BaseEntity {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "Film [id=" + getId() + ", filmName=" + filmName + ", description=" + description + ", posterUrl="

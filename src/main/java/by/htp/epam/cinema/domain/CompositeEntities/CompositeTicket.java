@@ -178,9 +178,6 @@ public class CompositeTicket implements Serializable {
 		this.user = user;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -194,9 +191,6 @@ public class CompositeTicket implements Serializable {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -236,9 +230,6 @@ public class CompositeTicket implements Serializable {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "CompositeTicket [id=" + id + ", filmSession=" + filmSession + ", film=" + film + ", seat=" + seat

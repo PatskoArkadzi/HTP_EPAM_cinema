@@ -175,9 +175,6 @@ public class CompositeFilm implements Serializable {
 		this.genres = genres;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -191,9 +188,6 @@ public class CompositeFilm implements Serializable {
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -233,9 +227,6 @@ public class CompositeFilm implements Serializable {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return "CompositeFilm [id=" + id + ", filmName=" + filmName + ", description=" + description + ", posterUrl="
