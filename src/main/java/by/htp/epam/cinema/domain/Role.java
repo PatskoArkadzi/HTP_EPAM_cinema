@@ -1,26 +1,37 @@
 package by.htp.epam.cinema.domain;
 
+/**
+ * Class describing Role entity
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class Role extends BaseEntity {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = 5032248738042699962L;
+	/**
+	 * Role name
+	 */
 	private String roleName;
 
-	public Role() {
+	/**
+	 * Constructor without parameters
+	 */
+	private Role() {
 	}
 
-	public Role(int id, String roleName) {
-		super(id);
-		this.roleName = roleName;
-	}
-
+	/**
+	 * @return {@link #roleName}
+	 */
 	public String getRoleName() {
 		return roleName;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,6 +41,9 @@ public class Role extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -50,29 +64,63 @@ public class Role extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "Role [id=" + getId() + ", roleName=" + roleName + "]";
 	}
 
+	/**
+	 * Static method for create inner Builder class object
+	 * 
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Role().new Builder();
 	}
 
+	/**
+	 * Inner class for build Role class object
+	 * 
+	 * @author Arkadzi Patsko
+	 *
+	 */
 	public class Builder {
+		/**
+		 * Constructor without parameters
+		 */
 		private Builder() {
 		}
 
+		/**
+		 * Sets id
+		 * 
+		 * @param id
+		 *            {@link #id}
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Role.this.setId(id);
 			return this;
 		}
 
+		/**
+		 * Sets role name
+		 * 
+		 * @param roleName
+		 *            {@link #roleName}
+		 * @return Builder class object
+		 */
 		public Builder setRoleName(String roleName) {
 			Role.this.roleName = roleName;
 			return this;
 		}
 
+		/**
+		 * @return ready Role class object
+		 */
 		public Role build() {
 			return Role.this;
 		}

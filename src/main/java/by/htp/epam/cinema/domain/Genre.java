@@ -1,26 +1,37 @@
 package by.htp.epam.cinema.domain;
 
+/**
+ * Class describing Genre entity
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class Genre extends BaseEntity {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = -1045134943121533438L;
+	/**
+	 * Genre name
+	 */
 	private String genreName;
 
-	public Genre() {
+	/**
+	 * Constructor without parameters
+	 */
+	private Genre() {
 	}
 
-	public Genre(int id, String genreName) {
-		super(id);
-		this.genreName = genreName;
-	}
-
+	/**
+	 * @return {@link #genreName}
+	 */
 	public String getGenreName() {
 		return genreName;
 	}
 
-	public void setGenreName(String genreName) {
-		this.genreName = genreName;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,6 +41,9 @@ public class Genre extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -50,29 +64,63 @@ public class Genre extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "Genre [id=" + getId() + ", genreName=" + genreName + "]";
 	}
 
+	/**
+	 * Static method for create inner Builder class object
+	 * 
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Genre().new Builder();
 	}
 
+	/**
+	 * Inner class for build Genre class object
+	 * 
+	 * @author Arkadzi Patsko
+	 *
+	 */
 	public class Builder {
+		/**
+		 * Constructor without parameters
+		 */
 		private Builder() {
 		}
 
+		/**
+		 * Sets genre id
+		 * 
+		 * @param id
+		 *            {@link #id}
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Genre.this.setId(id);
 			return this;
 		}
 
+		/**
+		 * Sets genre name
+		 * 
+		 * @param genreName
+		 *            {@link #genreName}
+		 * @return Builder class object
+		 */
 		public Builder setGenreName(String genreName) {
 			Genre.this.genreName = genreName;
 			return this;
 		}
 
+		/**
+		 * @return ready Genre class object
+		 */
 		public Genre build() {
 			return Genre.this;
 		}

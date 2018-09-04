@@ -5,25 +5,64 @@ import java.util.List;
 
 import by.htp.epam.cinema.domain.Genre;
 
+/**
+ * CompositeFilm class for passing entities to request context
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CompositeFilm implements Serializable {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = 8389696005488781866L;
-
+	/**
+	 * Film id
+	 */
 	private int id;
-
+	/**
+	 * Film filmName
+	 */
 	private String filmName;
-
+	/**
+	 * Film description
+	 */
 	private String description;
-
+	/**
+	 * Film posterUrl
+	 */
 	private String posterUrl;
-
+	/**
+	 * Film youTubeVideoId
+	 */
 	private String youTubeVideoId;
-
+	/**
+	 * Film genres
+	 */
 	private List<Genre> genres;
 
+	/**
+	 * Constructor without parameters
+	 */
 	public CompositeFilm() {
 	}
 
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param id
+	 *            {@link #id}
+	 * @param filmName
+	 *            {@link #filmName}
+	 * @param description
+	 *            {@link #description}
+	 * @param posterUrl
+	 *            {@link #posterUrl}
+	 * @param id
+	 *            {@link #youTubeVideoId}
+	 * @param genres
+	 *            {@link #genres}
+	 */
 	public CompositeFilm(int id, String filmName, String description, String posterUrl, String youTubeVideoId,
 			List<Genre> genres) {
 		this.id = id;
@@ -34,54 +73,111 @@ public class CompositeFilm implements Serializable {
 		this.genres = genres;
 	}
 
+	/**
+	 * @return {@link #id}
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets film id
+	 * 
+	 * @param id
+	 *            {@link #id}
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return {@link #filmName}
+	 */
 	public String getFilmName() {
 		return filmName;
 	}
 
+	/**
+	 * Sets film name
+	 * 
+	 * @param filmName
+	 *            {@link #filmName}
+	 */
 	public void setFilmName(String filmName) {
 		this.filmName = filmName;
 	}
 
+	/**
+	 * @return {@link #description}
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Sets film description
+	 * 
+	 * @param description
+	 *            {@link #description}
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return {@link #posterUrl}
+	 */
 	public String getPosterUrl() {
 		return posterUrl;
 	}
 
+	/**
+	 * Sets film poster URL
+	 * 
+	 * @param posterUrl
+	 *            {@link #posterUrl}
+	 */
 	public void setPosterUrl(String posterUrl) {
 		this.posterUrl = posterUrl;
 	}
 
+	/**
+	 * @return {@link #youTubeVideoId}
+	 */
 	public String getYouTubeVideoId() {
 		return youTubeVideoId;
 	}
 
+	/**
+	 * Sets film YouTube video id
+	 * 
+	 * @param youTubeVideoId
+	 *            {@link #youTubeVideoId}
+	 */
 	public void setYouTubeVideoId(String youTubeVideoId) {
 		this.youTubeVideoId = youTubeVideoId;
 	}
 
+	/**
+	 * @return {@link #genres}
+	 */
 	public List<Genre> getGenres() {
 		return genres;
 	}
 
+	/**
+	 * Sets film genres
+	 * 
+	 * @param genres
+	 *            {@link #genres}
+	 */
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,6 +191,9 @@ public class CompositeFilm implements Serializable {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,6 +233,9 @@ public class CompositeFilm implements Serializable {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "CompositeFilm [id=" + id + ", filmName=" + filmName + ", description=" + description + ", posterUrl="

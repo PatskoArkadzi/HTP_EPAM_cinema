@@ -2,29 +2,61 @@ package by.htp.epam.cinema.domain;
 
 import java.io.Serializable;
 
+/**
+ * Class parent for all entities
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class BaseEntity implements Serializable {
 
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = -294442612361371280L;
 
+	/**
+	 * Common ID for entities
+	 */
 	private int id;
 
+	/**
+	 * Constructor with
+	 * 
+	 * @param id
+	 *            {@link #id}
+	 */
 	public BaseEntity(int id) {
-		super();
 		this.id = id;
 	}
 
+	/**
+	 * Constructor without parameters
+	 */
 	public BaseEntity() {
-		super();
 	}
 
+	/**
+	 * @return {@link #id}
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets id
+	 * 
+	 * @param id
+	 *            {@link #id}
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,6 +65,10 @@ public class BaseEntity implements Serializable {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,6 +83,10 @@ public class BaseEntity implements Serializable {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return "BaseEntity [id=" + id + "]";

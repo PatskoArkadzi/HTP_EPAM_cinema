@@ -1,71 +1,101 @@
 package by.htp.epam.cinema.domain;
 
+/**
+ * Class describing User entity
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class User extends BaseEntity {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = -6390489079397253530L;
-
+	/**
+	 * User login
+	 */
 	private String login;
-
+	/**
+	 * User email
+	 */
 	private String email;
-
+	/**
+	 * User password
+	 */
 	private String password;
-
+	/**
+	 * User salt for hashing password
+	 */
 	private String salt;
-
+	/**
+	 * User role id
+	 */
 	private int role_id;
 
-	public User() {
+	/**
+	 * Constructor without parameters
+	 */
+	private User() {
 	}
 
-	public User(int id, String login, String email, String password, String salt, int role_id) {
-		super(id);
-		this.login = login;
-		this.email = email;
-		this.password = password;
-		this.salt = salt;
-		this.role_id = role_id;
-	}
-
+	/**
+	 * @return {@link #login}
+	 */
 	public String getLogin() {
 		return login;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
+	/**
+	 * @return {@link #email}
+	 */
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	/**
+	 * @return {@link #password}
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets user password
+	 * 
+	 * @param password
+	 *            {@link #password}
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * @return {@link #salt}
+	 */
 	public String getSalt() {
 		return salt;
 	}
 
+	/**
+	 * Sets user salt
+	 * 
+	 * @param salt
+	 *            {@link #salt}
+	 */
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
 
+	/**
+	 * @return {@link #role_id}
+	 */
 	public int getRoleId() {
 		return role_id;
 	}
 
-	public void setRoleId(int role_id) {
-		this.role_id = role_id;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,6 +109,9 @@ public class User extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,50 +149,112 @@ public class User extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "User [id=" + getId() + ", login=" + login + ", email=" + email + ", password=" + password + ", salt="
 				+ salt + ", role_id=" + role_id + "]";
 	}
 
+	/**
+	 * Static method for create inner Builder class object
+	 * 
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new User().new Builder();
 	}
 
+	/**
+	 * Inner class for build User class object
+	 * 
+	 * @author Arkadzi Patsko
+	 *
+	 */
 	public class Builder {
+		/**
+		 * Constructor without parameters
+		 */
 		private Builder() {
 		}
 
+		/**
+		 * Sets id
+		 * 
+		 * @param id
+		 *            {@link #id}
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			User.this.setId(id);
 			return this;
 		}
 
+		/**
+		 * Sets login
+		 * 
+		 * @param login
+		 *            {@link #login}
+		 * @return Builder class object
+		 */
 		public Builder setLogin(String login) {
 			User.this.login = login;
 			return this;
 		}
 
+		/**
+		 * Sets email
+		 * 
+		 * @param email
+		 *            {@link #email}
+		 * @return Builder class object
+		 */
 		public Builder setEmail(String email) {
 			User.this.email = email;
 			return this;
 		}
 
+		/**
+		 * Sets password
+		 * 
+		 * @param password
+		 *            {@link #password}
+		 * @return Builder class object
+		 */
 		public Builder setPassword(String password) {
 			User.this.password = password;
 			return this;
 		}
 
+		/**
+		 * Sets salt
+		 * 
+		 * @param salt
+		 *            {@link #salt}
+		 * @return Builder class object
+		 */
 		public Builder setSalt(String salt) {
 			User.this.salt = salt;
 			return this;
 		}
 
+		/**
+		 * Sets user role id
+		 * 
+		 * @param role_id
+		 *            {@link #role_id}
+		 * @return Builder class object
+		 */
 		public Builder setRoleId(int role_id) {
 			User.this.role_id = role_id;
 			return this;
 		}
 
+		/**
+		 * @return ready User class object
+		 */
 		public User build() {
 			return User.this;
 		}

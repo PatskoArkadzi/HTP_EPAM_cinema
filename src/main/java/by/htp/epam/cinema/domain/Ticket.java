@@ -1,49 +1,59 @@
 package by.htp.epam.cinema.domain;
 
+/**
+ * Class describing Ticket entity
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class Ticket extends BaseEntity {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = -4113164580477789927L;
-
+	/**
+	 * Film session id
+	 */
 	private int filmSession_id;
-
+	/**
+	 * Seat id
+	 */
 	private int seat_id;
-
+	/**
+	 * Order id
+	 */
 	private int ticketsOrder_id;
 
-	public Ticket() {
+	/**
+	 * Constructor without parameters
+	 */
+	private Ticket() {
 	}
 
-	public Ticket(int id, int filmSession_id, int seat_id, int ticketsOrder_id) {
-		super(id);
-		this.filmSession_id = filmSession_id;
-		this.seat_id = seat_id;
-		this.ticketsOrder_id = ticketsOrder_id;
-	}
-
+	/**
+	 * @return {@link #filmSession_id}
+	 */
 	public int getFilmSessionId() {
 		return filmSession_id;
 	}
 
-	public void setFilmSessionId(int filmSession_id) {
-		this.filmSession_id = filmSession_id;
-	}
-
+	/**
+	 * @return {@link #seat_id}
+	 */
 	public int getSeatId() {
 		return seat_id;
 	}
 
-	public void setSeatId(int seat_id) {
-		this.seat_id = seat_id;
-	}
-
+	/**
+	 * @return {@link #ticketsOrder_id}
+	 */
 	public int getTicketsOrderId() {
 		return ticketsOrder_id;
 	}
 
-	public void setTicketsOrderId(int ticketsOrder_id) {
-		this.ticketsOrder_id = ticketsOrder_id;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -55,6 +65,9 @@ public class Ticket extends BaseEntity {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,41 +89,88 @@ public class Ticket extends BaseEntity {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "Ticket [id=" + getId() + ", filmSession_id=" + filmSession_id + ", seat_id=" + seat_id
 				+ ", ticketsOrder_id=" + ticketsOrder_id + "]";
 	}
 
+	/**
+	 * Static method for create inner Builder class object
+	 * 
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Ticket().new Builder();
 	}
 
+	/**
+	 * Inner class for build Ticket class object
+	 * 
+	 * @author Arkadzi Patsko
+	 *
+	 */
 	public class Builder {
-
+		/**
+		 * Constructor without parameters
+		 */
 		private Builder() {
 		}
 
+		/**
+		 * Sets id
+		 * 
+		 * @param id
+		 *            {@link #id}
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Ticket.this.setId(id);
 			return this;
 		}
 
+		/**
+		 * Sets film session id
+		 * 
+		 * @param filmSession_id
+		 *            {@link #filmSession_id}
+		 * @return Builder class object
+		 */
 		public Builder setFilmSessionId(int filmSession_id) {
 			Ticket.this.filmSession_id = filmSession_id;
 			return this;
 		}
 
+		/**
+		 * Sets seat id
+		 * 
+		 * @param seat_id
+		 *            {@link #seat_id}
+		 * @return Builder class object
+		 */
 		public Builder setSeatId(int seat_id) {
 			Ticket.this.seat_id = seat_id;
 			return this;
 		}
 
+		/**
+		 * Sets order id
+		 * 
+		 * @param ticketsOrder_id
+		 *            {@link #ticketsOrder_id}
+		 * @return Builder class object
+		 */
 		public Builder setTicketsOrderId(int ticketsOrder_id) {
 			Ticket.this.ticketsOrder_id = ticketsOrder_id;
 			return this;
 		}
 
+		/**
+		 * @return ready Ticket class object
+		 */
 		public Ticket build() {
 			return Ticket.this;
 		}
