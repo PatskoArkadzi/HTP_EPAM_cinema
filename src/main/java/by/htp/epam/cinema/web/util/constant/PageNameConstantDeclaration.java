@@ -1,5 +1,11 @@
 package by.htp.epam.cinema.web.util.constant;
 
+/**
+ * Class contains page name constant
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public final class PageNameConstantDeclaration {
 
 	public static final String PAGE_USER_MAIN = "/WEB-INF/pages/user/home.jsp";
@@ -16,6 +22,9 @@ public final class PageNameConstantDeclaration {
 	public static final String PAGE_ADMIN_CHANGE_USER_ROLE = "/WEB-INF/pages/admin/changeUserRole.jsp";
 	public static final String PAGE_ADMIN_VIEW_FILMSESSIONS_TICKETS = "/WEB-INF/pages/admin/filmSessionsTicketsView.jsp";
 
+	/**
+	 * constructor without parameters
+	 */
 	private PageNameConstantDeclaration() {
 	}
 }

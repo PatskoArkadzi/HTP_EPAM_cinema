@@ -7,6 +7,12 @@ import java.security.SecureRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * util class for safe password store
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class PasswordSecurity {
 
 	private static final int SALT_SIZE = 16;
@@ -15,7 +21,9 @@ public class PasswordSecurity {
 	private static Logger logger = LoggerFactory.getLogger(PasswordSecurity.class);
 
 	/**
-	 * generate salt for password
+	 * generates salt for password
+	 *
+	 * @return salt for user
 	 */
 	public static String getSalt() {
 		SecureRandom sr = new SecureRandom();
@@ -25,9 +33,14 @@ public class PasswordSecurity {
 	}
 
 	/**
-	 * salt and hash password
+	 * salts and hashes password
+	 *
+	 * @param password
+	 *            user password
+	 * @param salt
+	 *            user salt
+	 * @return hashed password
 	 */
-
 	public static String getHashPassword(String password, String salt) {
 		try {
 			MessageDigest md = MessageDigest.getInstance(ALGORITHM_NAME);
@@ -41,7 +54,11 @@ public class PasswordSecurity {
 	}
 
 	/**
-	 * transform byte array to hexString
+	 * transforms byte array to hexString
+	 *
+	 * @param arr
+	 *            array of bytes
+	 * @return hexStrig
 	 */
 	private static String byteArrayToHexString(byte[] arr) {
 		StringBuilder sb = new StringBuilder();

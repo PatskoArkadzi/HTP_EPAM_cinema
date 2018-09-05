@@ -15,12 +15,25 @@ import by.htp.epam.cinema.service.GenreService;
 import by.htp.epam.cinema.service.ServiceFactory;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_GENRELIST;
 
+/**
+ * Tag display list of genres on UI
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class DisplayGenresBlockTag extends TagSupport {
-
+	/**
+	 * An unique serial version identifier
+	 */
 	private static final long serialVersionUID = 6183940880542261086L;
 
 	private static Logger logger = LoggerFactory.getLogger(DisplayGenresBlockTag.class);
 
+	/**
+	 * gets all genres
+	 * 
+	 * @return list of genres
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Genre> getGenres() {
 		HttpSession session = pageContext.getSession();
@@ -33,6 +46,9 @@ public class DisplayGenresBlockTag extends TagSupport {
 		return genres;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int doStartTag() {
 		List<Genre> genres = getGenres();

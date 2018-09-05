@@ -1,5 +1,11 @@
 package by.htp.epam.cinema.web.util.constant;
 
+/**
+ * Class contains context parameters constant
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public final class ContextParamNameConstantDeclaration {
 
 	public static final String SESSION_PARAM_CURRENT_USER = "currentUser";
@@ -63,6 +69,9 @@ public final class ContextParamNameConstantDeclaration {
 	public static final String CRUD_COMMAND_UPDATE = "update";
 	public static final String CRUD_COMMAND_DELETE = "delete";
 
+	/**
+	 * constructor without parameters
+	 */
 	private ContextParamNameConstantDeclaration() {
 	}
 }

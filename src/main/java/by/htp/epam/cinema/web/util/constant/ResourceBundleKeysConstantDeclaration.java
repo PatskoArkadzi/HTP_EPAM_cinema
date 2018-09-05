@@ -1,5 +1,11 @@
 package by.htp.epam.cinema.web.util.constant;
 
+/**
+ * Class contains ResourceBundle keys constant
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ResourceBundleKeysConstantDeclaration {
 
 	public static final String ERROR_MSG_CONTROLLER_INDEFINITE_ERROR = "msg.error.controller.indefiniteError";
@@ -50,6 +56,9 @@ public class ResourceBundleKeysConstantDeclaration {
 
 	public static final String TIMER_RESERVATION_PERIOD = "timer.reservationPeriod";
 
+	/**
+	 * constructor without parameters
+	 */
 	private ResourceBundleKeysConstantDeclaration() {
 	}
 }

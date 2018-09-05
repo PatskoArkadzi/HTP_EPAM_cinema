@@ -9,15 +9,29 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+/**
+ * filter class for state request and responce encoding
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CharacterEncodingFilter implements Filter {
-
+	/**
+	 * encoding field
+	 */
 	private String encoding;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		encoding = filterConfig.getInitParameter("encoding");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -33,6 +47,9 @@ public class CharacterEncodingFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void destroy() {
 		encoding = null;

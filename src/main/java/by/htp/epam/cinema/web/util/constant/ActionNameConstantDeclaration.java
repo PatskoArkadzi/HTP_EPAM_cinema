@@ -1,5 +1,11 @@
 package by.htp.epam.cinema.web.util.constant;
 
+/**
+ * Class contains action name constant
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public final class ActionNameConstantDeclaration {
 
 	public static final String ACTION_NAME_VIEW_HOME_PAGE = "home";
@@ -24,6 +30,9 @@ public final class ActionNameConstantDeclaration {
 	public static final String ACTION_NAME_CHECK_CHANGING_PASSWORD = "checkChangingPassword";
 	public static final String ACTION_NAME_VIEW_FILMSESSIONS_TICKETS = "viewFilmSessionsTickets";
 
+	/**
+	 * constructor without parameters
+	 */
 	private ActionNameConstantDeclaration() {
 	}
 }
