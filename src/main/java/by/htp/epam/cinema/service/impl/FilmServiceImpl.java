@@ -22,57 +22,88 @@ import by.htp.epam.cinema.domain.Genre;
 import by.htp.epam.cinema.domain.CompositeEntities.CompositeFilm;
 import by.htp.epam.cinema.service.FilmService;
 
+/**
+ * Class implementing FilmService interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class FilmServiceImpl implements FilmService {
 
+	/**
+	 * filmDao
+	 */
 	private FilmDao filmDao;
+	/**
+	 * genreDao
+	 */
 	private GenreDao genreDao;
 
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param filmDao
+	 *            {@link #filmDao}
+	 * @param genreDao
+	 *            {@link #genreDao}
+	 */
 	public FilmServiceImpl(FilmDao filmDao, GenreDao genreDao) {
 		this.filmDao = filmDao;
 		this.genreDao = genreDao;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Film> getAllFilms() {
 		return filmDao.readAll();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<CompositeFilm> getAllFilmsWithTheirGenres(Genre genre) {
 		List<Film> films = filmDao.readAllFilmsWhereGenreIdPresent(genre.getId());
 		return defineFilmsGenres(films);
 	}
 
-	private List<CompositeFilm> defineFilmsGenres(List<Film> films) {
-		List<CompositeFilm> filmsWithGenres = new ArrayList<>();
-		for (Film f : films) {
-			CompositeFilm cf = new CompositeFilm(f.getId(), f.getFilmName(), f.getDescription(), f.getPosterUrl(),
-					f.getYouTubeVideoId(), genreDao.readAll(f.getId()));
-			filmsWithGenres.add(cf);
-		}
-		return filmsWithGenres;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Film getFilm(int filmId) {
 		return filmDao.read(filmId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createFilm(Film film, List<Integer> genresId) throws SQLException {
 		filmDao.createFilmWithGenres(film, genresId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateFilmAndGenres(Film film, List<Integer> genresId) throws SQLException {
 		filmDao.updateFilmWithGenres(film, genresId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteFilm(Film film) {
 		filmDao.delete(film.getId());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Film buildFilm(HttpServletRequest request) {
 		String id = request.getParameter(REQUEST_PARAM_FILM_ID);
@@ -85,28 +116,48 @@ public class FilmServiceImpl implements FilmService {
 				.setPosterUrl(fixGoogleDriveUrl(posterUrl)).setYouTubeVideoId(youTubeVideoId).build();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<CompositeFilm> getFilmsWithTheirGenres(int start, int step) {
 		List<Film> films = filmDao.readAll(start, step);
 		return defineFilmsGenres(films);
 	}
 
-	@Override
-	public List<CompositeFilm> getAllFilmsWithTheirGenres() {
-		List<Film> films = filmDao.readAll();
-		return defineFilmsGenres(films);
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getAllFilmsCount() {
 		return filmDao.readCountOfAllFilms();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public CompositeFilm getFilmWithGenres(int filmId) {
 		Film film = filmDao.read(filmId);
 		return new CompositeFilm(film.getId(), film.getFilmName(), film.getDescription(), film.getPosterUrl(),
 				film.getYouTubeVideoId(), genreDao.readAll(film.getId()));
+	}
+
+	/**
+	 * defines for films their genres
+	 * 
+	 * @param films
+	 *            films for defining
+	 * @return list of films with defining genres
+	 */
+	private List<CompositeFilm> defineFilmsGenres(List<Film> films) {
+		List<CompositeFilm> filmsWithGenres = new ArrayList<>();
+		for (Film f : films) {
+			CompositeFilm cf = new CompositeFilm(f.getId(), f.getFilmName(), f.getDescription(), f.getPosterUrl(),
+					f.getYouTubeVideoId(), genreDao.readAll(f.getId()));
+			filmsWithGenres.add(cf);
+		}
+		return filmsWithGenres;
 	}
 
 }

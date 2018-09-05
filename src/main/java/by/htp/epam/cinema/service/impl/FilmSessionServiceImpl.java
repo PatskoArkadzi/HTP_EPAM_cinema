@@ -16,11 +16,30 @@ import by.htp.epam.cinema.domain.FilmSession;
 import by.htp.epam.cinema.domain.Ticket;
 import by.htp.epam.cinema.service.FilmSessionService;
 
+/**
+ * Class implementing FilmSessionService interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class FilmSessionServiceImpl implements FilmSessionService {
-
+	/**
+	 * filmSessionDao
+	 */
 	private FilmSessionDao filmSessionDao;
+	/**
+	 * ticketDao
+	 */
 	private TicketDao ticketDao;
 
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param filmSessionDao
+	 *            {@link #filmSessionDao}
+	 * @param ticketDao
+	 *            {@link #ticketDao}
+	 */
 	public FilmSessionServiceImpl(FilmSessionDao filmSessionDao, TicketDao ticketDao) {
 		this.filmSessionDao = filmSessionDao;
 		this.ticketDao = ticketDao;
@@ -28,37 +47,58 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<FilmSession> getFilmSessions(int filmId) {
 		return filmSessionDao.readAll(filmId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public FilmSession getFilmSession(int filmSessionId) {
 		return filmSessionDao.read(filmSessionId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createFilmSession(FilmSession filmSession) {
 		filmSessionDao.create(filmSession);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateFilmSession(FilmSession filmSession) {
 		filmSessionDao.update(filmSession);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteFilmSession(int filmSessionId) {
 		filmSessionDao.delete(filmSessionId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isFilmSessionTimeFree(FilmSession filmSession) {
 		FilmSession filmSessionFromDB = filmSessionDao.readByDateAndTime(filmSession.getDate(), filmSession.getTime());
 		return filmSessionFromDB == null || filmSession.getId() == filmSessionFromDB.getId();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isRemovalPossible(int filmSessionId) {
 		FilmSession filmSession = filmSessionDao.read(filmSessionId);
@@ -73,6 +113,9 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public FilmSession buildFilmSession(HttpServletRequest request) {
 		String filmSessionid = request.getParameter(REQUEST_PARAM_FILMSESSION_ID);

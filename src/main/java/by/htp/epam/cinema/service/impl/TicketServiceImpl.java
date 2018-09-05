@@ -19,15 +19,54 @@ import by.htp.epam.cinema.domain.User;
 import by.htp.epam.cinema.domain.CompositeEntities.CompositeTicket;
 import by.htp.epam.cinema.service.TicketService;
 
+/**
+ * Class implementing TicketService interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class TicketServiceImpl implements TicketService {
-
+	/**
+	 * ticketDao
+	 */
 	private TicketDao ticketDao;
+	/**
+	 * filmSessionDao
+	 */
 	private FilmSessionDao filmSessionDao;
+	/**
+	 * filmDao
+	 */
 	private FilmDao filmDao;
+	/**
+	 * seatDao
+	 */
 	private SeatDao seatDao;
+	/**
+	 * ticketsOrderDao
+	 */
 	private TicketsOrderDao ticketsOrderDao;
+	/**
+	 * userDao
+	 */
 	private UserDao userDao;
 
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param ticketDao
+	 *            {@link #ticketDao}
+	 * @param filmSessionDao
+	 *            {@link #filmSessionDao}
+	 * @param filmDao
+	 *            {@link #filmDao}
+	 * @param seatDao
+	 *            {@link #seatDao}
+	 * @param ticketsOrderDao
+	 *            {@link #ticketsOrderDao}
+	 * @param userDao
+	 *            {@link #userDao}
+	 */
 	public TicketServiceImpl(TicketDao ticketDao, FilmSessionDao filmSessionDao, FilmDao filmDao, SeatDao seatDao,
 			TicketsOrderDao ticketsOrderDao, UserDao userDao) {
 		this.ticketDao = ticketDao;
@@ -38,6 +77,9 @@ public class TicketServiceImpl implements TicketService {
 		this.userDao = userDao;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createTicket(FilmSession filmSession, Seat seat, TicketsOrder ticketsOrder) {
 		Ticket ticket = Ticket.newBuilder().setId(0).setFilmSessionId(filmSession.getId()).setSeatId(seat.getId())
@@ -45,6 +87,9 @@ public class TicketServiceImpl implements TicketService {
 		ticketDao.create(ticket);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<CompositeTicket> getOrderTickets(TicketsOrder order) {
 		List<Ticket> tickets = ticketDao.readAllWhereOrderIdPresent(order.getId());
@@ -57,6 +102,9 @@ public class TicketServiceImpl implements TicketService {
 		return compositeTickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<CompositeTicket> getAllFilmSessionSoldTickets(int filmSessionId, int start, int step) {
 		List<Ticket> tickets = ticketDao.readAllSoldTicketsByFilmSessionId(filmSessionId, start, step);
@@ -69,6 +117,29 @@ public class TicketServiceImpl implements TicketService {
 		return compositeTickets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getSoldTicketCount(int filmSessionId) {
+		return ticketDao.readCountOfSoldTickets(filmSessionId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BigDecimal getSoldTicketSum(int filmSessionId) {
+		return ticketDao.readSumOfSoldTickets(filmSessionId);
+	}
+
+	/**
+	 * gets ticket with related entities for passing it to request context
+	 * 
+	 * @param ticket
+	 *            ticket
+	 * @return ticket with related entities
+	 */
 	private CompositeTicket getCompositeTicket(Ticket ticket) {
 		FilmSession filmSession = filmSessionDao.read(ticket.getFilmSessionId());
 		Film film = filmDao.read(filmSession.getFilmId());
@@ -76,15 +147,5 @@ public class TicketServiceImpl implements TicketService {
 		TicketsOrder order = ticketsOrderDao.read(ticket.getTicketsOrderId());
 		User user = userDao.read(order.getUserId());
 		return new CompositeTicket(ticket.getId(), filmSession, film, seat, order, user);
-	}
-
-	@Override
-	public int getSoldTicketCount(int filmSessionId) {
-		return ticketDao.readCountOfSoldTickets(filmSessionId);
-	}
-
-	@Override
-	public BigDecimal getSoldTicketSum(int filmSessionId) {
-		return ticketDao.readSumOfSoldTickets(filmSessionId);
 	}
 }

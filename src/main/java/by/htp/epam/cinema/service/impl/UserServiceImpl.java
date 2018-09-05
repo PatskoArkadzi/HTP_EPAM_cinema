@@ -17,19 +17,41 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.styleCheckUserDataResult;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 
+/**
+ * Class implementing UserService interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class UserServiceImpl implements UserService {
+
 	private static final ResourceManager RM = ResourceManager.LOCALIZATION;
+	/**
+	 * userDao
+	 */
 	private UserDao userDao;
 
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param userDao
+	 *            {@link #userDao}
+	 */
 	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User getUser(int userId) {
 		return userDao.read(userId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User getUser(String login, String password) {
 		validateUserCredentialsInput(login, password);
@@ -40,6 +62,9 @@ public class UserServiceImpl implements UserService {
 			throw new ValidateParamException(RM.getValue(ERROR_MSG_LOG_IN_ACTION_AUTHENTICATION_ERROR));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String checkUserData(String login, String email, String password) {
 		try {
@@ -54,6 +79,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String checkUserLogin(String login) {
 		if (login.length() == 0)
@@ -66,6 +94,9 @@ public class UserServiceImpl implements UserService {
 			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_LOGIN_IS_FREE), true);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String checkUserEmail(String email) {
 		if (email.length() == 0)
@@ -78,6 +109,9 @@ public class UserServiceImpl implements UserService {
 			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_EMAIL_IS_FREE), true);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String checkUserPassword(String password) {
 		if (password.length() == 0)
@@ -92,6 +126,9 @@ public class UserServiceImpl implements UserService {
 			return styleCheckUserDataResult(RM.getValue(SUCCESS_MSG_SIGN_UP_ACTION_PASSWORD_IS_VALID), true);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createUser(String login, String email, String password) {
 		String userSalt = PasswordSecurity.getSalt();
@@ -101,6 +138,9 @@ public class UserServiceImpl implements UserService {
 		userDao.create(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUserAdmin(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -108,11 +148,17 @@ public class UserServiceImpl implements UserService {
 		return user != null && user.getRoleId() == 1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateUser(User user) {
 		userDao.update(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User changeUserPassword(int userId, String oldPassword, String newPassword) {
 		validateRequestParamNotNull(oldPassword, newPassword);
@@ -132,6 +178,9 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User buildUser(HttpServletRequest request) {
 		String userId = request.getParameter(REQUEST_PARAM_USER_ID);
