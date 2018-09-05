@@ -22,11 +22,25 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ChooseSeatAction implements BaseAction {
-
+	/**
+	 * seatService field
+	 */
 	SeatService seatService = ServiceFactory.getSeatService();
+	/**
+	 * filmSessionService field
+	 */
 	FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

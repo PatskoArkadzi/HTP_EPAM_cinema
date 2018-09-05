@@ -31,13 +31,33 @@ import java.io.IOException;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_CHOSEN_FILMSESSION_ID;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ToBasketAction implements BaseAction {
-
+	/**
+	 * seatService field
+	 */
 	SeatService seatService = ServiceFactory.getSeatService();
+	/**
+	 * filmSessionService field
+	 */
 	FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
+	/**
+	 * ticketsOrderService field
+	 */
 	TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
+	/**
+	 * ticketService field
+	 */
 	TicketService ticketService = ServiceFactory.getTicketService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

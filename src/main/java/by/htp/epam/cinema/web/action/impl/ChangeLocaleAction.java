@@ -17,8 +17,16 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ChangeLocaleAction implements BaseAction {
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {

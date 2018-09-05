@@ -16,10 +16,21 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHECK_CHANGING_PASSWORD_ACTION_INDEFINITE_ERROR;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CheckChangingPasswordAction implements BaseAction {
-
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

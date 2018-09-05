@@ -23,11 +23,25 @@ import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateParamException;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ChangeUserRoleAction implements BaseAction {
-
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
+	/**
+	 * roleService field
+	 */
 	private RoleService roleService = ServiceFactory.getRoleService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -67,7 +81,5 @@ public class ChangeUserRoleAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
-
-	
 
 }

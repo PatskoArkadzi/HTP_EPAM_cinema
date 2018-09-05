@@ -27,12 +27,29 @@ import by.htp.epam.cinema.service.ServiceFactory;
 import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.ValidateParamException;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class FilmPageViewAction implements BaseAction {
-
+	/**
+	 * filmService field
+	 */
 	private FilmService filmService = ServiceFactory.getFilmService();
+	/**
+	 * genreService field
+	 */
 	private GenreService genreService = ServiceFactory.getGenreService();
+	/**
+	 * filmSessionService field
+	 */
 	private FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

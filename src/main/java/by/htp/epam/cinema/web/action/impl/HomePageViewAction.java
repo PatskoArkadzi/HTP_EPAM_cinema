@@ -17,10 +17,21 @@ import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.getInt;
 
 import java.io.IOException;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class HomePageViewAction implements BaseAction {
-
+	/**
+	 * filmService field
+	 */
 	private FilmService filmService = ServiceFactory.getFilmService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

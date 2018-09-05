@@ -29,8 +29,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * class contains instances of actions classes
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ActionManager {
 
+	/**
+	 * Map for containing instances
+	 */
 	private static Map<String, BaseAction> actions;
 
 	static {
@@ -58,6 +67,13 @@ public class ActionManager {
 		actions.put(ACTION_NAME_VIEW_FILMSESSIONS_TICKETS, new FilmSessionsTicketsViewAction());
 	}
 
+	/**
+	 * defines action
+	 * 
+	 * @param req
+	 *            request from client
+	 * @return certain action entity
+	 */
 	public static BaseAction defineAction(HttpServletRequest req) {
 		String actionName = req.getParameter(REQUEST_PARAM_ACTION);
 		if (actionName == null) {

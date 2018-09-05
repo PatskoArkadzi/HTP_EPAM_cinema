@@ -34,13 +34,33 @@ import by.htp.epam.cinema.service.TicketService;
 import by.htp.epam.cinema.service.UserService;
 import by.htp.epam.cinema.web.action.BaseAction;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class FilmSessionsTicketsViewAction implements BaseAction {
-
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
+	/**
+	 * filmService field
+	 */
 	private FilmService filmService = ServiceFactory.getFilmService();
+	/**
+	 * filmSessionService field
+	 */
 	private FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
+	/**
+	 * ticketService field
+	 */
 	private TicketService ticketService = ServiceFactory.getTicketService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

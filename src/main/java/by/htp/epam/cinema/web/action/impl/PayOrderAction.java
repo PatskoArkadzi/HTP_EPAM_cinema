@@ -23,10 +23,21 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.SUCCESS_MSG_PAY_ORDER_ACTION_SUCCESSFULL_PAYMENT;
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.validateRequestParamNotNull;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class PayOrderAction implements BaseAction {
-
+	/**
+	 * ticketsOrderService field
+	 */
 	private TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

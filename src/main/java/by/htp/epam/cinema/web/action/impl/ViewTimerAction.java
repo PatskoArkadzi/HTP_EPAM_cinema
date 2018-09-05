@@ -12,8 +12,16 @@ import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.Timer;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.SESSION_PARAM_TIMER;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ViewTimerAction implements BaseAction {
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -22,10 +22,22 @@ import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDecla
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_NEW_PASSWORD;
 import static by.htp.epam.cinema.web.util.constant.ContextParamNameConstantDeclaration.REQUEST_PARAM_SUCCESS_MESSAGE;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ChangeUserPasswordAction implements BaseAction {
 
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

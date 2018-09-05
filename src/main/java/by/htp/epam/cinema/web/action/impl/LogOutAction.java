@@ -16,10 +16,21 @@ import java.io.IOException;
 
 import static by.htp.epam.cinema.web.util.constant.ActionNameConstantDeclaration.ACTION_NAME_VIEW_HOME_PAGE;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class LogOutAction implements BaseAction {
-
+	/**
+	 * ticketsOrderService field
+	 */
 	private TicketsOrderService ticketsOrderService = ServiceFactory.getTicketsOrderService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();

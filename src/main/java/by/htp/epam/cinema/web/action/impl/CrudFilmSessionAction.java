@@ -29,12 +29,29 @@ import by.htp.epam.cinema.web.action.BaseAction;
 import by.htp.epam.cinema.web.util.HttpManager;
 import by.htp.epam.cinema.web.util.ValidateParamException;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CrudFilmSessionAction implements BaseAction {
-
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
+	/**
+	 * filmService field
+	 */
 	private FilmService filmService = ServiceFactory.getFilmService();
+	/**
+	 * filmSessionService field
+	 */
 	private FilmSessionService filmSessionService = ServiceFactory.getFilmSessionService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

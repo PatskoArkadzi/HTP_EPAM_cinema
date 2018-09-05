@@ -8,8 +8,16 @@ import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.P
 
 import java.io.IOException;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class ErrorPageViewAction implements BaseAction {
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

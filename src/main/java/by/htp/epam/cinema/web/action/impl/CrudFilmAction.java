@@ -27,12 +27,29 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 import static by.htp.epam.cinema.web.util.HttpRequestParamValidator.*;
 import static by.htp.epam.cinema.web.util.HttpRequestParamFormatter.*;
 
+/**
+ * Class implementing BaseAction interface
+ * 
+ * @author Arkadzi Patsko
+ *
+ */
 public class CrudFilmAction implements BaseAction {
-
+	/**
+	 * filmService field
+	 */
 	private FilmService filmService = ServiceFactory.getFilmService();
+	/**
+	 * genreService field
+	 */
 	private GenreService genreService = ServiceFactory.getGenreService();
+	/**
+	 * userService field
+	 */
 	private UserService userService = ServiceFactory.getUserService();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void executeAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
