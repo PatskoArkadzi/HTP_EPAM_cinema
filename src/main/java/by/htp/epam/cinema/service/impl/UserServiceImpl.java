@@ -53,6 +53,14 @@ public class UserServiceImpl implements UserService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public User getUser(String login) {
+		return userDao.readByLogin(login);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public User getUser(String login, String password) {
 		validateUserCredentialsInput(login, password);
 		User user = userDao.readByLogin(login);

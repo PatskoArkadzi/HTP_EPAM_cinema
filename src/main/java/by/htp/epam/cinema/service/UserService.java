@@ -24,6 +24,15 @@ public interface UserService extends Service {
 	String checkUserData(String login, String email, String password);
 
 	/**
+	 * gets user by login
+	 * 
+	 * @param login
+	 *            user login
+	 * @return found user
+	 */
+	User getUser(String login);
+
+	/**
 	 * gets user by login, password
 	 * 
 	 * @param login

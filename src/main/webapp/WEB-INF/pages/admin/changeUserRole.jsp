@@ -30,7 +30,6 @@
 <body>
 	<c:import url="../include/header.jsp" />
 
-	<!-- CRUD users -->
 
 
 	<div class="container">
@@ -38,8 +37,9 @@
 		<form class="read-user" action="cinema?action=change_user_role"
 			method=POST>
 			<div class="row">
-				<div class=col-md-2>
-					<input id="userId" class="form-control input-md" name="userId" />
+				<div class=col-md-6>
+					<input id="userLogin" class="form-control input-md"
+						name="userLogin" />
 				</div>
 				<button id="read" value="read" name="crudCommand"
 					class="btn btn-success">${searchButtonLoc}</button>

@@ -37,6 +37,7 @@ public class ResourceBundleKeysConstantDeclaration {
 	public static final String ERROR_MSG_PAY_ORDER_ACTION_INDEFINITE_ERROR = "msg.error.payOrderAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN = "msg.error.changeUserRoleAction.userIsNotAdmin";
 	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR = "msg.error.changeUserRoleAction.indefiniteError";
+	public static final String ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_NOT_FOUND = "msg.error.changeUserRoleAction.userNotFound";
 	public static final String ERROR_MSG_CHANGE_LOCALE_ACTION_INDEFINITE_ERROR = "msg.error.changeLocaleAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INDEFINITE_ERROR = "msg.error.changeUserPasswordAction.indefiniteError";
 	public static final String ERROR_MSG_CHANGE_USER_PASSWORD_ACTION_INCORRECT_PASSWORD = "msg.error.changeUserPasswordAction.incorrectPassword";

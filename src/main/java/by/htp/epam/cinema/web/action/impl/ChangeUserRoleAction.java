@@ -7,6 +7,7 @@ import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.P
 import static by.htp.epam.cinema.web.util.constant.PageNameConstantDeclaration.PAGE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHANGE_USER_ROLE_ACTION_INDEFINITE_ERROR;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_IS_NOT_ADMIN;
+import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_NOT_FOUND;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,9 +59,15 @@ public class ChangeUserRoleAction implements BaseAction {
 				validateRequestParamNotNull(crudCommand);
 				switch (crudCommand) {
 				case CRUD_COMMAND_READ:
-					String userId = request.getParameter(REQUEST_PARAM_USER_ID);
-					validateRequestParamNotNull(userId);
-					user = userService.getUser(Integer.parseInt(userId));
+					String userLogin = request.getParameter(REQUEST_PARAM_USER_LOGIN);
+					validateRequestParamNotNull(userLogin);
+					user = userService.getUser(userLogin);
+					if (user == null) {
+						request.setAttribute(REQUEST_PARAM_ERROR_MESSAGE,
+								resourceManager.getValue(ERROR_MSG_CHANGE_USER_ROLE_ACTION_USER_NOT_FOUND));
+						request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+						return;
+					}
 					break;
 				case CRUD_COMMAND_UPDATE:
 					user = userService.buildUser(request);
@@ -70,9 +77,6 @@ public class ChangeUserRoleAction implements BaseAction {
 				List<Role> roles = roleService.getAll();
 				request.setAttribute(REQUEST_PARAM_FOUND_USER, user);
 				request.setAttribute(REQUEST_PARAM_ROLELIST, roles);
-				// request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request,
-				// response);
-				// return;
 			}
 			request.getRequestDispatcher(PAGE_ADMIN_CHANGE_USER_ROLE).forward(request, response);
 		} catch (ValidateParamException e) {
@@ -81,5 +85,4 @@ public class ChangeUserRoleAction implements BaseAction {
 			request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
 		}
 	}
-
 }
