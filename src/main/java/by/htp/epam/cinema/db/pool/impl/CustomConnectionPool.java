@@ -57,7 +57,11 @@ public class CustomConnectionPool implements BaseConnectionPool {
 	 */
 	public static BaseConnectionPool getInstance() {
 		if (instance == null) {
-			instance = new CustomConnectionPool();
+			synchronized (CustomConnectionPool.class) {
+				if (instance == null) {
+					instance = new CustomConnectionPool();
+				}
+			}
 		}
 		return instance;
 	}
