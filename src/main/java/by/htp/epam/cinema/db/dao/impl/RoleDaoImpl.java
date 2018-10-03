@@ -56,7 +56,7 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildRole(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of RoleDaoImpl class", e);
 		} finally {
@@ -78,7 +78,7 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 			rs = ps.executeQuery(SQL_QUERY_ROLE_READ_ALL);
 			roles = new ArrayList<>();
 			while (rs.next()) {
-				roles.add(buildRole(rs));
+				roles.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of RoleDaoImpl class", e);
@@ -123,16 +123,11 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to Role object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return Role object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private Role buildRole(ResultSet rs) throws SQLException {
+	@Override
+	public Role buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("Role buidEntity");
 		return Role.newBuilder().setId(rs.getInt("id")).setRoleName(rs.getString("roleName")).build();
 	}
 }

@@ -60,7 +60,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildTicketsOrder(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of TicketsOrderDaoImpl class", e);
 		} finally {
@@ -81,7 +81,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 			ps.setInt(1, userId);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildTicketsOrder(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of TicketsOrderDaoImpl class", e);
 		} finally {
@@ -103,7 +103,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 			ps.setInt(2, filmSessionId);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildTicketsOrder(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of TicketsOrderDaoImpl class", e);
 		} finally {
@@ -125,7 +125,7 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 			rs = ps.executeQuery(SQL_QUERY_TICKETS_ORDER_READ_ALL);
 			orders = new ArrayList<>();
 			while (rs.next()) {
-				orders.add(buildTicketsOrder(rs));
+				orders.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketsOrderDaoImpl class", e);
@@ -171,16 +171,11 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	}
 
 	/**
-	 * get values from ResultSet and set them to TicketsOrder object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return TicketsOrder object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private TicketsOrder buildTicketsOrder(ResultSet rs) throws SQLException {
+	@Override
+	public TicketsOrder buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("TicketsOrder buidEntity");
 		return TicketsOrder.newBuilder().setId(rs.getInt("id")).setOrderNumber(rs.getInt("orderNumber"))
 				.setUserId(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();
 	}

@@ -58,7 +58,7 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildGenre(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of GenreDaoImpl class", e);
 		} finally {
@@ -80,7 +80,7 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 			rs = ps.executeQuery(SQL_QUERY_GENRE_READ_ALL);
 			genres = new ArrayList<>();
 			while (rs.next()) {
-				genres.add(buildGenre(rs));
+				genres.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of GenreDaoImpl class", e);
@@ -104,7 +104,7 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 			rs = ps.executeQuery();
 			genres = new ArrayList<>();
 			while (rs.next()) {
-				genres.add(buildGenre(rs));
+				genres.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll(Film film) method of GenreDaoImpl class", e);
@@ -149,16 +149,11 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to Genre object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return Genre object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private Genre buildGenre(ResultSet rs) throws SQLException {
+	@Override
+	public Genre buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("Genre buidEntity");
 		return Genre.newBuilder().setId(rs.getInt("id")).setGenreName(rs.getString("genreName")).build();
 	}
 

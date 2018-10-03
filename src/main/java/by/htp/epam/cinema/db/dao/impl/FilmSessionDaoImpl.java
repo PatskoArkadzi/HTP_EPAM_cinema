@@ -63,7 +63,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildFilmSession(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of FilmSessionDaoImpl class", e);
 		} finally {
@@ -86,7 +86,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 			ps.setString(2, time);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildFilmSession(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in readByDateAndTime method of FilmSessionDaoImpl class", e);
 		} finally {
@@ -109,7 +109,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 			rs = ps.executeQuery(SQL_QUERY_FILM_SESSION_READ_ALL);
 			filmSessions = new ArrayList<>();
 			while (rs.next()) {
-				filmSessions.add(buildFilmSession(rs));
+				filmSessions.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of FilmSessionDaoImpl class", e);
@@ -134,7 +134,7 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 			rs = ps.executeQuery();
 			filmSessions = new ArrayList<>();
 			while (rs.next()) {
-				filmSessions.add(buildFilmSession(rs));
+				filmSessions.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll(int filmId) method of FilmSessionDaoImpl class", e);
@@ -183,16 +183,11 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to FilmSession object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return FilmSession object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private FilmSession buildFilmSession(ResultSet rs) throws SQLException {
+	@Override
+	public FilmSession buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("FilmSession buidEntity");
 		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilmId(rs.getInt("film_id"))
 				.setDate(rs.getString("date")).setTime(rs.getString("time"))
 				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice"))).build();

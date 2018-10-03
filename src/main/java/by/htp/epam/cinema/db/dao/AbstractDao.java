@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.epam.cinema.db.pool.BaseConnectionPool;
 
 /**
- * Abstract class foer daoImpl classes
+ * Abstract class for daoImpl classes
  * 
  * @author Arkadzi Patsko
  */

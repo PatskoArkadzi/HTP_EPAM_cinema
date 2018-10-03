@@ -58,7 +58,7 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildSeat(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SeatDaoImpl class", e);
 		} finally {
@@ -80,7 +80,7 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 			ps.setInt(2, number);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildSeat(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SeatDaoImpl class", e);
 		} finally {
@@ -102,7 +102,7 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 			rs = ps.executeQuery(SQL_QUERY_SEAT_READ_ALL);
 			seats = new ArrayList<>();
 			while (rs.next()) {
-				seats.add(buildSeat(rs));
+				seats.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of SeatDaoImpl class", e);
@@ -148,16 +148,11 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to Seat object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return Seat object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private Seat buildSeat(ResultSet rs) throws SQLException {
+	@Override
+	public Seat buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("Seat buidEntity");
 		return Seat.newBuilder().setId(rs.getInt("id")).setRow(rs.getInt("row")).setNumber(rs.getInt("number")).build();
 	}
 }

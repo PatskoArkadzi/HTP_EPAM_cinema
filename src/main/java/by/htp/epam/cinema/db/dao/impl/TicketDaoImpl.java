@@ -64,7 +64,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildTicket(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of TicketDaoImpl class", e);
 		} finally {
@@ -86,7 +86,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			rs = ps.executeQuery(SQL_QUERY_TICKET_READ_ALL);
 			tickets = new ArrayList<>();
 			while (rs.next()) {
-				tickets.add(buildTicket(rs));
+				tickets.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
@@ -110,7 +110,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			rs = ps.executeQuery();
 			tickets = new ArrayList<>();
 			while (rs.next()) {
-				tickets.add(buildTicket(rs));
+				tickets.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of TicketDaoImpl class", e);
@@ -134,7 +134,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			rs = ps.executeQuery();
 			tickets = new ArrayList<>();
 			while (rs.next()) {
-				tickets.add(buildTicket(rs));
+				tickets.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAllWhereFilmSessionIdPresent method of TicketDaoImpl class", e);
@@ -161,7 +161,7 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 			rs = ps.executeQuery();
 			tickets = new ArrayList<>();
 			while (rs.next()) {
-				tickets.add(buildTicket(rs));
+				tickets.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAllSoldTicketsByFilmSessionId method of TicketDaoImpl class", e);
@@ -252,16 +252,11 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to Ticket object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return Ticket object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private Ticket buildTicket(ResultSet rs) throws SQLException {
+	@Override
+	public Ticket buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("Ticket buidEntity");
 		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
 				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
 	}

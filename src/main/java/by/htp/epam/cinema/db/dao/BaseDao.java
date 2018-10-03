@@ -1,5 +1,7 @@
 package by.htp.epam.cinema.db.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.epam.cinema.domain.BaseEntity;
@@ -49,4 +51,16 @@ public interface BaseDao<T extends BaseEntity> {
 	 *            id of entity
 	 */
 	void delete(int entityId);
+
+	/**
+	 * get values from ResultSet and set them to entity object
+	 * 
+	 * @param rs
+	 *            ResultSet object
+	 * 
+	 * @return entity object
+	 * @throws SQLException
+	 *             if the columnLabel is not valid;
+	 */
+	T buidEntity(ResultSet rs) throws SQLException;
 }

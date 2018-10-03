@@ -62,7 +62,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildUser(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read(int id) method of UserDaoImpl class", e);
 		} finally {
@@ -83,7 +83,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			ps.setString(1, login);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildUser(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read(String login, String password) method of UserDaoImpl class", e);
 		} finally {
@@ -104,7 +104,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildUser(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read(String login, String password) method of UserDaoImpl class", e);
 		} finally {
@@ -126,7 +126,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			rs = ps.executeQuery(SQL_QUERY_USER_READ_ALL);
 			users = new ArrayList<>();
 			while (rs.next()) {
-				users.add(buildUser(rs));
+				users.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of UserDaoImpl class", e);
@@ -175,16 +175,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to User object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return User object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private User buildUser(ResultSet rs) throws SQLException {
+	@Override
+	public User buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("User buidEntity");
 		return User.newBuilder().setId(rs.getInt("id")).setLogin(rs.getString("login")).setEmail(rs.getString("email"))
 				.setPassword(rs.getString("password")).setSalt(rs.getString("salt"))
 				.setRoleId(Integer.parseInt(rs.getString("role_id"))).build();

@@ -118,7 +118,7 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return buildFilm(rs);
+				return buidEntity(rs);
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of FilmDaoImpl class", e);
 		} finally {
@@ -140,7 +140,7 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 			rs = ps.executeQuery(SQL_QUERY_FILM_READ_ALL);
 			films = new ArrayList<>();
 			while (rs.next()) {
-				films.add(buildFilm(rs));
+				films.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAll method of FilmDaoImpl class", e);
@@ -165,7 +165,7 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 			rs = ps.executeQuery();
 			films = new ArrayList<>();
 			while (rs.next()) {
-				films.add(buildFilm(rs));
+				films.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAllFilmsWhereGenreIdPresent method of FilmDaoImpl class", e);
@@ -189,7 +189,7 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 			rs = ps.executeQuery();
 			films = new ArrayList<>();
 			while (rs.next()) {
-				films.add(buildFilm(rs));
+				films.add(buidEntity(rs));
 			}
 		} catch (SQLException e) {
 			logger.error("SQLException in readAllFilmsWhereGenreIdPresent method of FilmDaoImpl class", e);
@@ -313,19 +313,13 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 	}
 
 	/**
-	 * get values from ResultSet and set them to Film object
-	 * 
-	 * @param rs
-	 *            ResultSet object
-	 * 
-	 * @return Film object
-	 * @throws SQLException
-	 *             if the columnLabel is not valid;
+	 * {@inheritDoc}
 	 */
-	private Film buildFilm(ResultSet rs) throws SQLException {
+	@Override
+	public Film buidEntity(ResultSet rs) throws SQLException {
+		System.out.println("Film buidEntity");
 		return Film.newBuilder().setId(rs.getInt("id")).setFilmName(rs.getString("filmName"))
 				.setDescription(rs.getString("description")).setPosterUrl(rs.getString("posterUrl"))
 				.setYouTubeVideoId(rs.getString("youTubeVideoId")).build();
 	}
-
 }
