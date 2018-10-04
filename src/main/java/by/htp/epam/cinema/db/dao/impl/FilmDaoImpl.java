@@ -317,7 +317,6 @@ public class FilmDaoImpl extends AbstractDao implements FilmDao {
 	 */
 	@Override
 	public Film buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("Film buidEntity");
 		return Film.newBuilder().setId(rs.getInt("id")).setFilmName(rs.getString("filmName"))
 				.setDescription(rs.getString("description")).setPosterUrl(rs.getString("posterUrl"))
 				.setYouTubeVideoId(rs.getString("youTubeVideoId")).build();

@@ -127,7 +127,6 @@ public class RoleDaoImpl extends AbstractDao implements RoleDao {
 	 */
 	@Override
 	public Role buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("Role buidEntity");
 		return Role.newBuilder().setId(rs.getInt("id")).setRoleName(rs.getString("roleName")).build();
 	}
 }

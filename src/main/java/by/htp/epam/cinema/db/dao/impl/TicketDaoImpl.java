@@ -256,7 +256,6 @@ public class TicketDaoImpl extends AbstractDao implements TicketDao {
 	 */
 	@Override
 	public Ticket buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("Ticket buidEntity");
 		return Ticket.newBuilder().setId(rs.getInt("id")).setFilmSessionId(rs.getInt("session_id"))
 				.setSeatId(rs.getInt("seat_id")).setTicketsOrderId(rs.getInt("order_id")).build();
 	}

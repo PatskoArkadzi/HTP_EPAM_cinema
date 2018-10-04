@@ -153,7 +153,6 @@ public class GenreDaoImpl extends AbstractDao implements GenreDao {
 	 */
 	@Override
 	public Genre buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("Genre buidEntity");
 		return Genre.newBuilder().setId(rs.getInt("id")).setGenreName(rs.getString("genreName")).build();
 	}
 

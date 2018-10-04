@@ -175,7 +175,6 @@ public class TicketsOrderDaoImpl extends AbstractDao implements TicketsOrderDao 
 	 */
 	@Override
 	public TicketsOrder buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("TicketsOrder buidEntity");
 		return TicketsOrder.newBuilder().setId(rs.getInt("id")).setOrderNumber(rs.getInt("orderNumber"))
 				.setUserId(rs.getInt("user_id")).setIsPaid(rs.getBoolean("isPaid")).build();
 	}

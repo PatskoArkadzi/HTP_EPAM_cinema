@@ -179,7 +179,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	 */
 	@Override
 	public User buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("User buidEntity");
 		return User.newBuilder().setId(rs.getInt("id")).setLogin(rs.getString("login")).setEmail(rs.getString("email"))
 				.setPassword(rs.getString("password")).setSalt(rs.getString("salt"))
 				.setRoleId(Integer.parseInt(rs.getString("role_id"))).build();

@@ -187,7 +187,6 @@ public class FilmSessionDaoImpl extends AbstractDao implements FilmSessionDao {
 	 */
 	@Override
 	public FilmSession buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("FilmSession buidEntity");
 		return FilmSession.newBuilder().setId(rs.getInt("id")).setFilmId(rs.getInt("film_id"))
 				.setDate(rs.getString("date")).setTime(rs.getString("time"))
 				.setTicketPrice(new BigDecimal(rs.getString("ticketPrice"))).build();

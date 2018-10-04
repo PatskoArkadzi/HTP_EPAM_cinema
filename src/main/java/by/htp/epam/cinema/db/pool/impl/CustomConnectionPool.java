@@ -77,7 +77,6 @@ public class CustomConnectionPool implements BaseConnectionPool {
 				Connection connection = DriverManager.getConnection(RM.getValue(DB_CONNECTION_URL),
 						RM.getValue(DB_CONNECTION_LOGIN), RM.getValue(DB_CONNECTION_PASSWORD));
 				connectionQueue.add(connection);
-				logger.info("connection was successfully added to the pool");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.error(e.getMessage() + " in static block in ConnectionPool class", e);
@@ -104,7 +103,6 @@ public class CustomConnectionPool implements BaseConnectionPool {
 		while ((connection = queue.poll()) != null) {
 			try {
 				connection.close();
-				logger.info("connection was successfully closed");
 			} catch (SQLException e) {
 				logger.error("connection can't be closed ");
 			}

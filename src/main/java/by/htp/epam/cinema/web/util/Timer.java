@@ -1,7 +1,5 @@
 package by.htp.epam.cinema.web.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDeclaration.TIMER_RESERVATION_PERIOD;
 
 /**
@@ -13,7 +11,6 @@ import static by.htp.epam.cinema.web.util.constant.ResourceBundleKeysConstantDec
 public class Timer extends Thread {
 
 	private static final ResourceManager RM = ResourceManager.TIMER;
-	private static Logger logger = LoggerFactory.getLogger(Timer.class);
 
 	/**
 	 * stop field. Define when thread should be stopped
@@ -69,12 +66,6 @@ public class Timer extends Thread {
 			secondsDisplay = remainingSeconds % 60;
 			minutesDisplay = remainingSeconds / 60;
 
-			logger.info(String.format("%02d : %02d", minutesDisplay, secondsDisplay));
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				logger.error("InterruptedException in Timer class", e);
-			}
 		}
 	}
 }

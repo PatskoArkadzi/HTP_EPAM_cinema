@@ -152,7 +152,6 @@ public class SeatDaoImpl extends AbstractDao implements SeatDao {
 	 */
 	@Override
 	public Seat buidEntity(ResultSet rs) throws SQLException {
-		System.out.println("Seat buidEntity");
 		return Seat.newBuilder().setId(rs.getInt("id")).setRow(rs.getInt("row")).setNumber(rs.getInt("number")).build();
 	}
 }
