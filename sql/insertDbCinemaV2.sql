@@ -11,6 +11,23 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Дамп структуры базы данных cinema_v2.0
+DROP DATABASE IF EXISTS `cinema_v2.0`;
+CREATE DATABASE IF NOT EXISTS `cinema_v2.0` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `cinema_v2.0`;
+
+-- Дамп структуры для таблица cinema_v2.0.films
+DROP TABLE IF EXISTS `films`;
+CREATE TABLE IF NOT EXISTS `films` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filmName` varchar(50) NOT NULL,
+  `description` varchar(2000) NOT NULL,
+  `posterUrl` varchar(100) NOT NULL,
+  `youTubeVideoId` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
 -- Дамп данных таблицы cinema_v2.0.films: ~6 rows (приблизительно)
 DELETE FROM `films`;
 /*!40000 ALTER TABLE `films` DISABLE KEYS */;
@@ -22,6 +39,17 @@ INSERT INTO `films` (`id`, `filmName`, `description`, `posterUrl`, `youTubeVideo
 	(5, 'Проект Cinemascope: Огни большого города', 'Маленький Бродяга встречает красивую слепую девушку, торгующую цветами на улице, которая по ошибке принимает его за богатого герцога. Узнав о том, что операция может вернуть ей зрение, маленький Бродяга пускается на поиски денег. ', 'https://drive.google.com/uc?id=1R-jX0IsxiZlgXRpodm2H5RMqrkSmCfq6', 'b2NTUnujk1I'),
 	(6, 'Мстители: Война бесконечности', 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности -  артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту -  судьба Земли никогда ещё не была столь неопределённой. ', 'https://drive.google.com/uc?id=157z5PWXbBEzKjd09-cbfZup-4HWeZ3Kf', 'QwievZ1Tx-8');
 /*!40000 ALTER TABLE `films` ENABLE KEYS */;
+
+-- Дамп структуры для таблица cinema_v2.0.films_genres
+DROP TABLE IF EXISTS `films_genres`;
+CREATE TABLE IF NOT EXISTS `films_genres` (
+  `film_id` int(11) NOT NULL,
+  `genre_id` int(11) NOT NULL,
+  KEY `film_id` (`film_id`),
+  KEY `genre_id` (`genre_id`),
+  CONSTRAINT `FK_films_genres_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_films_genres_genres` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.films_genres: ~23 rows (приблизительно)
 DELETE FROM `films_genres`;
@@ -52,6 +80,14 @@ INSERT INTO `films_genres` (`film_id`, `genre_id`) VALUES
 	(6, 3);
 /*!40000 ALTER TABLE `films_genres` ENABLE KEYS */;
 
+-- Дамп структуры для таблица cinema_v2.0.genres
+DROP TABLE IF EXISTS `genres`;
+CREATE TABLE IF NOT EXISTS `genres` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `genreName` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
 -- Дамп данных таблицы cinema_v2.0.genres: ~9 rows (приблизительно)
 DELETE FROM `genres`;
 /*!40000 ALTER TABLE `genres` DISABLE KEYS */;
@@ -67,16 +103,39 @@ INSERT INTO `genres` (`id`, `genreName`) VALUES
 	(9, 'Фэнтези');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.orders: ~5 rows (приблизительно)
+-- Дамп структуры для таблица cinema_v2.0.orders
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderNumber` int(10) DEFAULT NULL COMMENT 'trigger-generated column, without default value sql query doesn''t perform',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `isPaid` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `orderNumber` (`orderNumber`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы cinema_v2.0.orders: ~7 rows (приблизительно)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `orderNumber`, `user_id`, `isPaid`) VALUES
-	(1, 776170, 2, b'1'),
-	(2, 745287, 1, b'1'),
-	(4, 553779, 3, b'1'),
-	(13, 300850, 1, b'1'),
-	(14, 933849, 1, b'1');
+	(1, 819154, 2, b'1'),
+	(2, 215615, 3, b'1'),
+	(3, 915891, 4, b'1'),
+	(4, 696179, 4, b'1'),
+	(5, 717410, 3, b'1'),
+	(6, 428225, 2, b'1'),
+	(7, 934050, 1, b'1');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+
+-- Дамп структуры для таблица cinema_v2.0.roles
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.roles: ~2 rows (приблизительно)
 DELETE FROM `roles`;
@@ -85,6 +144,15 @@ INSERT INTO `roles` (`id`, `roleName`) VALUES
 	(1, 'ROLE_ADMIN'),
 	(2, 'ROLE_USER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+
+-- Дамп структуры для таблица cinema_v2.0.seats
+DROP TABLE IF EXISTS `seats`;
+CREATE TABLE IF NOT EXISTS `seats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `row` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы cinema_v2.0.seats: ~251 rows (приблизительно)
 DELETE FROM `seats`;
@@ -343,42 +411,106 @@ INSERT INTO `seats` (`id`, `row`, `number`) VALUES
 	(251, 12, 10);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.sessions: ~7 rows (приблизительно)
+-- Дамп структуры для таблица cinema_v2.0.sessions
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `film_id` int(11) NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `ticketPrice` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `film_id` (`film_id`),
+  CONSTRAINT `FK_film_sessions_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='киносеансы';
+
+-- Дамп данных таблицы cinema_v2.0.sessions: ~8 rows (приблизительно)
 DELETE FROM `sessions`;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` (`id`, `film_id`, `date`, `time`, `ticketPrice`) VALUES
-	(1, 1, '2018-07-06', '11:00', 5.20),
-	(2, 1, '2018-07-07', '11:00', 5.00),
-	(3, 1, '2018-07-08', '11:00', 5.00),
-	(4, 1, '2018-07-09', '11:00', 5.00),
-	(5, 1, '2018-07-12', '11:20', 5.20),
-	(6, 1, '2018-07-13', '11:20', 5.20),
-	(7, 2, '2018-07-10', '12:00', 5.00);
+	(1, 1, '2018-10-06', '11:00', 5.20),
+	(2, 1, '2018-10-07', '11:00', 5.00),
+	(3, 1, '2018-10-08', '11:00', 5.00),
+	(4, 1, '2018-10-10', '11:00', 5.00),
+	(5, 1, '2018-10-12', '11:20', 5.20),
+	(6, 1, '2018-10-13', '11:20', 5.20),
+	(7, 2, '2018-10-04', '12:00', 5.00),
+	(8, 2, '2018-10-04', '09:00', 5.10);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
--- Дамп данных таблицы cinema_v2.0.tickets: ~8 rows (приблизительно)
+-- Дамп структуры для таблица cinema_v2.0.tickets
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `session_id` int(11) NOT NULL,
+  `seat_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `seat_id` (`seat_id`),
+  KEY `session_id` (`session_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `FK_tickets_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_tickets_seats` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`),
+  CONSTRAINT `FK_tickets_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы cinema_v2.0.tickets: ~17 rows (приблизительно)
 DELETE FROM `tickets`;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
 INSERT INTO `tickets` (`id`, `session_id`, `seat_id`, `order_id`) VALUES
-	(3, 2, 5, 2),
-	(27, 6, 3, 4),
-	(28, 6, 4, 4),
-	(29, 6, 251, 2),
-	(31, 6, 5, 4),
-	(51, 6, 250, 13),
-	(52, 6, 249, 14),
-	(53, 6, 248, 14);
+	(103, 1, 111, 1),
+	(104, 1, 112, 1),
+	(105, 1, 113, 2),
+	(106, 1, 114, 3),
+	(107, 7, 11, 4),
+	(108, 7, 13, 4),
+	(109, 7, 14, 4),
+	(110, 7, 12, 4),
+	(117, 7, 111, 5),
+	(118, 7, 112, 5),
+	(119, 7, 113, 5),
+	(120, 7, 114, 5),
+	(121, 7, 136, 6),
+	(122, 7, 137, 6),
+	(123, 7, 135, 6),
+	(124, 7, 163, 7),
+	(125, 7, 164, 7);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
+
+-- Дамп структуры для таблица cinema_v2.0.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `salt` varchar(100) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login` (`login`),
+  KEY `roles_id` (`role_id`),
+  CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='admin-Pass%1\r\nuser1-Pass%2\r\nuser2-Pass%3\r\nuser3-Pass%4';
 
 -- Дамп данных таблицы cinema_v2.0.users: ~4 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `salt`, `role_id`) VALUES
 	(1, 'admin', 'admin@admin.com', '85849797dcaa384454b70590195d8821c346ea838a409cbecfcd4ad78fc2c78174876eb9e224a8ea6243191fbf315b0ec2279a1cb224e8ef216521d6d3ec77b4', '5ae5c44d2fcbab3dfb532a923840fd3c', 1),
-	(2, 'user1', 'user1@user.com', '3780c8fe39a8ace65bd0c4a3a6ac6c23e3036bda60b85e3b756c51aa6a033c6be899c907c6fd11e3a8e9bb770d8d5c645e5e5ab32ceba4d953c3b1afefca0813', 'fcad6cfeb76b33501f83613def110fe2', 2),
+	(2, 'user1', 'user1@user.com', '21fe784b6f9f55b06c971ab2dea087bb89a3ed4af6a07631fec5df58ab41d9a7df10fbe690ac41a0ac05d2cadfde217556bc3b7f2a1bbd19797c670b4e136e33', 'c42d1babfefc65e337be4009f08619a6', 2),
 	(3, 'user2', 'user2@user.com', '764d418cd1d3a2e573f3388bd39a21c48c3c74031274bf2d9bd0a05f4cbaeb09d9efc7d51e9f3cc8d04de7e19a4e94e86b30885be384ca2528ff88e28729d61c', 'dc3afde74bd69ea7c4328b88d69b9500', 2),
 	(4, 'user3', 'user3@user.com', 'ad6d0d2a14f5e1f96e8b9c137c5c143896c63ba064541593727f24ac71208dc3f1a61482b2ef85647cddacc4d3ad49abffd2b1c43f301275a8c7c5f7bb1d2afe', '5c6ab9f4c7ef4d921e8a9edf7afe4c6c', 2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Дамп структуры для триггер cinema_v2.0.generate orderNumber
+DROP TRIGGER IF EXISTS `generate orderNumber`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `generate orderNumber` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
+	SET NEW.orderNumber = (RAND()*(999999-100000)+100000);
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
